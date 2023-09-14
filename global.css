@@ -1,0 +1,229 @@
+:root{
+    --white: #ffffff;
+
+    --neutral-50: #F5F7FA;
+    --neutral-100: #ABBED1;
+    --neutral-200: #89939E;
+    --neutral-500: #717171;
+    --neutral-600: #4D4D4D;
+    --neutral-700: #212121;
+
+    --primary-100: #C2FFDC;
+    --primary-200: #8BF0B6;
+    --primary-300: #66DE99;
+    --primary-400: #2ECC71;
+    --primary-500: #1CAD5A;
+    --primary-600: #077033;
+
+    --secondary-100: #FCBA95;
+    --secondary-200: #E08755;
+    --secondary-300: #CC6125;
+    --secondary-400: #A34510;
+    --secondary-500: #6E2902;
+
+    --success-100: #F1FBF8;
+    --success-200: #84DFC1;
+    --success-300: #32C997;
+    --success-400: #009262;
+    --success-500: #1B6E53;
+    --success-600: #115B43;
+
+    --warning-100: #FFF8EC;
+    --warning-200: #FFD596;
+    --warning-300: #FFC670;
+    --warning-400: #FFB240;
+    --warning-500: #FFA826;
+    --warning-600: #E48900;
+
+
+    --danger-100: #FFF1F0;
+    --danger-200: #F0857D;
+    --danger-300: #FF5A4F;
+    --danger-400: #E02B1D;
+    --danger-500: #E01507;
+    --danger-600: #C33025;
+
+    --important-500: #015dae;
+    --important-600: #004A8C;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --webkit-font-smoothing: antialiased;
+    background-color: var(--primary-500);
+    height: 100vh;
+}
+
+body, input, textarea, button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+/* HEADER */
+header {
+    background-color: var(--secondary-300);
+    width: 100vw;
+    height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-container {
+    width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem
+}
+
+.header-logo-and-links {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo-box {
+    background-color: var(--neutral-500);
+    height: 4.375rem;
+    width: 4.375rem;
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-links-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+
+    margin-left: 3rem;
+
+}
+
+.header-links {
+    color: var(--neutral-700);
+    text-decoration: none;
+
+}
+
+.header-links:hover {
+    cursor: pointer;
+    color: var(--neutral-50);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.login-button {
+    width: 9.125rem;
+    height: 2.40rem;
+    border: 1px solid var(--primary-600);
+    background-color: var(--white);
+    border-radius: 6px;
+    color: var(--primary-600);
+
+    box-shadow: 1px 2px 5px rgb(0 0 0 / 0.6);
+}
+
+.login-button:hover {
+    cursor: pointer;
+    background-color: #e6e6e7;
+}
+
+.signin-button {
+    width: 9.125rem;
+    height: 2.40rem;
+    border: none;
+    border-radius: 6px;
+    color: var(--white);
+    background-color: var(--important-600);
+
+    box-shadow: 1px 2px 5px rgb(0 0 0 / 0.6);
+
+}
+
+.signin-button:hover {
+    cursor: pointer;
+    background-color: var(--important-500);
+}
+
+
+/* FOOTER */
+footer {
+    width: 100vw;
+    background-color: var(--white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    overflow: hidden;
+}
+
+.footer-container{
+    width: 1440px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+   
+
+    width: '100%';
+    max-height: 10.93rem;
+
+    padding: 2.43rem 1.43rem 1.43rem 0rem;
+    gap: 2rem;d
+}
+
+.footer-content {
+    max-width: 831px;
+}
+
+.footer-logo-box {
+    background-color: var(--neutral-500);
+    height: 4.375rem;
+    width: 4.375rem;
+    border-radius: 6px;
+}
+
+.footer-social-title {
+    margin-bottom: 13px;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    gap: 1rem;
+}
+
+.footer-social-img {
+    max-width: 48px;
+    max-height: 48px;
+}
+
+@media screen and (max-width: 1400px) {
+    .footer-social-img {
+        max-width: 32px;
+        max-height: 32px;
+    }
+}
