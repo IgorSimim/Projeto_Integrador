@@ -1,0 +1,49 @@
+{
+  "usuarios": [
+    {
+      "nome": "Igor Leon Borges Silva Simim",
+      "email": "igorleonsimim@gmail.com",
+      "senha": "12345678",
+      "cpf": "134.893.722-01",
+      "telefone": "(53) 90467-7732",
+      "idade": "19",
+      "sexo": "Masculino",
+      "bairro": "São Gonçalo",
+      "credito": "",
+      "destaque": false,
+      "debito": "",
+      "perfil": "https://conteudo.imguol.com.br/c/esporte/67/2021/07/07/igor-gomes-do-sao-paulo-comemora-apos-golaco-contra-o-inter-1625709995578_v2_450x600.jpg.webp",
+      "id": 2
+    },
+    {
+      "sexo": "Masculino",
+      "destaque": true,
+      "nome": "Gabriel Cunha Huber",
+      "email": "gabrielchuber@gmail.com",
+      "senha": "12312345",
+      "cpf": "874.922.577-74",
+      "telefone": "(53) 99988-2143",
+      "idade": "20",
+      "bairro": "Fragata",
+      "credito": "",
+      "debito": "",
+      "perfil": "http://www.metrologia.ctc.puc-rio.br/imagens/mestresformados/dis_410_1.jpg?1566410303",
+      "id": 3
+    },
+    {
+      "nome": "Casimiro Miguel Vieira da Silva Ferreira",
+      "email": "contatocasimito@gmail.com",
+      "senha": "cazetvvasco",
+      "cpf": "273.990.134-98",
+      "telefone": "(53) 90564-1328",
+      "idade": "29",
+      "sexo": "Masculino",
+      "bairro": "Laranjal",
+      "credito": "",
+      "destaque": true,
+      "debito": "",
+      "perfil": "https://odia.ig.com.br/_midias/jpg/2022/11/29/1200x1920/1_whatsapp_image_2022_11_29_at_19_20_40__4_-27228871.jpeg",
+      "id": 4
+    }
+  ]
+}
