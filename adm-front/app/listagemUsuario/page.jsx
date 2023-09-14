@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation"
 import Pesquisa from "@/components/Pesquisa"
 import Swal from 'sweetalert2'
 
-export default function Listagem() {
+
+export default function () {
   const [usuarios, setUsuarios] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 

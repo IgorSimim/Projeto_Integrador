@@ -85,8 +85,8 @@ export default function Cadastro() {
           <div className="col-sm-2">
             <p>Status do Usuário:</p>
             <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox" 
-                id="destaque" 
+              <input className="form-check-input" type="checkbox"
+                id="destaque"
                 {...register("destaque")} />
               <label className="form-check-label" htmlFor="destaque">Destaque</label>
             </div>
@@ -94,7 +94,7 @@ export default function Cadastro() {
         </div>
 
         <div className="row mt-3 mb-3">
-        <div className="col-sm-6">
+          <div className="col-sm-6">
             <label htmlFor="debito" className="form-label">Cartão de débito</label>
             <input type="text" className="form-control" id="debito" {...register("debito")} />
           </div>
