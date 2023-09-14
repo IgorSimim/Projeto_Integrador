@@ -92,7 +92,7 @@ export default function () {
   if (isLoading) {
     return (
       <div className="container">
-        <h2> dos Usuários</h2>
+        <h2>Listagem dos Usuários</h2>
         <h5>Aguarde... Carregando os dados</h5>
       </div>
     )
@@ -102,7 +102,7 @@ export default function () {
     <div className="container">
       <div className="row mt-2">
         <div className="col-sm-7">
-          <h2 className="mt-2"> dos Usuários</h2>
+          <h2 className="mt-2">Listagem dos Usuários</h2>
         </div>
         <div className="col-sm-5">
           <Pesquisa filtra={filtraDados} mostra={mostraTodos} />
