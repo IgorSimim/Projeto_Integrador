@@ -1,18 +1,15 @@
 import Link from "next/link"
 
 async function getUsuario(id) {
-  const response = await fetch("http://localhost:3004/usuarios/"+id)
+  const response = await fetch("http://localhost:3004/usuarios/" + id)
   const dado = await response.json()
-  // console.log("=".repeat(40))
-  // console.log(dado)
-  // console.log("=".repeat(40))
   return dado
 }
 
-export default async function Consulta({params}) {
+export default async function Consulta({ params }) {
 
   const usuario = await getUsuario(params.id)
-  
+
   return (
     <div className="container">
       <h2 className="mt-2">Consulta de Usuários</h2>
@@ -63,11 +60,11 @@ export default async function Consulta({params}) {
           <div className="col-sm-2">
             <p>Status do Usuário:</p>
             <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox" 
-                id="destaque" 
+              <input className="form-check-input" type="checkbox"
+                id="destaque"
                 checked={usuario.destaque}
                 readOnly
-                />
+              />
               <label className="form-check-label" htmlFor="destaque">Destaque</label>
             </div>
           </div>
@@ -80,7 +77,7 @@ export default async function Consulta({params}) {
           </div>
           <div className="col-sm-6">
             <p className="form-label">Foto de Perfil</p>
-            <img src={usuario.perfil} alt={`Foto de Perfil ${usuario.perfil}`} width={150} height={210} className="mx-auto d-block"/>
+            <img src={usuario.perfil} alt={`Foto de Perfil ${usuario.perfil}`} width={150} height={210} className="mx-auto d-block" />
           </div>
         </div>
 
