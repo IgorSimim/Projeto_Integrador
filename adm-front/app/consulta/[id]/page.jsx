@@ -84,7 +84,7 @@ export default async function Consulta({params}) {
           </div>
         </div>
 
-        <Link className="btn btn-success float-end" href="/listagem">Voltar</Link>
+        <Link className="btn btn-success float-end" href="/listagemUsuario">Voltar</Link>
 
       </form>
     </div>
