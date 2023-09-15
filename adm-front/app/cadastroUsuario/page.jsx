@@ -8,7 +8,7 @@ export default function Cadastro() {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       sexo: "NF",
-      destaque: true
+      destaque: false
     }
   });
 
@@ -53,11 +53,11 @@ export default function Cadastro() {
         <div className="row mt-3">
           <div className="col-sm-4">
             <label htmlFor="cpf" className="form-label">Cpf</label>
-            <input type="text" className="form-control" id="cpf" {...register("cpf")} required />
+            <input type="text" className="form-control" id="cpf" placeholder="Ex: 000.000.000-00" {...register("cpf")} required />
           </div>
           <div className="col-sm-4">
             <label htmlFor="telefone" className="form-label">Telefone</label>
-            <input type="text" className="form-control" id="telefone" {...register("telefone")} required />
+            <input type="text" className="form-control" id="telefone" placeholder="Ex: (DDD) 90000-0000" {...register("telefone")} required />
           </div>
           <div className="col-sm-2">
             <label htmlFor="idade" className="form-label">Idade</label>
@@ -80,7 +80,7 @@ export default function Cadastro() {
           </div>
           <div className="col-sm-4">
             <label htmlFor="credito" className="form-label">Cartão de crédito</label>
-            <input type="text" className="form-control" id="credito" {...register("credito")} />
+            <input type="text" className="form-control" id="credito" placeholder="Ex: 0000 0000 0000 0000" {...register("credito")} />
           </div>
           <div className="col-sm-2">
             <p>Status do Usuário:</p>
@@ -96,11 +96,11 @@ export default function Cadastro() {
         <div className="row mt-3 mb-3">
           <div className="col-sm-6">
             <label htmlFor="debito" className="form-label">Cartão de débito</label>
-            <input type="text" className="form-control" id="debito" {...register("debito")} />
+            <input type="text" className="form-control" id="debito" placeholder="Ex: 0000 0000 0000 0000" {...register("debito")} />
           </div>
           <div className="col-sm-6">
             <label htmlFor="perfil" className="form-label">Foto de Perfil</label>
-            <input type="url" className="form-control" id="perfil" {...register("perfil")} required />
+            <input type="url" className="form-control" id="perfil" placeholder="Ex: http://www.example.com/image1.jpg" {...register("perfil")} required />
           </div>
         </div>
 
