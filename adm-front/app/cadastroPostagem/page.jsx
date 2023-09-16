@@ -1,21 +1,34 @@
 'use client'
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Cadastro() {
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, control } = useForm({
     defaultValues: {
       porte: "Pequeno",
-      pet: false
+      pet: false,
+      assunto: "", // Defina um valor padrão vazio para o assunto
+      assuntoCustom: "", // Adicione um campo para armazenar o assunto personalizado
     }
   });
 
+  const assuntoValue = useWatch({ control, name: "assunto" });
+
   const [showAdditionalLabels, setShowAdditionalLabels] = useState(false);
+  const [showAdditionalLabels2, setShowAdditionalLabels2] = useState(assuntoValue === "Outro");
+
+  useEffect(() => {
+    setShowAdditionalLabels2(assuntoValue === "Outro");
+  }, [assuntoValue]);
 
   async function enviaDados(data) {
+    // Se a opção for "Outro", defina o valor de "assunto" para o valor de "assuntoCustom"
+    if (data.assunto === "Outro") {
+      data.assunto = data.assuntoCustom;
+    }
+
     // Lógica para lidar com o envio de dados do formulário aqui
     const usuario = await fetch("http://localhost:3004/postagens", {
       method: "POST",
@@ -36,7 +49,7 @@ export default function Cadastro() {
       <h2 className="mt-2">Cadastro das Postagens</h2>
       <form onSubmit={handleSubmit(enviaDados)}>
         <div className="row">
-        <div className="col-sm-4">
+          <div className="col-sm-4">
             <label htmlFor="nome" className="form-label">Nome do Usuário</label>
             <input type="text" className="form-control" id="nome" {...register("nome")} required />
           </div>
@@ -46,7 +59,27 @@ export default function Cadastro() {
           </div>
           <div className="col-sm-4">
             <label htmlFor="assunto" className="form-label">Assunto</label>
-            <input type="text" className="form-control" id="assunto" {...register("assunto")} required />
+            {showAdditionalLabels2 ? (
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite o assunto personalizado"
+                {...register("assuntoCustom")}
+                required
+              />
+            ) : (
+              <select
+                id="assunto"
+                className="form-select"
+                {...register("assunto")}
+                required
+              >
+                <option value="Abandono">Abandono</option>
+                <option value="Maus-tratos">Maus-tratos</option>
+                <option value="Adoção">Adoção</option>
+                <option value="Outro">Outro</option>
+              </select>
+            )}
           </div>
         </div>
 
@@ -120,6 +153,7 @@ export default function Cadastro() {
           <input type="submit" value="Enviar" className="btn btn-primary me-3" />
           <input type="button" value="Limpar" className="btn btn-danger" onClick={() => reset()} />
         </div>
+        
       </form>
       <ToastContainer
         position="top-center"

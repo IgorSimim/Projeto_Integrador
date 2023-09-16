@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import { useParams } from "next/navigation"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
@@ -126,6 +127,7 @@ export default function Alteracao() {
         <input type="submit" value="Enviar" className="btn btn-primary me-3" />
         <input type="button" value="Limpar" className="btn btn-danger"
           onClick={() => reset()} />
+        <Link className="btn btn-success float-end" href="/listagemUsuario">Voltar</Link>
 
       </form>
       <ToastContainer

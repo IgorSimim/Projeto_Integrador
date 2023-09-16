@@ -1,8 +1,8 @@
 'use client'
+import Link from "next/link";
 import { useParams } from "next/navigation"
-import React, { useState } from "react";
-import { useEffect } from "react"
-import { useForm } from "react-hook-form"
+import React, { useState, useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -10,7 +10,12 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function Alteracao() {
     const params = useParams()
     //  console.log(params)
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, control, setValue } = useForm()
+
+    const [showAdditionalLabels, setShowAdditionalLabels] = useState(false);
+    const [showAdditionalLabels2, setShowAdditionalLabels2] = useState(false);
+
+    const assunto = useWatch({ name: "assunto", control });
 
     useEffect(() => {
         async function getPostagem() {
@@ -28,13 +33,30 @@ export default function Alteracao() {
                 idade: dado.idade,
                 descricaopet: dado.descricaopet,
                 fotopet: dado.fotopet,
-                vacina: dado.vacina
-            })
+                vacina: dado.vacina,
+            });
+            // Atualize o valor do campo "assunto" no formulário
+            setShowAdditionalLabels2(dado.assunto === "Outro");
         }
         getPostagem()
-    }, [])
+    }, [params.id])
+
+    useEffect(() => {
+        // Atualize o estado showAdditionalLabels2 com base no valor atual do campo "Assunto"
+        setShowAdditionalLabels2(assunto === "Outro");
+
+        // Limpe o valor do campo "assuntoCustom" se a opção "Outro" não estiver selecionada
+        if (assunto !== "Outro") {
+            setValue("assuntoCustom", ""); // Use setValue do react-hook-form para limpar o valor de "assuntoCustom"
+        }
+    }, [assunto, setValue]);
 
     async function alteraDados(data) {
+        // Se a opção for "Outro", defina o valor de "assunto" como o valor de "assuntoCustom"
+        if (data.assunto === "Outro") {
+            data.assunto = data.assuntoCustom;
+        }
+
         const postagem = await fetch("http://localhost:3004/postagens/" + params.id,
             {
                 method: "PUT",
@@ -51,8 +73,6 @@ export default function Alteracao() {
         }
     }
 
-    const [showAdditionalLabels, setShowAdditionalLabels] = useState(false);
-
     return (
         <div className="container">
             <h2 className="mt-2">Cadastro das Postagens</h2>
@@ -68,9 +88,34 @@ export default function Alteracao() {
                     </div>
                     <div className="col-sm-4">
                         <label htmlFor="assunto" className="form-label">Assunto</label>
-                        <input type="text" className="form-control" id="assunto" {...register("assunto")} required />
+                        <select
+                            id="assunto"
+                            className="form-select"
+                            {...register("assunto")}
+                            required
+                        >
+                            <option value="Abandono">Abandono</option>
+                            <option value="Maus-tratos">Maus-tratos</option>
+                            <option value="Adoção">Adoção</option>
+                            <option value="Outro">Outro</option>
+                        </select>
                     </div>
+                    {showAdditionalLabels2 ? (
+                        <div className="col-sm-4">
+                            <label htmlFor="assuntoCustom" className="form-label"></label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="assuntoCustom"
+                                style={{ marginLeft: "56vw" }}
+                                {...register("assuntoCustom")}
+                                placeholder="Digite o assunto personalizado"
+                                required
+                            />
+                        </div>
+                    ) : null}
                 </div>
+
 
                 <div className="row mt-3">
                     <div className="col-sm-8">
@@ -116,7 +161,7 @@ export default function Alteracao() {
 
                         <div className="row mt-3">
                             <div className="col-sm-4">
-                                <label htmlFor="idade" className="form-label">idade</label>
+                                <label htmlFor="idade" className="form-label">Idade</label>
                                 <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} />
                             </div>
                             <div className="col-sm-8">
@@ -139,8 +184,9 @@ export default function Alteracao() {
                 )}
 
                 <div className="mt-3">
-                    <input type="submit" value="Enviar" className="btn btn-primary me-3"/>
+                    <input type="submit" value="Enviar" className="btn btn-primary me-3" />
                     <input type="button" value="Limpar" className="btn btn-danger" onClick={() => reset()} />
+                    <Link className="btn btn-success float-end" href="/listagemPostagem">Voltar</Link>
                 </div>
             </form>
             <ToastContainer
@@ -156,5 +202,5 @@ export default function Alteracao() {
                 theme="dark"
             />
         </div>
-    )
+    );
 }
