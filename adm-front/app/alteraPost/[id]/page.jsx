@@ -31,6 +31,7 @@ export default function Alteracao() {
                 tipo: dado.tipo,
                 raca: dado.raca,
                 porte: dado.porte,
+                sexo: dado.sexo,
                 idade: dado.idade,
                 descricaopet: dado.descricaopet,
                 fotopet: dado.fotopet,
@@ -138,7 +139,7 @@ export default function Alteracao() {
                         </div>
                     </div>
                 </div>
-
+          
                 {showAdditionalLabels && (
                     <div>
                         <div className="row mt-3">
@@ -170,11 +171,18 @@ export default function Alteracao() {
                         </div>
 
                         <div className="row mt-3">
-                            <div className="col-sm-4">
+                            <div className="col-sm-3">
+                                <label htmlFor="sexo" className="form-label">Sexo</label>
+                                <select id="sexo" className="form-select" {...register("sexo")} required>
+                                    <option value="Macho">Macho</option>
+                                    <option value="Fêmea">Fêmea</option>
+                                </select>
+                            </div>
+                            <div className="col-sm-3">
                                 <label htmlFor="idade" className="form-label">Idade</label>
                                 <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} />
                             </div>
-                            <div className="col-sm-8">
+                            <div className="col-sm-6">
                                 <label htmlFor="descricaopet" className="form-label">Descrição do Pet</label>
                                 <textarea className="form-control" id="descricaopet" rows="3" {...register("descricaopet")}></textarea>
                             </div>

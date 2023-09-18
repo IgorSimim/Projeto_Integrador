@@ -11,6 +11,7 @@ export default function Cadastro() {
       pet: false,
       tipo: "",
       porte: "",
+      sexo: "",
       assunto: "", // Defina um valor padrão vazio para o assunto
       assuntoCustom: "", // Adicione um campo para armazenar o assunto personalizado
     }
@@ -137,11 +138,18 @@ export default function Cadastro() {
             </div>
 
             <div className="row mt-3">
-              <div className="col-sm-4">
+              <div className="col-sm-3">
+                <label htmlFor="sexo" className="form-label">Sexo</label>
+                <select id="sexo" className="form-select" {...register("sexo")} required>
+                  <option value="Macho">Macho</option>
+                  <option value="Fêmea">Fêmea</option>
+                </select>
+              </div>
+              <div className="col-sm-3">
                 <label htmlFor="idade" className="form-label">Idade</label>
                 <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} />
               </div>
-              <div className="col-sm-8">
+              <div className="col-sm-6">
                 <label htmlFor="descricaopet" className="form-label">Descrição do Pet</label>
                 <textarea className="form-control" id="descricaopet" rows="3" {...register("descricaopet")}></textarea>
               </div>
@@ -164,7 +172,7 @@ export default function Cadastro() {
           <input type="submit" value="Enviar" className="btn btn-primary me-3" />
           <input type="button" value="Limpar" className="btn btn-danger" onClick={() => reset()} />
         </div>
-        
+
       </form>
       <ToastContainer
         position="top-center"

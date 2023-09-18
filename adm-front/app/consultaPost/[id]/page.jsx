@@ -99,11 +99,15 @@ export default function Consulta({ params }) {
               </div>
 
               <div className="row mt-3">
-                <div className="col-sm-4">
+                <div className="col-sm-3">
+                  <label htmlFor="sexo" className="form-label">Sexo</label>
+                  <input type="text" className="form-control" id="sexo" value={postagem.sexo} readOnly />
+                </div>
+                <div className="col-sm-3">
                   <label htmlFor="idade" className="form-label">Idade</label>
                   <input type="text" className="form-control" id="idade" value={postagem.idade} readOnly />
                 </div>
-                <div className="col-sm-8">
+                <div className="col-sm-6">
                   <label htmlFor="descricaopet" className="form-label">Descrição do Pet</label>
                   <textarea className="form-control" id="descricaopet" rows="3" value={postagem.descricaopet} readOnly></textarea>
                 </div>
