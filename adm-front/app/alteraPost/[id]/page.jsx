@@ -98,6 +98,7 @@ export default function Alteracao() {
                             <option value="Abandono">Abandono</option>
                             <option value="Maus-tratos">Maus-tratos</option>
                             <option value="Adoção">Adoção</option>
+                            <option value="Vacina">Vacina</option>
                             <option value="Outro">Outro</option>
                         </select>
                     </div>
