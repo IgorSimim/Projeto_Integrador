@@ -80,15 +80,19 @@ export default function Consulta({ params }) {
           {postagem.pet && (
             <div>
               <div className="row mt-3">
-                <div className="col-sm-4">
+                <div className="col-sm-3">
                   <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                   <input type="text" className="form-control" id="nomepet" value={postagem.nomepet} readOnly />
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-3">
+                  <label htmlFor="tipo" className="form-label">Tipo</label>
+                  <input type="text" className="form-control" id="tipo" value={postagem.tipo} readOnly />
+                </div>
+                <div className="col-sm-3">
                   <label htmlFor="raca" className="form-label">Raça</label>
                   <input type="text" className="form-control" id="raca" value={postagem.raca} readOnly />
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-3">
                   <label htmlFor="porte" className="form-label">Porte</label>
                   <input type="text" className="form-control" id="porte" value={postagem.porte} readOnly />
                 </div>

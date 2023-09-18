@@ -9,6 +9,8 @@ export default function Cadastro() {
     defaultValues: {
       porte: "Pequeno",
       pet: false,
+      tipo: "",
+      porte: "",
       assunto: "", // Defina um valor padrão vazio para o assunto
       assuntoCustom: "", // Adicione um campo para armazenar o assunto personalizado
     }
@@ -106,15 +108,23 @@ export default function Cadastro() {
         {showAdditionalLabels && (
           <div>
             <div className="row mt-3">
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                 <input type="text" className="form-control" id="nomepet" {...register("nomepet")} required />
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-3">
+                <label htmlFor="tipo" className="form-label">Tipo</label>
+                <select id="tipo" className="form-select" {...register("tipo")} required>
+                  <option value="Cachorro">Cachorro</option>
+                  <option value="Gato">Gato</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+              <div className="col-sm-3">
                 <label htmlFor="raca" className="form-label">Raça</label>
                 <input type="text" className="form-control" id="raca" {...register("raca")} required />
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <label htmlFor="porte" className="form-label">Porte</label>
                 <select id="porte" className="form-select" {...register("porte")} required>
                   <option value="Pequeno">Pequeno</option>
