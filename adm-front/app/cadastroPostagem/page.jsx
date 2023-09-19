@@ -81,6 +81,7 @@ export default function Cadastro() {
                 <option value="Maus-tratos">Maus-tratos</option>
                 <option value="Adoção">Adoção</option>
                 <option value="Vacina">Vacina</option>
+                <option value="Procura-se">Procura-se</option>
                 <option value="Outro">Outro</option>
               </select>
             )}
