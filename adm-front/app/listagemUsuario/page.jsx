@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from "react"
-import ItemLista from "@/components/ItemLista"
+import ListaUsuario from "@/components/ItemListaUsuario";
 import { useRouter } from "next/navigation"
-import Pesquisa from "@/components/Pesquisa"
+import PesquisaUsuario from "@/components/PesquisaUsuario"
 import Swal from 'sweetalert2'
 
 
@@ -44,7 +44,7 @@ export default function () {
   }
 
   const listaUsuarios = usuarios.map(usuario => (
-    <ItemLista key={usuario.id}
+    <ListaUsuario key={usuario.id}
       usuario={usuario}
       exclui={() => excluiUsuario(usuario.id)}
       altera={() => router.push('altera/' + usuario.id)}
@@ -105,7 +105,7 @@ export default function () {
           <h2 className="mt-2">Listagem dos Usuários</h2>
         </div>
         <div className="col-sm-5">
-          <Pesquisa filtra={filtraDados} mostra={mostraTodos} />
+          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} />
         </div>
       </div>
 

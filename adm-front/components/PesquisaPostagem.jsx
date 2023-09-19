@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 
-export default function Pesquisa(props) {
+export default function PesquisaPostagem(props) {
 
   const { register, handleSubmit, reset } = useForm()
 
@@ -17,7 +17,7 @@ export default function Pesquisa(props) {
       onReset={limpa}>
       <div className="col-12">
         <input type="text" className="form-control"
-          placeholder="Pesquisa nome ou bairro"
+          placeholder="Pesquisa nome ou titulo"
           {...register("pesq")}
         />
       </div>

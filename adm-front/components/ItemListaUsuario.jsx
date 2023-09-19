@@ -1,7 +1,7 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Swal from 'sweetalert2'
 
-export default function ItemLista(props) {
+export default function ListaUsuario(props) {
 
   function confirmaExclusao(id, nome) {
     // if (confirm(`Confirma Exclusão do usuario "${nome}"?`)) {
