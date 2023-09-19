@@ -37,24 +37,24 @@ export default function Alteracao() {
                 fotopet: dado.fotopet,
                 vacina: dado.vacina,
             });
-            // Atualize o valor do campo "assunto" no formulário
+            // Atualiza o valor do campo "assunto" no formulário
             setShowAdditionalLabels2(dado.assunto === "Outro");
         }
         getPostagem()
     }, [params.id])
 
     useEffect(() => {
-        // Atualize o estado showAdditionalLabels2 com base no valor atual do campo "Assunto"
+        // Atualiza o estado "showAdditionalLabels2" com base no valor atual do campo "assunto"
         setShowAdditionalLabels2(assunto === "Outro");
 
-        // Limpe o valor do campo "assuntoCustom" se a opção "Outro" não estiver selecionada
+        // Limpa o valor do campo "assuntoCustom" se a opção "Outro" não estiver selecionada
         if (assunto !== "Outro") {
-            setValue("assuntoCustom", ""); // Use setValue do react-hook-form para limpar o valor de "assuntoCustom"
+            setValue("assuntoCustom", "");
         }
     }, [assunto, setValue]);
 
     async function alteraDados(data) {
-        // Se a opção for "Outro", defina o valor de "assunto" como o valor de "assuntoCustom"
+        // Se a opção for "Outro", define o valor de "assunto" com o valor de "assuntoCustom"
         if (data.assunto === "Outro") {
             data.assunto = data.assuntoCustom;
         }
@@ -140,7 +140,7 @@ export default function Alteracao() {
                         </div>
                     </div>
                 </div>
-          
+
                 {showAdditionalLabels && (
                     <div>
                         <div className="row mt-3">

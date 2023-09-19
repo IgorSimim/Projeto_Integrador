@@ -86,7 +86,7 @@ export default function Alteracao() {
           <div className="col-sm-2">
             <label htmlFor="sexo" className="form-label">Sexo</label>
             <select id="sexo" className="form-select" {...register("sexo")} required>
-              <option value="NF">Prefiro não informar</option>
+              <option value="NI">Prefiro não informar</option>
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
             </select>

@@ -12,8 +12,8 @@ export default function Cadastro() {
       tipo: "",
       porte: "",
       sexo: "",
-      assunto: "", // Defina um valor padrão vazio para o assunto
-      assuntoCustom: "", // Adicione um campo para armazenar o assunto personalizado
+      assunto: "",
+      assuntoCustom: "",
     }
   });
 
@@ -27,7 +27,7 @@ export default function Cadastro() {
   }, [assuntoValue]);
 
   async function enviaDados(data) {
-    // Se a opção for "Outro", defina o valor de "assunto" para o valor de "assuntoCustom"
+    // Se a opção for "Outro", define o valor de "assunto" para o valor de "assuntoCustom"
     if (data.assunto === "Outro") {
       data.assunto = data.assuntoCustom;
     }
