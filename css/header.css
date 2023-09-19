@@ -1,6 +1,6 @@
 header {
     background-color: var(--secondary-300);
-    width: 100vw;
+    width: 100%;
     height: 110px;
 
     display: flex;
@@ -12,7 +12,6 @@ header {
     width: 1440px;
     display: flex;
     justify-content: space-between;
-    gap: 2rem
 }
 
 .header-logo-and-links {
@@ -89,4 +88,11 @@ header {
 .signin-button:hover {
     cursor: pointer;
     background-color: var(--important-500);
+}
+
+@media screen and (max-width: 900px) {
+    .header-buttons{
+        display:flex;
+        flex-direction: column;
+    }
 }
