@@ -72,6 +72,18 @@ export default function () {
     setUsuarios(novosDados)
   }
 
+  async function ordenarUsuarios() {
+    async function getUsuarios() {
+        const response = await fetch(
+          "http://localhost:3004/usuarios?_sort=idade&_order=desc"
+        );
+        const dados = await response.json();
+        setUsuarios(dados);
+    }
+
+    getUsuarios();
+  }
+
   async function mostraTodos() {
     const response = await fetch("http://localhost:3004/usuarios")
     const dados = await response.json()
@@ -94,7 +106,7 @@ export default function () {
           <h2 className="mt-2">Listagem dos Usuários</h2>
         </div>
         <div className="col-sm-5">
-          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} />
+          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} listar={ordenarUsuarios}/>
         </div>
       </div>
 
