@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# <img src="https://github.com/IgorSimim/Projeto_Integrador/assets/120426953/4ca78d8f-8ba9-45fa-83ce-bae2b6beb129" width="45" /> Como executar:
 
-## Getting Started
+## Etapa de clonagem:
 
-First, run the development server:
-
+Primeiro você deve pegar os arquivos que estão no repositório do github e clonar para o seu desktop:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# Clonar o projeto
+git@github.com:IgorSimim/Projeto_Integrador.git
+
+# Entrar na pasta do projeto Projeto_Integrador
+cd Projeto_Integrador                                                                                                      
+```
+## Agora já dentro da pasta:
+
+Caso você queira, pode abrir o seu editor de código-fonte já no diretório onde se encontram os arquivos que foram clonados. Exemplo: Visual Studio Code, Sublime Text:
+```bash
+# Abrir o arquivo clonado pelo seu editor de código-fonte
+code .
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Caso não queira visualizar o arquivo em forma de código, basta seguir os pasos indicados abaixo. Esses comandos abaixo eu sugiro que você realize pelo prompt de comando, para melhor visualização:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Lembrando que tem que ser feito em um prompt que esteja dentro do diretório, onde se encontra os arquivos.
+```bash
+# Para ter certeza de que todas dependêcias estão instaladas corretamente
+npm i
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# ATENÇÃO: Certifique-se de que o arquivo back-end esteja rodando antes.
+# Fazendo com que o front end seja obrigado a rodar em uma porta diferente da que o back end está ocupando,
+# evitando conflitos de rotas
 
-## Learn More
+# Assim você faz com que o seu front end seja executado
+npm run dev                                                                                                      
+```
 
-To learn more about Next.js, take a look at the following resources:
+Abra [http://localhost:3001](http://localhost:3001) com o seu browser e veja o front end sendo renderizado.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Caso não venha a aparecer por essa rota, verifique no seu prompt de comando, a rota que o arquivo está sendo renderizado, assim tendo maior certeza da rota usada.
