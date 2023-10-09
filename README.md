@@ -44,9 +44,10 @@ Projeto que conta com a integração de um back-end e front-end
 # <img src="https://github.com/IgorSimim/Projeto_Integrador/assets/120426953/2cd1e98e-b3ca-4d68-975a-f11fa362cc38" style="width: 40px;" align="center"/> Documentação indivídual e como executar
 | Branch | Readme |
 |------------|-----------|
+| main | [main](https://github.com/IgorSimim/Projeto_Integrador/blob/main/README.md) |
+| adm | [adm-bd](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/adm-bd/README.md) |
 | adm | [adm-front](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/adm-front/README.md) |
-| main | [main](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/README.md) |
-| html | [html](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/html/README.md) |
+| html | [html](https://github.com/IgorSimim/Projeto_Integrador/blob/html/html/README.md) |
 | front-end | front-end |
 | back-end | back-end |
 
