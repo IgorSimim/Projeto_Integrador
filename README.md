@@ -46,9 +46,9 @@ Projeto que conta com a integração de um back-end e front-end
 |------------|-----------|
 | adm | [adm-front](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/adm-front/README.md) |
 | main | [main](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/README.md) |
-| html | [html](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/README.md) |
-| front-end | [front-end](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/html/README.md) |
-| back-end | [back-end](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/README.md) |
+| html | [html](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/html/README.md) |
+| front-end | front-end |
+| back-end | back-end |
 
 
 # 🔗 Links:
