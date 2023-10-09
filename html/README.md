@@ -11,8 +11,8 @@ Para ver como executar o FE do projeto, olhe no readme front-end.
 | adm | [adm-bd](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/adm-bd/README.md) |
 | adm | [adm-front](https://github.com/IgorSimim/Projeto_Integrador/blob/adm/adm-front/README.md) |
 | html | [html](https://github.com/IgorSimim/Projeto_Integrador/blob/html/html/README.md) |
+| back-end | [back-end](https://github.com/IgorSimim/Projeto_Integrador/blob/back-end/back-end/README.md) |
 | front-end | front-end |
-| back-end | back-end |
 
 
 # 🔗 Links:
