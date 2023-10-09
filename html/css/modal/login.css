@@ -1,0 +1,28 @@
+#formLogin {}
+#formLogin .form_field {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+#formLogin label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 700;
+}
+#formLogin input {
+    width: 100%;
+    padding: .5rem;
+    box-shadow: inset 0 2px 6px 0 hsla(0, 0%, 0%, 0.8);
+    border: 0 none;
+    border-radius: 6px;
+}   
+#formLogin a {
+    display: block;
+    color: #0671E0;
+    text-decoration: none;
+}
+
+
+#formLogin a:hover {
+    text-decoration: underline;
+}
