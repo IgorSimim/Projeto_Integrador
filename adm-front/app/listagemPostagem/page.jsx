@@ -56,17 +56,6 @@ export default function () {
       postagem.nome.toUpperCase().includes(pesquisa) || postagem.titulo.toUpperCase().includes(pesquisa)
     )
     setPostagens(novosDados)
-
-    // if (novosDados.length == 0) {
-    //   Swal.fire("Não há usuários com a palavra chave informada...")
-    //   return
-    // }
-
-    // busca os dados da API já com o filtro
-    // --------------------------------------
-    // const response = await fetch("http://localhost:3004/filmes?titulo="+data.pesq)
-    // const dados = await response.json()
-    // setFilmes(dados)
   }
 
   async function mostraTodos() {

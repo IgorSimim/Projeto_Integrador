@@ -70,17 +70,18 @@ export default function () {
       usuario.nome.toUpperCase().includes(pesquisa) || usuario.bairro.toUpperCase().includes(pesquisa)
     )
     setUsuarios(novosDados)
+  }
 
-    // if (novosDados.length == 0) {
-    //   Swal.fire("Não há usuários com a palavra chave informada...")
-    //   return
-    // }
+  async function ordenarUsuarios() {
+    async function getUsuarios() {
+        const response = await fetch(
+          "http://localhost:3004/usuarios?_sort=idade&_order=desc"
+        );
+        const dados = await response.json();
+        setUsuarios(dados);
+    }
 
-    // busca os dados da API já com o filtro
-    // --------------------------------------
-    // const response = await fetch("http://localhost:3004/filmes?titulo="+data.pesq)
-    // const dados = await response.json()
-    // setFilmes(dados)
+    getUsuarios();
   }
 
   async function mostraTodos() {
@@ -105,7 +106,7 @@ export default function () {
           <h2 className="mt-2">Listagem dos Usuários</h2>
         </div>
         <div className="col-sm-5">
-          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} />
+          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} listar={ordenarUsuarios}/>
         </div>
       </div>
 

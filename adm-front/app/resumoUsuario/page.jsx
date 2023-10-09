@@ -14,7 +14,7 @@ export default function Resumo() {
     const optionsIdade = {
         title: "Quantidade de usuários separados por idade",
         vAxis: {
-            format: "0", // Formato para exibir números inteiros
+            format: "0",
         },
     }
 

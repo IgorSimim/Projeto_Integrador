@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function Cadastro() {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-      sexo: "NF",
+      sexo: "NI",
       destaque: false
     }
   });
@@ -66,7 +66,7 @@ export default function Cadastro() {
           <div className="col-sm-2">
             <label htmlFor="sexo" className="form-label">Sexo</label>
             <select id="sexo" className="form-select" {...register("sexo")} required>
-              <option value="NF">Prefiro não informar</option>
+              <option value="NI">Prefiro não informar</option>
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
             </select>
