@@ -25,10 +25,11 @@ Lembrando que tem que ser feito em um prompt que esteja dentro do diretório, on
 # Para ter certeza de que todas dependêcias estão instaladas corretamente
 npm i
 
-# ATENÇÃO: Dê o comando abaixo antes de inicializar o front end.
+# ATENÇÃO: Inicialize o back end antes de inicializar o front end.
+# No caso, dê o comando abaixo antes.
 # Evitando conflito de rotas.
 
-# Assim você faz com que o seu back end seja executado
+# Assim você faz com que o seu back end seja executado na porta 3004
 npx json-server --watch db.json --port 3004                                                                                                      
 ```
 
