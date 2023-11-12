@@ -117,7 +117,6 @@
     width: 100%;
     max-width: 239px;
     height: 100%;
-
     border-radius: 6px;
     box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
 }
@@ -139,11 +138,9 @@
     width: 100%;
     width: 239px;
     height: 119px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-color: hsla(0, 0%, 85%, 0.75);
     margin-top: -25px;
     border-radius: 6px;
