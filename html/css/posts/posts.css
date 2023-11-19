@@ -1,0 +1,41 @@
+.posts {
+    display: flex;
+    flex-direction: column;
+    max-width: 1240px;
+    width: 100%;
+
+    margin: auto;
+}
+
+.posts__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 3rem;
+    z-index: 1;
+}
+
+.posts__header p {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.posts__listcards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 32px;
+    gap: 80px;
+}
+
+.posts__button {
+    display: flex;
+    margin-top: 6.625rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3.25rem;
+
+    margin: 6.625rem 0 3.25rem 0;
+}
