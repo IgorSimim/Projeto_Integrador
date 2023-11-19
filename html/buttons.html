@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,700&display=swap"
+    rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="css/default/header.css" />
+  <link rel="stylesheet" href="css/default/footer.css" />
+  <link rel="stylesheet" href="css/home/carousel.css" />
+  <link rel="stylesheet" href="css/home/last-news.css" />
+  <link rel="stylesheet" href="css/home/pet-world.css" />
+  <link rel="stylesheet" href="css/home/modal.css" />
+  <link rel="stylesheet" href="css/pet/card.css" />
+  <link rel="stylesheet" href="css/buttons/button.css" />
+  <title>Petpet</title>
+</head>
+
+<body>
+  <main id="buttons">
+    <button type="button" class="button">
+      <img src="public/buttons/chevron_down.svg" alt="" />
+    </button>
+
+  </main>
+
+  <main id="buttons">
+    <div class="last__news">
+      <span class="title">Últimas notícias</span>
+      <button class="news__button">Ver todas</button>
+    </div>
+  </main>
+
+  <main id="buttons">
+    <div class="dropdown__container">
+      <button class="dropdown__button" id="dropdown__button">
+        Filtrar por
+        <i class="bx bx-chevron-down" id="arrow"></i>
+      </button>
+
+      <div class="dropdown" id="dropdown">
+        <span href="#create">
+          <i class="bx bx-user-circle"></i>
+          Usuário
+        </span>
+        <span href="#draft">
+          <i class="bx bx-calendar"></i>
+          Data
+        </span>
+        <span href="#move">
+          <i class="bx bx-folder"></i>
+          Postagem
+        </span>
+        <span href="#notification">
+          <i class="bx bx-bell"></i>
+          Notificação
+        </span>
+      </div>
+    </div>
+  </main>
+  <script src="js/dropdown.js"></script>
+</body>
+
+</html>
