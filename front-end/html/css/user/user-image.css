@@ -1,0 +1,51 @@
+.user-image-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.user-image-wrapper {
+    width: 1440px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-top-image {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.user-top-image img {
+    max-width: 100%;
+    height: auto;
+
+}
+
+.user-top-image span {
+    position: absolute;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+
+    inset: 0;
+    padding-left: 4.25rem;
+}
+
+.user-top-image>span>img {
+    height: 80px;
+    width: 80px;
+}
+
+.user-top-image>span>p {
+    font-size: 1.875rem;
+    font-weight: 400;
+}
