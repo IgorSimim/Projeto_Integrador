@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 async function getUsuario(id) {
-  const response = await fetch("http://localhost:3004/usuarios/" + id)
+  const response = await fetch("http://localhost:3000/usuarios/" + id)
   const dado = await response.json()
   return dado
 }
@@ -49,7 +49,7 @@ export default async function Consulta({ params }) {
         </div>
 
         <div className="row mt-3">
-          <div className="col-sm-6">
+          <div className="col-sm-4">
             <label htmlFor="bairro" className="form-label">Bairro</label>
             <input type="text" className="form-control" id="bairro" value={usuario.bairro} readOnly />
           </div>
@@ -66,6 +66,17 @@ export default async function Consulta({ params }) {
                 readOnly
               />
               <label className="form-check-label" htmlFor="destaque">Destaque</label>
+            </div>
+          </div>
+          <div className="col-sm-2">
+            <p>Confirmção da conta:</p>
+            <div className="form-check form-switch">
+              <input className="form-check-input" type="checkbox"
+                id="confirmacao"
+                checked={usuario.confirmacao}
+                readOnly
+              />
+              <label className="form-check-label" htmlFor="confirmacao">Confirmação</label>
             </div>
           </div>
         </div>

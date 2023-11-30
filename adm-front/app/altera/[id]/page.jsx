@@ -14,7 +14,7 @@ export default function Alteracao() {
 
   useEffect(() => {
     async function getUsuario() {
-      const response = await fetch("http://localhost:3004/usuarios/" + params.id)
+      const response = await fetch("http://localhost:3000/usuarios/" + params.id)
       const dado = await response.json()
       reset({
         nome: dado.nome,
@@ -28,6 +28,7 @@ export default function Alteracao() {
         credito: dado.credito,
         destaque: dado.destaque,
         debito: dado.debito,
+        confirmacao: dado.confirmacao,
         perfil: dado.perfil
       })
     }
@@ -35,7 +36,7 @@ export default function Alteracao() {
   }, [])
 
   async function alteraDados(data) {
-    const usuario = await fetch("http://localhost:3004/usuarios/" + params.id,
+    const usuario = await fetch("http://localhost:3000/usuarios/" + params.id,
       {
         method: "PUT",
         headers: { "Content-type": "application/json" },
@@ -94,7 +95,7 @@ export default function Alteracao() {
         </div>
 
         <div className="row mt-3">
-          <div className="col-sm-6">
+          <div className="col-sm-4">
             <label htmlFor="bairro" className="form-label">Bairro</label>
             <input type="text" className="form-control" id="bairro" {...register("bairro")} required />
           </div>
@@ -109,6 +110,15 @@ export default function Alteracao() {
                 id="destaque"
                 {...register("destaque")} />
               <label className="form-check-label" htmlFor="destaque">Destaque</label>
+            </div>
+          </div>
+          <div className="col-sm-2">
+            <p>Confirmação da conta:</p>
+            <div className="form-check form-switch">
+              <input className="form-check-input" type="checkbox"
+                id="confirmacao"
+                {...register("confirmacao")} />
+              <label className="form-check-label" htmlFor="confirmacao">Confirmação</label>
             </div>
           </div>
         </div>

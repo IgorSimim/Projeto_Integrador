@@ -14,7 +14,7 @@ export default function () {
 
   useEffect(() => {
     async function getUsuarios() {
-      const response = await fetch("http://localhost:3004/usuarios")
+      const response = await fetch("http://localhost:3000/usuarios")
       const dados = await response.json()
       setUsuarios(dados)
       setIsLoading(false)
@@ -23,7 +23,7 @@ export default function () {
   }, [])
 
   async function excluiUsuario(id) {
-    const response = await fetch("http://localhost:3004/usuarios/" + id, {
+    const response = await fetch("http://localhost:3000/usuarios/" + id, {
       method: "DELETE"
     })
     const novosDados = usuarios.filter(usuario => usuario.id != id)
@@ -31,7 +31,7 @@ export default function () {
   }
 
   async function destacaUsuario(id, status_atual) {
-    await fetch("http://localhost:3004/usuarios/" + id,
+    await fetch("http://localhost:3000/usuarios/" + id,
       {
         method: "PATCH",
         headers: { "Content-type": "application/json" },
@@ -63,7 +63,7 @@ export default function () {
     // -----------------------------------------------
     const pesquisa = data.pesq.toUpperCase()
 
-    const response = await fetch("http://localhost:3004/usuarios")
+    const response = await fetch("http://localhost:3000/usuarios")
     const dados = await response.json()
 
     const novosDados = dados.filter(usuario =>
@@ -75,7 +75,7 @@ export default function () {
   async function ordenarUsuarios() {
     async function getUsuarios() {
         const response = await fetch(
-          "http://localhost:3004/usuarios?_sort=idade&_order=desc"
+          "http://localhost:3000/usuarios?_sort=idade&_order=desc"
         );
         const dados = await response.json();
         setUsuarios(dados);
@@ -85,7 +85,7 @@ export default function () {
   }
 
   async function mostraTodos() {
-    const response = await fetch("http://localhost:3004/usuarios")
+    const response = await fetch("http://localhost:3000/usuarios")
     const dados = await response.json()
     setUsuarios(dados)
   }
