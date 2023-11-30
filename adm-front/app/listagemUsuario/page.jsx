@@ -31,7 +31,7 @@ export default function () {
   }
 
   async function destacaUsuario(id, status_atual) {
-    await fetch("http://localhost:3000/usuarios/" + id,
+    await fetch("http://localhost:3000/usuarios/destaque/" + id,
       {
         method: "PATCH",
         headers: { "Content-type": "application/json" },
