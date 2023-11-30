@@ -54,7 +54,7 @@ export const Usuario = sequelize.define('usuario', {
     defaultValue: null
   },
   perfil: {
-    type: DataTypes.STRING(200),
+    type: DataTypes.STRING(255),
     allowNull: false
   },
   destaque: {
@@ -62,6 +62,11 @@ export const Usuario = sequelize.define('usuario', {
     allowNull: false,
     defaultValue: 0
   },
+  confirmacao: {
+    type: DataTypes.TINYINT(1),
+    allowNull: false,
+    defaultValue: 0
+  }
 }, {
   tableName: "usuario"
 });

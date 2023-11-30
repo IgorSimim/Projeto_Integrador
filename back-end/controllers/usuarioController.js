@@ -174,13 +174,13 @@ export const usuarioUpdate = async (req, res) => {
   }
 
 
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, admin_id } = req.body
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, confirmacao, admin_id } = req.body
 
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque || !admin_id) {
+  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque || !confirmacao || !admin_id) {
     res.status(400).json(
       {
         id: 0,
-        msg: "Erro... informe nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, admin_id e a URL da foto de Perfil"
+        msg: "Erro... informe nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, confirmacao, admin_id e a URL da foto de Perfil"
       })
     return
   }
@@ -216,7 +216,8 @@ export const usuarioUpdate = async (req, res) => {
         debito: debito,
         perfil: perfil,
         destaque: destaque,
-        admin_id: admin_id,
+        confirmacao: confirmacao,
+        admin_id: admin_id
       })
 
     res.status(200).json({ id, msg: "Ok! Alterado com sucesso" })
@@ -244,7 +245,7 @@ export const usuarioPesq = async (req, res) => {
 
   try {
     const usuario = await dbKnex("usuario").where('id', id).select("id", "nome", "email", "senha", "cpf",
-      "telefone", "idade", "sexo", "bairro", "credito", "debito", "perfil", "destaque", "admin_id")
+      "telefone", "idade", "sexo", "bairro", "credito", "debito", "perfil", "destaque", "confirmacao", "admin_id")
     if (!usuario) {
       res.status(404).json({ msg: 'Usuário não encontrado' });
       return;
