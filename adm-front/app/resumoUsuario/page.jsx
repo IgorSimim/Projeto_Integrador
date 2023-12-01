@@ -7,17 +7,6 @@ export default function Resumo() {
         ssr: false,
     });
 
-    const optionsBairro = {
-        title: "Total de usuários por bairro",
-    };
-
-    const optionsIdade = {
-        title: "Quantidade de usuários separados por idade",
-        vAxis: {
-            format: "0",
-        },
-    }
-
     const [usuarios, setUsuarios] = useState([]);
     const [gerais, setGerais] = useState({
         nome: 0,
@@ -28,7 +17,7 @@ export default function Resumo() {
     useEffect(() => {
         async function obterUsuarios() {
             try {
-                const response = await fetch("http://localhost:3004/usuarios");
+                const response = await fetch("http://localhost:3000/usuarios");
                 if (!response.ok) {
                     throw new Error("Falha ao buscar os dados");
                 }
@@ -101,59 +90,57 @@ export default function Resumo() {
     // Renderização do gráfico de barras
     const dataIdade = [["Idade", "Quantidade"]].concat(
         contarUsuariosPorIdade().map(([idade, quantidade]) => [
-            parseFloat(idade),
+            idade,
             quantidade,
         ])
     );
 
+    // Cores diferentes para cada novo dado
+    const coresBairro = contarUsuariosPorBairro().map((_, index) => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+    const coresIdade = contarUsuariosPorIdade().map((_, index) => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+
+        const optionsBairro = {
+        title: "Total de usuários por bairro",
+        colors: coresBairro,
+    };
+
+    const optionsIdade = {
+        title: "Quantidade de usuários separados por idade",
+        vAxis: {
+            format: "0",
+        },
+        colors: coresIdade,
+    };
+
 
     return (
         <div className="container">
-            <div className="container">
-                <h2 id="title" className="my-3">Dados Gerenciais do Sistema</h2>
-                <div className="row">
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.nome}
-                                </span>
-                            </div>
-                            <h5 className="my-4">Nº de Usuários Cadastrados</h5>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span id="br" className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.sexoM}
-                                </span>
-                            </div>
-                            <h5 className="my-3">Total de Usuários que possuem o sexo Masculino</h5>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.sexoF}
-                                </span>
-                            </div>
-                            <h5 className="my-3">Total de Usuários que possuem o sexo Feminino</h5>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.cartao}
-                                </span>
-                            </div>
-                            <h5 className="my-3">Total de Usuários com cartão de Créd. e Débit.</h5>
-                        </div>
-                    </div>
+
+            <h2 id="title" className="my-3">Dados Gerenciais do Sistema</h2>
+            <div className="row">
+                <div className="d-flex justify-content-center align-items-center mt-2">
+                    <span className="btn btn-outline-primary btn-lg">
+                        <p className="badge bg-danger fs-4">{gerais.nome}</p>
+                        <p>Nº de Usuários Cadastrados</p>
+                    </span>
+                    <span className="btn btn-outline-primary btn-lg mx-2">
+                        <p className="badge bg-danger fs-4">{gerais.sexoM}</p>
+                        <p>Nº de Usuários do sexo Masc.</p>
+                    </span>
+                    <span className="btn btn-outline-primary btn-lg me-2">
+                        <p className="badge bg-danger fs-4">{gerais.sexoF}</p>
+                        <p>Nº de Usuários do sexo Fem.</p>
+                    </span>
+                    <span className="btn btn-outline-primary btn-lg ms-2">
+                        <p className="badge bg-danger fs-4">{gerais.cartao}</p>
+                        <p>Nº de Usuários que cadastraram ambos cartões</p>
+                    </span>
                 </div>
             </div>
+
+
+
+
 
             <h2 id="title" className="my-4">Gerenciamento de Usuários</h2>
 
