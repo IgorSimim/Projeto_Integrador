@@ -9,12 +9,11 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export default function Alteracao() {
   const params = useParams()
-  //  console.log(params)
   const { register, handleSubmit, reset } = useForm()
 
   useEffect(() => {
     async function getUsuario() {
-      const response = await fetch("http://localhost:3000/usuarios/" + params.id)
+      const response = await fetch("http://localhost:3000/usuarios/pesq/" + params.id)
       const dado = await response.json()
       reset({
         nome: dado.nome,
@@ -28,7 +27,6 @@ export default function Alteracao() {
         credito: dado.credito,
         destaque: dado.destaque,
         debito: dado.debito,
-        confirmacao: dado.confirmacao,
         perfil: dado.perfil
       })
     }
@@ -63,11 +61,11 @@ export default function Alteracao() {
           </div>
           <div className="col-sm-4">
             <label htmlFor="email" className="form-label">Email</label>
-            <input type="text" className="form-control" id="email" {...register("email")} required />
+            <input type="text" className="form-control" id="email" placeholder="Ex: nome@provedor.com" {...register("email")} required />
           </div>
           <div className="col-sm-3">
             <label htmlFor="senha" className="form-label">Senha</label>
-            <input type="text" step="0.10" className="form-control" id="senha" {...register("senha")} required />
+            <input type="text" step="0.10" className="form-control" id="senha" placeholder="Ex: Senha@1234" {...register("senha")} required />
           </div>
         </div>
 
@@ -95,7 +93,7 @@ export default function Alteracao() {
         </div>
 
         <div className="row mt-3">
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <label htmlFor="bairro" className="form-label">Bairro</label>
             <input type="text" className="form-control" id="bairro" {...register("bairro")} required />
           </div>
@@ -110,15 +108,6 @@ export default function Alteracao() {
                 id="destaque"
                 {...register("destaque")} />
               <label className="form-check-label" htmlFor="destaque">Destaque</label>
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <p>Confirmação da conta:</p>
-            <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox"
-                id="confirmacao"
-                {...register("confirmacao")} />
-              <label className="form-check-label" htmlFor="confirmacao">Confirmação</label>
             </div>
           </div>
         </div>

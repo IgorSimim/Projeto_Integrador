@@ -8,7 +8,7 @@ function validaSenha(senha) {
 
   const mensa = []
 
-  // .length: retorna o tamanho da string (da senha)
+  // Retorna o tamanho da string (da senha)
   if (senha.length < 8) {
     mensa.push("Erro... senha deve possuir, no mínimo, 8 caracteres")
   }
@@ -19,12 +19,8 @@ function validaSenha(senha) {
   let numeros = 0
   let simbolos = 0
 
-  // senha = "abc123"
-  // letra = "a"
-
-  // percorre as letras da variável senha
+  // Percorre as letras da variável senha
   for (const letra of senha) {
-    // expressão regular
     if ((/[a-z]/).test(letra)) {
       pequenas++
     }
@@ -61,7 +57,7 @@ export const adminIndex = async (req, res) => {
   try {
     const admins = await Admin.findAll();
 
-    // Use a função para formatar as datas em cada administrador
+    // Use a função para formatar as datas
     const formattedAdmins = admins.map(formatDates);
 
     res.status(200).json(formattedAdmins);
@@ -73,7 +69,6 @@ export const adminIndex = async (req, res) => {
 export const adminCreate = async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  // se não informou estes atributos
   if (!nome || !email || !senha) {
     res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
     return;

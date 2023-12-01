@@ -4,9 +4,6 @@ import Swal from 'sweetalert2'
 export default function ListaUsuario(props) {
 
   function confirmaExclusao(id, nome) {
-    // if (confirm(`Confirma Exclusão do usuario "${nome}"?`)) {
-    //   props.exclui(id)
-    // }
     Swal.fire({
       title: `Confirma Exclusão do Usuário "${nome}"?`,
       text: "Esta operação não poderá ser desfeita",

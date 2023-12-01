@@ -2,16 +2,13 @@ import nodemailer from "nodemailer"
 import { Usuario } from "../models/Usuario.js";
 import md5 from 'md5'
 
-// async..await is not allowed in global scope, must use a wrapper
 async function main(nome, email, hash) {
 
-  // console.log(nome, email, hash)
 
-  // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,
-    secure: false, // true for 465, false for other ports
+    secure: false, 
     auth: {
       user: "5b0a16123a51cd",
       pass: "454fc830ae4b29"
@@ -26,19 +23,16 @@ async function main(nome, email, hash) {
   mensa += "Clique no link abaixo para alterar:</h6>"
   mensa += `<a href="${link}">Alterar sua senha</a>`
 
-  // console.log(mensa)
 
-  // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Social pet" <socialpetpel@email.com>', // sender address
-    to: email, // list of receivers
-    subject: "Solicitação Alteração de Senha", // Subject line
-    text: `Copie e cole o endereço: ${link} para alterar`, // plain text body
+    from: '"Social pet" <socialpetpel@email.com>', 
+    to: email, 
+    subject: "Solicitação Alteração de Senha", 
+    text: `Copie e cole o endereço: ${link} para alterar`, 
     html: mensa, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
 
 export const enviaEmail = async (req, res) => {

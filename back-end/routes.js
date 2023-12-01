@@ -2,20 +2,19 @@ import { Router } from "express"
 
 import {
       usuarioBairro, usuarioCartoes, usuarioCreate, usuarioDestaque, usuarioDestroy, usuarioFeminino,
-      usuarioGeral, usuarioIdade, usuarioIndex, usuarioMasculino, usuarioPesq, usuarioUpdate
+      usuarioGeral, usuarioIdade, usuarioIndex, usuarioLogin, usuarioMasculino, usuarioPesq, usuarioUpdate
 } from "./controllers/usuarioController.js"
 import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
-
-import upload from './middlewares/FotoStore.js'
 
 const router = Router()
 
 router.get('/usuarios', usuarioIndex)
-      .post('/usuarios', upload.single('perfil'), usuarioCreate)
-      .patch('/usuarios/destaque/:id', usuarioDestaque)
-      .put('/usuarios/:id', upload.single('perfil'), usuarioUpdate)
+      .post('/usuarios', usuarioCreate)
       .delete('/usuarios/:id', usuarioDestroy)
+      .put('/usuarios/:id', usuarioUpdate)
+      .patch('/usuarios/destaque/:id', usuarioDestaque)
       .get('/usuarios/pesq/:id', usuarioPesq)
+      .post('/login', usuarioLogin)
 
 
       .get('/usuarios/geral', usuarioGeral)

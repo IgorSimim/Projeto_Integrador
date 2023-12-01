@@ -5,9 +5,6 @@ import routes from './routes.js'
 import { sequelize } from './databases/conecta.js'
 import { Usuario } from './models/Usuario.js'
 import { Admin } from './models/Admin.js'
-// import { Churrascaria } from './models/Churrascaria.js'
-// import { Avaliacao } from './models/Avaliacao.js'
-// import { Log } from './models/Log.js'
 
 const app = express()
 const port = 3000
@@ -21,7 +18,6 @@ async function conecta_db() {
     await sequelize.authenticate();
     console.log('Conexão com banco de dados realizada com sucesso');
 
-    // Pode-se indicar a sincronização das models uma por uma
     await Admin.sync({alter: true})
     await Usuario.sync({alter: true})
   } catch (error) {
