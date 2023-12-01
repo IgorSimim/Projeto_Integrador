@@ -1,10 +1,13 @@
 import { Router } from "express"
 
 import {
+      confirmacaoConta,
       usuarioBairro, usuarioCartoes, usuarioCreate, usuarioDestaque, usuarioDestroy, usuarioFeminino,
       usuarioGeral, usuarioIdade, usuarioIndex, usuarioLogin, usuarioMasculino, usuarioPesq, usuarioUpdate
 } from "./controllers/usuarioController.js"
 import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
+import { enviaEmail } from "./controllers/controllerMail.js"
+import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaController.js"
 
 const router = Router()
 
@@ -15,8 +18,14 @@ router.get('/usuarios', usuarioIndex)
       .patch('/usuarios/destaque/:id', usuarioDestaque)
       .get('/usuarios/pesq/:id', usuarioPesq)
       .post('/login', usuarioLogin)
+      .get('/confirmacao/:hash', confirmacaoConta)
 
 
+router.get('/listausuarios', ListaIndex)
+      .get('/usuarios/lista', UsuarioLista)
+      .get('/usuarios/pdf', UsuarioPdf)
+
+      
       .get('/usuarios/geral', usuarioGeral)
       .get('/usuarios/bairro', usuarioBairro)
       .get('/usuarios/sexo/masculino', usuarioMasculino)
@@ -27,5 +36,7 @@ router.get('/usuarios', usuarioIndex)
 router.get('/admins', adminIndex)
       .post('/admins', adminCreate)
       .delete('/admins/:id', adminDestroy)
+
+router.get('/enviaemail', enviaEmail)
 
 export default router

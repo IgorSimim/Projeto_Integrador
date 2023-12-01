@@ -60,7 +60,7 @@ export const Usuario = sequelize.define('usuario', {
     allowNull: false,
     defaultValue: 0
   },
-  confirmacao: {
+  confirmado: {
     type: DataTypes.TINYINT(1),
     allowNull: false,
     defaultValue: 0

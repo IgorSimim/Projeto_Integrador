@@ -25,14 +25,10 @@ Lembrando que tem que ser feito em um prompt que esteja dentro do diretório, on
 # Para ter certeza de que todas dependêcias estão instaladas corretamente
 npm i
 
-# ATENÇÃO: Certifique-se de que o arquivo back-end esteja rodando antes.
-# Fazendo com que o front end seja obrigado a rodar em uma porta diferente da que o back end está ocupando,
-# evitando conflitos de rotas
-
 # Assim você faz com que o seu front end seja executado
 npm run dev                                                                                                      
 ```
 
-Abra [http://localhost:3001](http://localhost:3001) com o seu browser e veja o front end sendo renderizado.
+Abra [http://localhost:3004](http://localhost:3004) com o seu browser e veja o front end sendo renderizado.
 
 Caso não venha a aparecer por essa rota, verifique no seu prompt de comando, a rota que o arquivo está sendo renderizado, assim tendo maior certeza da rota usada.

@@ -93,10 +93,14 @@ export const usuarioCreate = async (req, res) => {
   }
 
   try {
+    const hash = md5(nome + email + Date.now());
+
     const usuario = await Usuario.create({
       nome, email, senha, cpf, telefone, idade,
-      sexo, bairro, credito, debito, destaque, perfil
+      sexo, bairro, credito, debito, destaque, perfil, hash
     });
+
+    main(usuario.nome, usuario.email, hash).catch(console.error);
 
     // Função para formatar as datas
     const formattedUsuario = formatDates(usuario);
@@ -105,7 +109,31 @@ export const usuarioCreate = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
+}
+
+
+export const confirmacaoConta = async (req, res) => {
+  const { hash } = req.params;
+
+  try {
+    // Procurar o usuário pelo hash
+    const usuario = await Usuario.findOne({ where: { hash } });
+
+    if (!usuario) {
+      res.status(400).json({ erro: "Erro... Link de confirmação inválido" });
+      return;
+    }
+
+    // Atualize o atributo 'confirmado' para 1
+    await usuario.update({ confirmado: true });
+
+    res.status(200).json({ msg: "Conta confirmada com sucesso" });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 };
+
+
 
 
 export const usuarioDestaque = async (req, res) => {

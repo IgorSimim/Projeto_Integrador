@@ -25,9 +25,6 @@ Lembrando que tem que ser feito em um prompt que esteja dentro do diretório, on
 # Para ter certeza de que todas dependêcias estão instaladas corretamente
 npm i
 
-# ATENÇÃO: Certifique-se de que o arquivo front end NÃO esteja em execução.
-# Evitando conflitos de rotas que possam ter.
-
 # Assim você faz com que o seu back end seja executado
 npx nodemon app                                                                                                 
 ```

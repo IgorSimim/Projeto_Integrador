@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <title>Lista de Usuários</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 mb-4>Lista de Usuarios Cadastrados</h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cód</th>
+                        <th scope="col">Confirmado</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col" class="text-end">Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% usuario.forEach(usu=> { %>
+                        <tr>
+                            <th scope="row">
+                                <%= usu.id.toLocaleString() %>
+                            </th>
+                            <td>
+                                <%= usu.confirmado ? 'True' : 'False' %>
+                            </td>
+                            <td class="<%= usu.nome.length > 20 ? 'text-wrap' : '' %>">
+                                <%= usu.nome %>
+                            </td>
+                            <td class="<%= usu.email.length > 25 ? 'text-wrap' : '' %>">
+                                <%= usu.email %>
+                            </td>
+                            <td>
+                                <%= usu.bairro %>
+                            </td>
+                            <td class="text-end <%= usu.telefone.length > 10 ? 'text-wrap' : '' %>">
+                                <%= usu.telefone %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
