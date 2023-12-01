@@ -1,17 +1,14 @@
 import { format } from "date-fns";
 import { Usuario } from '../models/Usuario.js'
-import { Admin } from '../models/Admin.js'
 import dbKnex from '../databases/db_config.js'
 import { Op } from "sequelize";
-
-import fs from 'fs';
 
 
 function validaSenha(senha) {
 
   const mensa = []
 
-  // .length: retorna o tamanho da string (da senha)
+  // Retorna o tamanho da string (da senha)
   if (senha.length < 8) {
     mensa.push("Erro... senha deve possuir, no mínimo, 8 caracteres")
   }
@@ -22,12 +19,8 @@ function validaSenha(senha) {
   let numeros = 0
   let simbolos = 0
 
-  // senha = "abc123"
-  // letra = "a"
-
-  // percorre as letras da variável senha
+  // Percorre as letras da variável senha
   for (const letra of senha) {
-    // expressão regular
     if ((/[a-z]/).test(letra)) {
       pequenas++
     }
@@ -48,6 +41,7 @@ function validaSenha(senha) {
   return mensa
 }
 
+
 const formatDates = (usuario) => {
   const formattedUpdatedAt = format(new Date(usuario.updatedAt), 'dd/MM/yyyy HH:mm:ss');
   const formattedCreatedAt = format(new Date(usuario.createdAt), 'dd/MM/yyyy HH:mm:ss');
@@ -59,11 +53,12 @@ const formatDates = (usuario) => {
   };
 };
 
+
 export const usuarioIndex = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll({ include: Admin });
+    const usuarios = await Usuario.findAll();
 
-    // Use a função para formatar as datas em cada administrador
+    // Função para formatar as datas
     const formattedUsuarios = usuarios.map(formatDates);
 
     res.status(200).json(formattedUsuarios);
@@ -72,25 +67,11 @@ export const usuarioIndex = async (req, res) => {
   }
 }
 
+
 export const usuarioCreate = async (req, res) => {
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque } = req.body;
 
-  console.log(req.file.originalname);
-  console.log(req.file.filename);
-  console.log(req.file.mimetype);
-  console.log(req.file.size);
-
-  const perfil = req.file.path;
-
-  if ((req.file.mimetype !== 'image/jpeg' && req.file.mimetype !== 'image/png') || req.file.size > 2048 * 2048) {
-    fs.unlinkSync(perfil);
-    res.status(400).json({ msg: 'Formato inválido da imagem ou imagem muito grande' });
-    return;
-  }
-
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, admin_id } = req.body;
-
-  // se não informou estes atributos
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque || !admin_id) {
+  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque) {
     res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
     return;
   }
@@ -124,31 +105,28 @@ export const usuarioCreate = async (req, res) => {
       credito: credito,
       debito: debito,
       perfil: perfil,
-      destaque: destaque,
-      admin_id: admin_id,
+      destaque: destaque
     });
 
-    // Use a função para formatar as datas
-    const formattedUsuario = formatDates(usuario);
+  // Função para formatar as datas
+  const formattedUsuario = formatDates(usuario);
 
-    res.status(201).json(formattedUsuario);
+  res.status(200).json(formattedUsuario);
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
+
 export const usuarioDestaque = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Busque o registro do banco de dados pelo ID
-    const usuario = await dbKnex("usuario").where({ id }).first();
+    // Retorna o registro para obter o status atual do campo destaque
+    const usuario = await Usuario.findByPk(id)
 
-    // Inverta o valor do destaque
-    const novoValorDestaque = !usuario.destaque;
-
-    // Atualize o registro no banco de dados com o novo valor de destaque
-    await dbKnex("usuario").where({ id }).update({ destaque: novoValorDestaque });
+    // Altera com o contrário do atual
+    await Usuario.update({ destaque: !usuario.destaque }, { where: { id } })
 
     res.status(200).json({ id, msg: "Ok! Alterado com sucesso" });
   } catch (error) {
@@ -160,27 +138,13 @@ export const usuarioDestaque = async (req, res) => {
 export const usuarioUpdate = async (req, res) => {
   const { id } = req.params;
 
-  console.log(req.file.originalname);
-  console.log(req.file.filename);
-  console.log(req.file.mimetype);
-  console.log(req.file.size);
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque } = req.body
 
-  const perfil = req.file.path;
-
-  if ((req.file.mimetype !== 'image/jpeg' && req.file.mimetype !== 'image/png') || req.file.size > 2048 * 2048) {
-    fs.unlinkSync(perfil);
-    res.status(400).json({ msg: 'Formato inválido da imagem ou imagem muito grande' });
-    return;
-  }
-
-
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, confirmacao, admin_id } = req.body
-
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque || !confirmacao || !admin_id) {
+  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque || !admin_id) {
     res.status(400).json(
       {
         id: 0,
-        msg: "Erro... informe nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, confirmacao, admin_id e a URL da foto de Perfil"
+        msg: "Erro... informe os respectivos dados de um usuário"
       })
     return
   }
@@ -215,9 +179,7 @@ export const usuarioUpdate = async (req, res) => {
         credito: credito,
         debito: debito,
         perfil: perfil,
-        destaque: destaque,
-        confirmacao: confirmacao,
-        admin_id: admin_id
+        destaque: destaque
       })
 
     res.status(200).json({ id, msg: "Ok! Alterado com sucesso" })
@@ -226,6 +188,7 @@ export const usuarioUpdate = async (req, res) => {
   }
 
 }
+
 
 export const usuarioDestroy = async (req, res) => {
   const { id } = req.params
@@ -238,6 +201,34 @@ export const usuarioDestroy = async (req, res) => {
     res.status(400).send(error)
   }
 }
+
+
+export const usuarioLogin = async (req, res) => {
+
+  const { email, senha } = req.body
+
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+
+    if (usuario == null) {
+      res.status(400).json({ erro: 'Login ou senha incorretos' })
+      return
+    }
+
+    // Se encontrado, compara a criptografia da senha armazenada
+    // com a criptografia da senha informada
+    if (bcrypt.compareSync(senha, usuario.senha)) {
+      res.status(200).json({ id: usuario.id, nome: usuario.nome })
+    }
+    else {
+      res.status(401).json({ erro: 'Login ou senha incorretos' })
+      return
+    }
+  } catch (error) {
+    res.status(400).send(error)
+  }
+}
+
 
 export const usuarioPesq = async (req, res) => {
 
@@ -256,6 +247,7 @@ export const usuarioPesq = async (req, res) => {
     res.status(400).json({ id: 0, msg: "Erro: " + error.message });
   }
 }
+
 
 export const usuarioGeral = async (req, res) => {
   try {
@@ -284,6 +276,7 @@ export const usuarioBairro = async (req, res) => {
   }
 }
 
+
 export const usuarioMasculino = async (req, res) => {
   try {
     const consulta = await Usuario.count({
@@ -300,6 +293,7 @@ export const usuarioMasculino = async (req, res) => {
   }
 };
 
+
 export const usuarioFeminino = async (req, res) => {
   try {
     const consulta = await Usuario.count({
@@ -315,6 +309,7 @@ export const usuarioFeminino = async (req, res) => {
     res.status(400).json({ id: 0, msg: "Erro: " + error.message });
   }
 };
+
 
 export const usuarioCartoes = async (req, res) => {
   try {

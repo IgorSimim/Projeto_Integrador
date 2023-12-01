@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize';
 import bcrypt from 'bcrypt'
-import { Admin } from './Admin.js'
-
 import { sequelize } from '../databases/conecta.js';
 
 export const Usuario = sequelize.define('usuario', {
@@ -79,16 +77,3 @@ Usuario.beforeCreate(usuario => {
   const hash = bcrypt.hashSync(usuario.senha, salt)
   usuario.senha = hash  
 });
-
-Usuario.belongsTo(Admin, {
-  foreignKey: {
-    name: 'admin_id',
-    allowNull: false
-  },
-  onDelete: 'RESTRICT',
-  onUpdate: 'CASCADE'
-})
-
-Admin.hasMany(Usuario, {
-  foreignKey: 'admin_id'
-})

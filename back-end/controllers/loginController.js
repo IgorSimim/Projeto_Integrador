@@ -9,21 +9,19 @@ import { Log } from "../models/Log.js";
 
 export const loginUsuario = async (req, res) => {
   const { email, senha } = req.body
-  // evita de que a mensagem dê "pistas" para um possível invasor
+
   const mensaErroPadrao = "Erro... Login ou senha inválido"
 
   if (!email || !senha) {
-//    res.status(400).json({ erro: "Informe e-mail e senha de acesso" })
     res.status(400).json({ erro: mensaErroPadrao})
     return
   }
 
-  // verifica se o e-mail está cadastrado
+  // Verifica se o e-mail está cadastrado
   try {
     const usuario = await Usuario.findOne({ where: { email } })
 
     if (usuario == null) {
-      // res.status(400).json({ erro: "Erro... E-mail inválido" })
       res.status(400).json({ erro: mensaErroPadrao})
       return
     }
@@ -40,13 +38,12 @@ export const loginUsuario = async (req, res) => {
       res.status(200).json({msg: "Ok. Logado", token})
     } else {
 
-      // registra um log desta tentativa de acesso
+      // Registra um log desta tentativa de acesso
       await Log.create({
         descricao: "Tentativa de Acesso com Senha Inválida",
         usuario_id: usuario.id
       })
-
-      // res.status(400).json({ erro: "Erro... Senha inválida" })      
+     
       res.status(400).json({ erro: mensaErroPadrao})
     }
   } catch (error) {
