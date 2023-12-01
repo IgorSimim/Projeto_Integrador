@@ -21,11 +21,11 @@ export const Usuario = sequelize.define('usuario', {
     allowNull: false
   },
   cpf: {
-    type: DataTypes.STRING(15),
+    type: DataTypes.STRING(40),
     allowNull: false
   },
   telefone: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(40),
     allowNull: false
   },
   idade: {
@@ -33,7 +33,7 @@ export const Usuario = sequelize.define('usuario', {
     allowNull: false
   },
   sexo: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING(40),
     allowNull: false,
     defaultValue: 'NI'
   },
@@ -42,12 +42,12 @@ export const Usuario = sequelize.define('usuario', {
     allowNull: false
   },
   credito: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(40),
     allowNull: true,
     defaultValue: null
   },
   debito: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(40),
     allowNull: true,
     defaultValue: null
   },

@@ -69,9 +69,9 @@ export const usuarioIndex = async (req, res) => {
 
 
 export const usuarioCreate = async (req, res) => {
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque } = req.body;
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil } = req.body;
 
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque) {
+  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
     res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
     return;
   }
@@ -94,24 +94,14 @@ export const usuarioCreate = async (req, res) => {
 
   try {
     const usuario = await Usuario.create({
-      nome: nome,
-      email: email,
-      senha: senha,
-      cpf: cpf,
-      telefone: telefone,
-      idade: idade,
-      sexo: sexo,
-      bairro: bairro,
-      credito: credito,
-      debito: debito,
-      perfil: perfil,
-      destaque: destaque
+      nome, email, senha, cpf, telefone, idade,
+      sexo, bairro, credito, debito, destaque, perfil
     });
 
-  // Função para formatar as datas
-  const formattedUsuario = formatDates(usuario);
+    // Função para formatar as datas
+    const formattedUsuario = formatDates(usuario);
 
-  res.status(200).json(formattedUsuario);
+    res.status(200).json(formattedUsuario);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -138,15 +128,11 @@ export const usuarioDestaque = async (req, res) => {
 export const usuarioUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque } = req.body
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil } = req.body;
 
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !destaque || !admin_id) {
-    res.status(400).json(
-      {
-        id: 0,
-        msg: "Erro... informe os respectivos dados de um usuário"
-      })
-    return
+  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
+    res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
+    return;
   }
 
   const mensaValidacao = validaSenha(senha);
@@ -231,20 +217,13 @@ export const usuarioLogin = async (req, res) => {
 
 
 export const usuarioPesq = async (req, res) => {
-
   const { id } = req.params
 
   try {
-    const usuario = await dbKnex("usuario").where('id', id).select("id", "nome", "email", "senha", "cpf",
-      "telefone", "idade", "sexo", "bairro", "credito", "debito", "perfil", "destaque", "confirmacao", "admin_id")
-    if (!usuario) {
-      res.status(404).json({ msg: 'Usuário não encontrado' });
-      return;
-    }
-
-    res.status(200).json(usuario);
+    const usuario = await Usuario.findByPk(id)
+    res.status(200).json(usuario)
   } catch (error) {
-    res.status(400).json({ id: 0, msg: "Erro: " + error.message });
+    res.status(400).send(error)
   }
 }
 

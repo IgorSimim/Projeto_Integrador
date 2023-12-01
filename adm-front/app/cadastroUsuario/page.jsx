@@ -8,8 +8,7 @@ export default function Cadastro() {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       sexo: "NI",
-      destaque: false,
-      confirmacao: false
+      destaque: false
     }
   });
 
@@ -22,7 +21,7 @@ export default function Cadastro() {
         body: JSON.stringify({ ...data })
       },
     )
-    if (usuario.status == 201) {
+    if (usuario.status == 200) {
       // alert("Ok! Usuário cadastrado com sucesso")
       toast.success("Ok! Usuário cadastrado com sucesso")
       reset()
@@ -43,11 +42,11 @@ export default function Cadastro() {
           </div>
           <div className="col-sm-4">
             <label htmlFor="email" className="form-label">Email</label>
-            <input type="text" className="form-control" id="email" {...register("email")} required />
+            <input type="text" className="form-control" id="email" placeholder="Ex: nome@provedor.com" {...register("email")} required />
           </div>
           <div className="col-sm-3">
             <label htmlFor="senha" className="form-label">Senha</label>
-            <input type="text" step="0.10" className="form-control" id="senha" {...register("senha")} required />
+            <input type="text" step="0.10" className="form-control" id="senha" placeholder="Ex: Senha@1234" {...register("senha")} required />
           </div>
         </div>
 
@@ -75,7 +74,7 @@ export default function Cadastro() {
         </div>
 
         <div className="row mt-3">
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <label htmlFor="bairro" className="form-label">Bairro</label>
             <input type="text" className="form-control" id="bairro" {...register("bairro")} required />
           </div>
@@ -90,15 +89,6 @@ export default function Cadastro() {
                 id="destaque"
                 {...register("destaque")} />
               <label className="form-check-label" htmlFor="destaque">Destaque</label>
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <p>Confirmação da conta:</p>
-            <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox"
-                id="confirmacao"
-                {...register("confirmacao")} />
-              <label className="form-check-label" htmlFor="confirmacao">Confirmação</label>
             </div>
           </div>
         </div>

@@ -34,8 +34,8 @@ export default function () {
     await fetch("http://localhost:3000/usuarios/destaque/" + id,
       {
         method: "PATCH",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ destaque: !status_atual })
+        // headers: { "Content-type": "application/json" },
+        // body: JSON.stringify({ destaque: !status_atual })
       })
     const indiceAlterado = usuarios.findIndex(usuario => usuario.id == id)
     const novosDados = [...usuarios]
