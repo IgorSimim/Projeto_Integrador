@@ -34,7 +34,9 @@ export default function Resumo() {
 
     // Calcular os valores "gerais" com base nos dados
     useEffect(() => {
-        const totalUsuarios = usuarios.length;
+        const totalUsuarios = usuarios.filter(
+            (usuario) => usuario.confirmado === 1
+        ).length;
         const totalMasculino = usuarios.filter(
             (usuario) => usuario.sexo === "Masculino"
         ).length;
@@ -121,7 +123,7 @@ export default function Resumo() {
                 <div className="d-flex justify-content-center align-items-center mt-2">
                     <span className="btn btn-outline-primary btn-lg">
                         <p className="badge bg-danger fs-4">{gerais.nome}</p>
-                        <p>Nº de Usuários Cadastrados</p>
+                        <p>Nº de Usuários Cadastrados e Confirmados</p>
                     </span>
                     <span className="btn btn-outline-primary btn-lg mx-2">
                         <p className="badge bg-danger fs-4">{gerais.sexoM}</p>

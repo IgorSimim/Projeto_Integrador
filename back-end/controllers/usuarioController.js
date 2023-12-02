@@ -69,26 +69,39 @@ export const usuarioIndex = async (req, res) => {
 
 
 export const usuarioCreate = async (req, res) => {
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil } = req.body;
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
 
   if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
     res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
     return;
   }
 
+  const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailTest.test(email)) {
+    res.status(400).json({ id: 1, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
+    return;
+  }
+
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 0, msg: mensaValidacao });
+    res.status(400).json({ id: 2, msg: mensaValidacao });
+    return;
+  }
+
+  const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+  if (!cpfTest.test(cpf)) {
+    res.status(400).json({ id: 3, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    return;
+  }
+
+  const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+  if (!telTest.test(telefone)) {
+    res.status(400).json({ id: 4, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
   if (idade < 18) {
-    res.status(400).json({ id: 0, msg: "Verifique o campo idade. Lembramos que este site é para maiores de idade, 18 ou mais" });
-    return;
-  }
-
-  if (cpf.length < 14 || cpf.length > 14) {
-    res.status(400).json({ id: 0, msg: "Certifique-se que o campo cpf esteja preenchido no modelo correto" });
+    res.status(400).json({ id: 5, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
     return;
   }
 
@@ -97,7 +110,7 @@ export const usuarioCreate = async (req, res) => {
 
     const usuario = await Usuario.create({
       nome, email, senha, cpf, telefone, idade,
-      sexo, bairro, credito, debito, destaque, perfil, hash
+      sexo, bairro, credito, debito, destaque, perfil, confirmado, hash
     });
 
     main(usuario.nome, usuario.email, hash).catch(console.error);
@@ -107,7 +120,7 @@ export const usuarioCreate = async (req, res) => {
 
     res.status(200).json(formattedUsuario);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).json({ id: 6, msg: "Erro interno ao criar usuário" });
   }
 }
 
@@ -156,26 +169,39 @@ export const usuarioDestaque = async (req, res) => {
 export const usuarioUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil } = req.body;
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
 
   if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
     res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
     return;
   }
 
+  const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailTest.test(email)) {
+    res.status(400).json({ id: 1, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
+    return;
+  }
+
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 0, msg: mensaValidacao });
+    res.status(400).json({ id: 2, msg: mensaValidacao });
+    return;
+  }
+
+  const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+  if (!cpfTest.test(cpf)) {
+    res.status(400).json({ id: 3, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    return;
+  }
+
+  const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+  if (!telTest.test(telefone)) {
+    res.status(400).json({ id: 4, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
   if (idade < 18) {
-    res.status(400).json({ id: 0, msg: "Verifique o campo idade. Lembramos que este site é para maiores de idade, 18 ou mais" });
-    return;
-  }
-
-  if (cpf.length < 14 || cpf.length > 14) {
-    res.status(400).json({ id: 0, msg: "Certifique-se que o campo cpf esteja preenchido no modelo correto" });
+    res.status(400).json({ id: 5, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
     return;
   }
 
@@ -193,12 +219,13 @@ export const usuarioUpdate = async (req, res) => {
         credito: credito,
         debito: debito,
         perfil: perfil,
-        destaque: destaque
+        destaque: destaque,
+        confirmado: confirmado
       })
 
     res.status(200).json({ id, msg: "Ok! Alterado com sucesso" })
   } catch (error) {
-    res.status(400).json({ id: 0, msg: "Erro: " + error.message })
+    res.status(400).json({ id: 6, msg: "Erro: " + error.message })
   }
 
 }

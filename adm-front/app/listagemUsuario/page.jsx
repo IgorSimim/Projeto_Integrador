@@ -1,8 +1,10 @@
 'use client'
+import axios from "axios";
 import { useEffect, useState } from "react"
 import ListaUsuario from "@/components/ItemListaUsuario";
 import { useRouter } from "next/navigation"
 import PesquisaUsuario from "@/components/PesquisaUsuario"
+import Usuariopdf from "@/components/Usuariopdf"
 import Swal from 'sweetalert2'
 
 
@@ -74,11 +76,11 @@ export default function () {
 
   async function ordenarUsuarios() {
     async function getUsuarios() {
-        const response = await fetch(
-          "http://localhost:3000/usuarios?_sort=idade&_order=desc"
-        );
-        const dados = await response.json();
-        setUsuarios(dados);
+      const response = await fetch(
+        "http://localhost:3000/usuarios?_sort=idade&_order=desc"
+      );
+      const dados = await response.json();
+      setUsuarios(dados);
     }
 
     getUsuarios();
@@ -88,6 +90,29 @@ export default function () {
     const response = await fetch("http://localhost:3000/usuarios")
     const dados = await response.json()
     setUsuarios(dados)
+  }
+
+  async function gerarpdf() {
+    try {
+      const response = await axios.get('http://localhost:3000/usuarios/pdf', {
+        responseType: 'blob',
+      });
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+
+      // Cria uma URL temporária para o blob
+      const pdfUrl = URL.createObjectURL(blob);
+
+      // Abre uma nova janela com o PDF
+      const newWindow = window.open(pdfUrl, '_blank');
+
+      // Adiciona um evento de carga à janela para revogar a URL quando a janela for fechada
+      newWindow.addEventListener('load', () => {
+        URL.revokeObjectURL(pdfUrl);
+      });
+    } catch (error) {
+      console.error('Erro ao gerar o PDF:', error);
+    }
   }
 
   if (isLoading) {
@@ -102,11 +127,14 @@ export default function () {
   return (
     <div className="container">
       <div className="row mt-2">
-        <div className="col-sm-7">
-          <h2 className="mt-2">Listagem dos Usuários</h2>
+        <div className="col-sm-5">
+          <h2 >Listagem dos Usuários</h2>
+        </div>
+        <div className="col-sm-2">
+          <Usuariopdf gerar={gerarpdf} />
         </div>
         <div className="col-sm-5">
-          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} listar={ordenarUsuarios}/>
+          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} listar={ordenarUsuarios} />
         </div>
       </div>
 
