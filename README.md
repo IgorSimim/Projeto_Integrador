@@ -30,7 +30,7 @@ Projeto que conta com a integração de um back-end e front-end
 
 ## Front end
 - <img src="https://github.com/IgorSimim/Projeto_Integrador/assets/120426953/e5ae5905-977c-48cc-85b5-ae7e7ed96efe" style="width: 40px;" align="center"/> Html
-  
+- <img src="https://github.com/IgorSimim/Projeto_Integrador/assets/120426953/d4899ef4-957a-4869-81fb-6e91def01603" style="width: 40px;" align="center"/> Css
 - <img src="https://github.com/IgorSimim/FinalWork-ES2/assets/120426953/9f5131f7-44ac-4857-874b-b0703725735f" style="width: 40px;" align="center"/> ReactJS
 
 
