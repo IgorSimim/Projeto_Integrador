@@ -15,11 +15,15 @@ export default async function Consulta({ params }) {
       <h2 className="mt-2">Consulta de Usuários</h2>
       <form>
         <div className="row">
+          <div className="col-sm-1">
+            <label htmlFor="confirmado" className="form-label">Confirmação</label>
+            <input type="number" className="form-control" id="confirmado" value={usuario.confirmado} readOnly />
+          </div>
           <div className="col-sm-5">
             <label htmlFor="nome" className="form-label">Nome do Usuário</label>
             <input type="text" className="form-control" id="nome" value={usuario.nome} readOnly />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input type="text" className="form-control" id="email" value={usuario.email} readOnly />
           </div>

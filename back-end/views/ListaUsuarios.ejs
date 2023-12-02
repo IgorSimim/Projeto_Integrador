@@ -17,8 +17,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Cód</th>
-                        <th scope="col">Confirmado</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
                         <th scope="col">Bairro</th>
@@ -31,9 +30,6 @@
                             <th scope="row">
                                 <%= usu.id.toLocaleString() %>
                             </th>
-                            <td>
-                                <%= usu.confirmado ? 'True' : 'False' %>
-                            </td>
                             <td class="<%= usu.nome.length > 20 ? 'text-wrap' : '' %>">
                                 <%= usu.nome %>
                             </td>

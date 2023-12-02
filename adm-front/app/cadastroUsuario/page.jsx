@@ -8,39 +8,59 @@ export default function Cadastro() {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       sexo: "NI",
+      confirmado: 0,
       destaque: false
     }
   });
 
   async function enviaDados(data) {
-    //    console.log(data);    
-    const usuario = await fetch("http://localhost:3000/usuarios",
-      {
+    try {
+      const response = await fetch("http://localhost:3000/usuarios", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ ...data })
-      },
-    )
-    if (usuario.status == 200) {
-      // alert("Ok! Usuário cadastrado com sucesso")
-      toast.success("Ok! Usuário cadastrado com sucesso")
-      reset()
-    } else {
-      // alert("Erro...")
-      toast.error("Erro... Não foi possível concluir o cadastro")
+      });
+
+      if (response.status === 200) {
+        toast.success("Usuário cadastrado com sucesso");
+        reset();
+      } else {
+        const errorData = await response.json();
+
+        if (errorData.id === 1) {
+          toast.error(errorData.msg); // Trata o erro específico do email
+        } else if (errorData.id === 2) {
+          toast.error(errorData.msg); // Trata o erro específico da senha
+        } else if (errorData.id === 3) {
+          toast.error(errorData.msg); // Trata o erro específico do cpf
+        } else if (errorData.id === 4) {
+          toast.error(errorData.msg); // Trata o erro específico do telefone
+        } else if (errorData.id === 5) {
+          toast.error(errorData.msg); // Trata o erro específico da idade
+        } 
+        
+      }
+    } catch (error) {
+      console.error("Erro ao processar a requisição:", error);
+      toast.error("Erro ao processar a requisição. Tente novamente mais tarde.");
     }
   }
+
 
   return (
     <div className="container">
       <h2 className="mt-2">Cadastro dos Usuários</h2>
       <form onSubmit={handleSubmit(enviaDados)}>
         <div className="row">
+          <div className="col-sm-1">
+            <label htmlFor="confirmado" className="form-label">Confirmação</label>
+            <input type="number" className="form-control" id="confirmado" placeholder="Ex: 0" {...register("confirmado")} required />
+          </div>
           <div className="col-sm-5">
             <label htmlFor="nome" className="form-label">Nome do Usuário</label>
             <input type="text" className="form-control" id="nome" {...register("nome")} required />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input type="text" className="form-control" id="email" placeholder="Ex: nome@provedor.com" {...register("email")} required />
           </div>
