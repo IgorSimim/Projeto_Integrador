@@ -2,8 +2,7 @@ import nodemailer from "nodemailer"
 import { Usuario } from "../models/Usuario.js";
 import md5 from 'md5'
 
-async function main(nome, email, hash) {
-
+export async function main(nome, email, hash) {
 
   let transporter = nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",

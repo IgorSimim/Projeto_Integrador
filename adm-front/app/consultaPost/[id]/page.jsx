@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 async function getPostagem(id) {
-  const response = await fetch("http://localhost:3004/postagens/" + id);
+  const response = await fetch("http://localhost:3000/postagens/pesq" + id);
   const dado = await response.json();
   return dado;
 }
@@ -28,11 +28,11 @@ export default function Consulta({ params }) {
       {postagem && (
         <form>
           <div className="row">
-            <div className="col-sm-4">
-              <label htmlFor="nome" className="form-label">Nome do Usuário</label>
-              <input type="text" className="form-control" id="nome" value={postagem.nome} readOnly />
+            <div className="col-sm-2">
+              <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
+              <input type="text" className="form-control" id="usuario_id" value={postagem.usuario_id} readOnly />
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-6">
               <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
               <input type="text" className="form-control" id="titulo" value={postagem.titulo} readOnly />
             </div>
@@ -61,10 +61,21 @@ export default function Consulta({ params }) {
 
           <div className="row mt-3">
             <div className="col-sm-8">
-              <label htmlFor="descricaopost" className="form-label">Descrição da Postagem</label>
-              <textarea className="form-control" id="descricaopost" rows="3" value={postagem.cpf} readOnly></textarea>
+              <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
+              <textarea className="form-control" id="descricao" rows="3" value={postagem.descricao} readOnly></textarea>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-2">
+              <p>Status da Postagem:</p>
+              <div className="form-check form-switch">
+                <input className="form-check-input" type="checkbox"
+                  id="destaque"
+                  checked={postagem.destaque}
+                  readOnly
+                />
+                <label className="form-check-label" htmlFor="destaque">Destaque</label>
+              </div>
+            </div>
+            <div className="col-sm-2">
               <p>Postagem com pet:</p>
               <div className="form-check form-switch">
                 <input className="form-check-input" type="checkbox"

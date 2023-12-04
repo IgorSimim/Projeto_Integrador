@@ -26,7 +26,7 @@ export default function Resumo() {
     useEffect(() => {
         async function obterPostagens() {
             try {
-                const response = await fetch("http://localhost:3004/postagens");
+                const response = await fetch("http://localhost:3000/postagens");
                 if (!response.ok) {
                     throw new Error("Falha ao buscar os dados");
                 }
@@ -107,49 +107,26 @@ export default function Resumo() {
 
     return (
         <div className="container">
-            <div className="container">
-                <h2 id="title" className="my-3">Dados Gerenciais do Sistema</h2>
-                <div className="row">
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.total}
-                                </span>
-                            </div>
-                            <h5 className="my-4">Nº de Postagens Realizadas</h5>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span id="br" className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.sempet}
-                                </span>
-                            </div>
-                            <h5 className="my-3">Total de Postagens que não possuem Pet</h5>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.compet}
-                                </span>
-                            </div>
-                            <h5 className="my-3">Total de Postagens que possuem Pet</h5>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <div className="card text-center border-primary">
-                            <div className="card-header border-primary">
-                                <span className="badge text-bg-danger fs-2 fw-bold p-3 my-2">
-                                    {gerais.cartaovacina}
-                                </span>
-                            </div>
-                            <h5 className="my-3">Total de Postagens que cadastraram o Cartão de Vacina</h5>
-                        </div>
-                    </div>
+
+            <h2 id="title" className="my-3">Dados Gerenciais do Sistema</h2>
+            <div className="row">
+                <div className="d-flex justify-content-center align-items-center mt-2">
+                    <span className="btn btn-outline-primary btn-lg">
+                        <p className="badge bg-danger fs-4">{gerais.total}</p>
+                        <p>Nº de Postagens realizadas</p>
+                    </span>
+                    <span className="btn btn-outline-primary btn-lg mx-2">
+                        <p className="badge bg-danger fs-4">{gerais.sempet}</p>
+                        <p>Total de Postagens que não possuem Pet</p>
+                    </span>
+                    <span className="btn btn-outline-primary btn-lg me-2">
+                        <p className="badge bg-danger fs-4">{gerais.compet}</p>
+                        <p>Total de Postagens que possuem Pet</p>
+                    </span>
+                    <span className="btn btn-outline-primary btn-lg ms-2">
+                        <p className="badge bg-danger fs-4">{gerais.cartaovacina}</p>
+                        <p>Total de Postagens que cadastraram o Cartão de Vacina</p>
+                    </span>
                 </div>
             </div>
 

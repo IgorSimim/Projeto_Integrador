@@ -5,6 +5,7 @@ import routes from './routes.js'
 import { sequelize } from './databases/conecta.js'
 import { Usuario } from './models/Usuario.js'
 import { Admin } from './models/Admin.js'
+import { Postagem } from './models/Postagem.js'
 
 const app = express()
 const port = 3000
@@ -20,6 +21,7 @@ async function conecta_db() {
 
     await Admin.sync({alter: true})
     await Usuario.sync({alter: true})
+    await Postagem.sync({alter: true})
   } catch (error) {
     console.error('Erro na conexão com o banco: ', error);
   }

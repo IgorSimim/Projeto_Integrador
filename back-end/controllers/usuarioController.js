@@ -1,44 +1,43 @@
 import { format } from "date-fns";
+import bcrypt from 'bcrypt';
+import md5 from 'md5';
 import { Usuario } from '../models/Usuario.js'
 import dbKnex from '../databases/db_config.js'
 import { Op } from "sequelize";
-
+import { main } from "./controllerMail.js";
 
 function validaSenha(senha) {
-
-  const mensa = []
+  const mensa = [];
 
   // Retorna o tamanho da string (da senha)
   if (senha.length < 8) {
-    mensa.push("Erro... senha deve possuir, no mínimo, 8 caracteres")
+    mensa.push("A senha deve possuir no mínimo 8 caracteres");
   }
 
   // contadores
-  let pequenas = 0
-  let grandes = 0
-  let numeros = 0
-  let simbolos = 0
+  let pequenas = 0;
+  let grandes = 0;
+  let numeros = 0;
+  let simbolos = 0;
 
   // Percorre as letras da variável senha
   for (const letra of senha) {
     if ((/[a-z]/).test(letra)) {
-      pequenas++
-    }
-    else if ((/[A-Z]/).test(letra)) {
-      grandes++
-    }
-    else if ((/[0-9]/).test(letra)) {
-      numeros++
+      pequenas++;
+    } else if ((/[A-Z]/).test(letra)) {
+      grandes++;
+    } else if ((/[0-9]/).test(letra)) {
+      numeros++;
     } else {
-      simbolos++
+      simbolos++;
     }
   }
 
-  if (pequenas == 0 || grandes == 0 || numeros == 0 || simbolos == 0) {
-    mensa.push("Erro... senha deve possuir letras minúsculas, maiúsculas, números e símbolos")
+  if (pequenas === 0 || grandes === 0 || numeros === 0 || simbolos === 0) {
+    mensa.push("A senha deve possuir letras minúsculas, maiúsculas, números e símbolos");
   }
 
-  return mensa
+  return mensa;
 }
 
 
@@ -84,7 +83,7 @@ export const usuarioCreate = async (req, res) => {
 
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 2, msg: mensaValidacao });
+    res.status(400).json({ id: 2, msg: mensaValidacao.join(', ') });
     return;
   }
 
@@ -106,11 +105,11 @@ export const usuarioCreate = async (req, res) => {
   }
 
   try {
-    const hash = md5(nome + email + Date.now());
+    let hash = md5(nome + email + Date.now());
 
     const usuario = await Usuario.create({
       nome, email, senha, cpf, telefone, idade,
-      sexo, bairro, credito, debito, destaque, perfil, confirmado, hash
+      sexo, bairro, perfil, credito, debito, destaque, confirmado
     });
 
     main(usuario.nome, usuario.email, hash).catch(console.error);
@@ -120,6 +119,7 @@ export const usuarioCreate = async (req, res) => {
 
     res.status(200).json(formattedUsuario);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ id: 6, msg: "Erro interno ao criar usuário" });
   }
 }

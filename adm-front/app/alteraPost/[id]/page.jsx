@@ -19,7 +19,7 @@ export default function Alteracao() {
 
     useEffect(() => {
         async function getPostagem() {
-            const response = await fetch("http://localhost:3004/postagens/" + params.id)
+            const response = await fetch("http://localhost:3000/postagens/" + params.id)
             const dado = await response.json()
             reset({
                 nome: dado.nome,
@@ -32,6 +32,7 @@ export default function Alteracao() {
                 raca: dado.raca,
                 porte: dado.porte,
                 sexo: dado.sexo,
+                destaque: dado.destaque,
                 idade: dado.idade,
                 descricaopet: dado.descricaopet,
                 fotopet: dado.fotopet,
@@ -59,7 +60,7 @@ export default function Alteracao() {
             data.assunto = data.assuntoCustom;
         }
 
-        const postagem = await fetch("http://localhost:3004/postagens/" + params.id,
+        const postagem = await fetch("http://localhost:3000/postagens/" + params.id,
             {
                 method: "PUT",
                 headers: { "Content-type": "application/json" },
@@ -80,53 +81,57 @@ export default function Alteracao() {
             <h2 className="mt-2">Cadastro das Postagens</h2>
             <form onSubmit={handleSubmit(alteraDados)}>
                 <div className="row">
-                    <div className="col-sm-4">
-                        <label htmlFor="nome" className="form-label">Nome do Usuário</label>
-                        <input type="text" className="form-control" id="nome" {...register("nome")} required />
+                    <div className="col-sm-2">
+                        <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
+                        <input type="text" className="form-control" id="usuario_id" {...register("usuario_id")} required />
                     </div>
-                    <div className="col-sm-4">
+                    <div className="col-sm-6">
                         <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
                         <input type="text" className="form-control" id="titulo" {...register("titulo")} required />
                     </div>
                     <div className="col-sm-4">
                         <label htmlFor="assunto" className="form-label">Assunto</label>
-                        <select
-                            id="assunto"
-                            className="form-select"
-                            {...register("assunto")}
-                            required
-                        >
-                            <option value="Abandono">Abandono</option>
-                            <option value="Maus-tratos">Maus-tratos</option>
-                            <option value="Adoção">Adoção</option>
-                            <option value="Vacina">Vacina</option>
-                            <option value="Procura-se">Procura-se</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
-                    {showAdditionalLabels2 ? (
-                        <div className="col-sm-4">
-                            <label htmlFor="assuntoCustom" className="form-label"></label>
+                        {showAdditionalLabels2 ? (
                             <input
                                 type="text"
                                 className="form-control"
-                                id="assuntoCustom"
-                                style={{ marginLeft: "56vw" }}
-                                {...register("assuntoCustom")}
                                 placeholder="Digite o assunto personalizado"
+                                {...register("assuntoCustom")}
                                 required
                             />
-                        </div>
-                    ) : null}
+                        ) : (
+                            <select
+                                id="assunto"
+                                className="form-select"
+                                {...register("assunto")}
+                                required
+                            >
+                                <option value="Abandono">Abandono</option>
+                                <option value="Maus-tratos">Maus-tratos</option>
+                                <option value="Adoção">Adoção</option>
+                                <option value="Vacina">Vacina</option>
+                                <option value="Procura-se">Procura-se</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        )}
+                    </div>
                 </div>
-
 
                 <div className="row mt-3">
                     <div className="col-sm-8">
-                        <label htmlFor="descricaopost" className="form-label">Descrição da Postagem</label>
-                        <textarea className="form-control" id="descricaopost" rows="3" {...register("descricaopost")} required></textarea>
+                        <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
+                        <textarea className="form-control" id="descricao" rows="3" {...register("descricao")} required></textarea>
                     </div>
-                    <div className="col-sm-4">
+                    <div className="col-sm-2">
+                        <p>Status da Postagem:</p>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox"
+                                id="destaque"
+                                {...register("destaque")} />
+                            <label className="form-check-label" htmlFor="destaque">Destaque</label>
+                        </div>
+                    </div>
+                    <div className="col-sm-2">
                         <p>Postagem com pet:</p>
                         <div className="form-check form-switch">
                             <input
