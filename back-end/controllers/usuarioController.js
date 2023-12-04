@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import bcrypt from 'bcrypt'
 import { Usuario } from '../models/Usuario.js'
 import dbKnex from '../databases/db_config.js'
 import { Op } from "sequelize";

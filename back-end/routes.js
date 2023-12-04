@@ -8,6 +8,7 @@ import {
 import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
 import { enviaEmail } from "./controllers/controllerMail.js"
 import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaController.js"
+import { postagemCreate, postagemDestaque, postagemDestroy, postagemIndex, postagemUpdate } from "./controllers/postagemController.js"
 
 const router = Router()
 
@@ -19,9 +20,8 @@ router.get('/usuarios', usuarioIndex)
       .get('/usuarios/pesq/:id', usuarioPesq)
       .post('/login', usuarioLogin)
       .get('/confirmacao/:hash', confirmacaoConta)
-
-
-router.get('/listausuarios', ListaIndex)
+      
+      .get('/listausuarios', ListaIndex)
       .get('/usuarios/lista', UsuarioLista)
       .get('/usuarios/pdf', UsuarioPdf)
 
@@ -32,6 +32,12 @@ router.get('/listausuarios', ListaIndex)
       .get('/usuarios/sexo/feminino', usuarioFeminino)
       .get('/usuarios/cartoes', usuarioCartoes)
       .get('/usuarios/idade', usuarioIdade)
+
+router.get('/postagens', postagemIndex)
+      .get('/postagens', postagemCreate)
+      .delete('/postagens/:id', postagemDestroy)
+      .put('/postagens/:id', postagemUpdate)
+      .patch('/postagens/destaque/:id', postagemDestaque)
 
 router.get('/admins', adminIndex)
       .post('/admins', adminCreate)
