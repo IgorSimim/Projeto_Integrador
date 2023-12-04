@@ -19,7 +19,7 @@ export const postagemIndex = async (req, res) => {
 export const postagemCreate = async (req, res) => {
     const { titulo, assunto, descricao,
         pet, nomepet, tipo, raca, porte, sexo,
-        idade, descricaopet, fotopet, vacina, destaque, usuario_id } = req.body
+        idade, descricaopet, fotopet, vacina, destaque, usuario_id, data } = req.body
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == 1
@@ -32,8 +32,10 @@ export const postagemCreate = async (req, res) => {
     }
 
     try {
+        const dataPostagem = data || format(new Date(), "dd-MM-yyyy HH:mm:ss");
+
         const postagemData = {
-            titulo, assunto, descricao, destaque, usuario_id, pet, data: format(new Date(), "dd-MM-yyyy HH:mm:ss")
+            titulo, assunto, descricao, destaque, usuario_id, pet, data: dataPostagem
         };
 
         if (pet == 1) {
@@ -47,6 +49,8 @@ export const postagemCreate = async (req, res) => {
             postagemData.fotopet = fotopet;
             postagemData.vacina = vacina;
         }
+
+        console.log(postagemData);
 
         const postagem = await Postagem.create(postagemData);
         res.status(201).json(postagem)
@@ -141,62 +145,59 @@ export const postagemDestroy = async (req, res) => {
 
 export const postagemPesq = async (req, res) => {
     const { id } = req.params
-  
+
     try {
-      const postagem = await Postagem.findByPk(id)
-      res.status(200).json(postagem)
+        const postagem = await Postagem.findByPk(id)
+        res.status(200).json(postagem)
     } catch (error) {
-      res.status(400).send(error)
+        res.status(400).send(error)
     }
-  }
+}
 
-// export const churrascariaUpdate = async (req, res) => {
-//     const { id } = req.params
-//     const { novoNome } = req.body
+export const postagemGeral = async (req, res) => {
+    try {
+        const consulta = await dbKnex("postagem")
+            .count({ num: "*" })
 
-//     // se não informou estes atributos
-//     if (!novoNome) {
-//         res.status(400).json({ id: 0, msg: "Erro... Informe o novo nome da churrascaria" })
-//         return
-//     }
 
-//     try {
-//         const churrascaria = await Churrascaria.update({ nome: novoNome }, {
-//             where: { id }
-//         });
-//         res.status(200).json({ msg: "Ok! Nome Atualizado com sucesso" })
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// }
+        res.status(200).json(consulta)
+    } catch (error) {
+        res.status(400).json({ id: 0, msg: "Erro: " + error.message })
+    }
+}
 
-// export const churrascariaDestroy = async (req, res) => {
-//     const { id } = req.params
-//     // obtém dados acrescentados no middleware verificaLogin (ao req)
-//     const user_logado_id = req.user_logado_id
+export const postagemSemPet = async (req, res) => {
+    try {
+        const consulta = await dbKnex("postagem")
+            .count({ num: "*" })
+            .where({ pet: 0 });
 
-//     try {
-//         await Churrascaria.destroy({ where: { id } });
+        res.status(200).json(consulta[0]);
+    } catch (error) {
+        res.status(400).json({ id: 0, msg: "Erro: " + error.message });
+    }
+}
 
-//         // registra um log desta exclusão
-//         await Log.create({
-//             descricao: "Exclusão da Churrascaria " + id,
-//             usuario_id: user_logado_id
-//         })
+export const postagemComPet = async (req, res) => {
+    try {
+        const consulta = await dbKnex("postagem")
+            .count({ num: "*" })
+            .where({ pet: 0 });
 
-//         res.status(200).json({ msg: "Ok! Removido com Sucesso" })
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// }
+        res.status(200).json(consulta[0]);
+    } catch (error) {
+        res.status(400).json({ id: 0, msg: "Erro: " + error.message });
+    }
+}
 
-// export const churrascariaPesq = async (req, res) => {
-//     const { id } = req.params
+export const postagemVacina = async (req, res) => {
+    try {
+        const consulta = await dbKnex("postagem")
+            .count({ num: "*" })
+            .whereNotNull('vacina');
 
-//     try {
-//         const churrascarias = await Churrascaria.findOne({ where: { id: id } }, { include: Usuario })
-//         res.status(200).json(churrascarias)
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// }
+        res.status(200).json(consulta[0]);
+    } catch (error) {
+        res.status(400).json({ id: 0, msg: "Erro: " + error.message });
+    }
+};

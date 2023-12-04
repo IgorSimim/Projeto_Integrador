@@ -27,48 +27,57 @@ export const Postagem = sequelize.define('postagem', {
   },
   nomepet: {
     type: DataTypes.STRING(40),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   tipo: {
     type: DataTypes.STRING(40),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   raca: {
     type: DataTypes.STRING(40),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   porte: {
     type: DataTypes.STRING(40),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   sexo: {
     type: DataTypes.STRING(40),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   idade: {
     type: DataTypes.STRING(20),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   descricaopet: {
-    type: DataTypes.STRING(200),
-    allowNull: true
+    type: DataTypes.STRING(250),
+    allowNull: true,
+    defaultValue: null
   },
   fotopet: {
     type: DataTypes.STRING(255),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   vacina: {
     type: DataTypes.STRING(255),
-    allowNull: true
+    allowNull: true,
+    defaultValue: null
   },
   data: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
     defaultValue: new Date()
   },
   destaque: {
     type: DataTypes.TINYINT(1),
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   }
 }, {

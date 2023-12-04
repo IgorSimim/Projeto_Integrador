@@ -57,12 +57,12 @@ export const Usuario = sequelize.define('usuario', {
   },
   destaque: {
     type: DataTypes.TINYINT(1),
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   confirmado: {
     type: DataTypes.TINYINT(1),
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   }
 }, {

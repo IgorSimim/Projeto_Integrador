@@ -9,6 +9,7 @@ export default function Cadastro() {
     defaultValues: {
       porte: "Pequeno",
       pet: false,
+      destaque: false,
       tipo: "",
       porte: "",
       sexo: "",
@@ -33,7 +34,7 @@ export default function Cadastro() {
     }
 
     // Lógica para lidar com o envio de dados do formulário aqui
-    const usuario = await fetch("http://localhost:3004/postagens", {
+    const usuario = await fetch("http://localhost:3000/postagens", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ ...data })
@@ -52,11 +53,11 @@ export default function Cadastro() {
       <h2 className="mt-2">Cadastro das Postagens</h2>
       <form onSubmit={handleSubmit(enviaDados)}>
         <div className="row">
-          <div className="col-sm-4">
-            <label htmlFor="nome" className="form-label">Nome do Usuário</label>
-            <input type="text" className="form-control" id="nome" {...register("nome")} required />
+          <div className="col-sm-2">
+            <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
+            <input type="text" className="form-control" id="usuario_id" {...register("usuario_id")} required />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
             <input type="text" className="form-control" id="titulo" {...register("titulo")} required />
           </div>
@@ -90,10 +91,19 @@ export default function Cadastro() {
 
         <div className="row mt-3">
           <div className="col-sm-8">
-            <label htmlFor="descricaopost" className="form-label">Descrição da Postagem</label>
-            <textarea className="form-control" id="descricaopost" rows="3" {...register("descricaopost")} required></textarea>
+            <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
+            <textarea className="form-control" id="descricao" rows="3" {...register("descricao")} required></textarea>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-2">
+            <p>Status da Postagem:</p>
+            <div className="form-check form-switch">
+              <input className="form-check-input" type="checkbox"
+                id="destaque"
+                {...register("destaque")} />
+              <label className="form-check-label" htmlFor="destaque">Destaque</label>
+            </div>
+          </div>
+          <div className="col-sm-2">
             <p>Postagem com pet:</p>
             <div className="form-check form-switch">
               <input
