@@ -19,7 +19,7 @@ async function conecta_db() {
     await sequelize.authenticate();
     console.log('Conexão com banco de dados realizada com sucesso');
 
-    await Admin.sync({alter: true})
+    await Admin.sync()
     await Usuario.sync({alter: true})
     await Postagem.sync({alter: true})
   } catch (error) {
