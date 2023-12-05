@@ -33,18 +33,32 @@ export default function Cadastro() {
       data.assunto = data.assuntoCustom;
     }
 
-    // Lógica para lidar com o envio de dados do formulário aqui
-    const usuario = await fetch("http://localhost:3000/postagens", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ ...data })
-    });
 
-    if (usuario.status === 201) {
-      toast.success("Ok! Postagem cadastrada com sucesso");
-      reset();
-    } else {
-      toast.error("Erro... Não foi possível concluir o cadastro");
+    try {
+      const response = await fetch("http://localhost:3000/postagens", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ ...data })
+      });
+
+      if (response.status === 200) {
+        toast.success("Ok! Postagem cadastrada com sucesso");
+        reset();
+      } else {
+        const errorData = await response.json();
+
+        if (errorData.id === 1) {
+          toast.error(errorData.msg); // Trata o erro genérico
+        } else if (errorData.id === 2) {
+          toast.error(errorData.msg); // Trata o erro específico da foto do pet
+        } else if (errorData.id === 3) {
+          toast.error(errorData.msg); // Trata o erro específico do cartao de vacina do pet
+        } 
+
+      }
+    } catch (error) {
+      console.error("Erro ao processar a requisição:", error);
+      toast.error("Erro ao processar a requisição. Tente novamente mais tarde.");
     }
   }
 

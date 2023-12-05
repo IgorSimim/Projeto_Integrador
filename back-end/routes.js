@@ -41,7 +41,7 @@ router.get('/usuarios', usuarioIndex)
       .get('/usuarios/idade', usuarioIdade)
 
 router.get('/postagens', postagemIndex)
-      .get('/postagens', postagemCreate)
+      .post('/postagens', postagemCreate)
       .delete('/postagens/:id', postagemDestroy)
       .put('/postagens/:id', postagemUpdate)
       .patch('/postagens/destaque/:id', postagemDestaque)
