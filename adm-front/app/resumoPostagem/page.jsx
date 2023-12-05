@@ -11,9 +11,9 @@ export default function Resumo() {
         title: "Total de postagens por assunto",
     };
 
-    // const optionsData = {
-    //     title: "Quantidade de postagens separados por data",
-    // }
+    const optionsData = {
+        title: "Quantidade de postagens separados por data",
+    }
 
     const [postagens, setPostagens] = useState([]);
     const [gerais, setGerais] = useState({
@@ -78,31 +78,31 @@ export default function Resumo() {
     };
 
     // Contagem de postagens por data
-    // const contarPostagensPorData = () => {
-    //     const contagem = {};
+    const contarPostagensPorData = () => {
+        const contagem = {};
 
-    //     postagens.forEach((postagem) => {
-    //         const data = postagem.data;
-    //         if (contagem[data]) {
-    //             contagem[data]++;
-    //         } else {
-    //             contagem[data] = 1;
-    //         }
-    //     });
+        postagens.forEach((postagem) => {
+            const data = postagem.data;
+            if (contagem[data]) {
+                contagem[data]++;
+            } else {
+                contagem[data] = 1;
+            }
+        });
 
-    //     return Object.entries(contagem);
-    // };
+        return Object.entries(contagem);
+    };
 
     // Renderização do gráfico de pizza
     const dataAssunto = [["Assunto", "Total"]].concat(contarPostagensPorAssunto());
 
     // Renderização do gráfico de barras
-    // const dataData = [["Data", "Quantidade"]].concat(
-    //     contarPostagensPorData().map(([data, quantdata]) => [
-    //         parseFloat(data),
-    //         quantidade,
-    //     ])
-    // );
+    const dataData = [["Data", "Quantidade"]].concat(
+        contarPostagensPorData().map(([data, quantdata]) => [
+            parseFloat(data),
+            quantidade,
+        ])
+    );
 
 
     return (
@@ -136,8 +136,8 @@ export default function Resumo() {
             <h4 className="mt-5 ms-5">Gráfico de Postagens por Assunto</h4>
             <Chart chartType="PieChart" width="100%" height="400px" data={dataAssunto} options={optionsAssunto} />
 
-            {/* <h4 className="mt-5 ms-5">Gráfico de Postagens por Data</h4>
-            <Chart chartType="ColumnChart" width="100%" height="400px" data={dataData} options={optionsData} /> */}
+            <h4 className="mt-5 ms-5">Gráfico de Postagens por Data</h4>
+            <Chart chartType="ColumnChart" width="100%" height="400px" data={dataData} options={optionsData} />
         </div>
     );
 }

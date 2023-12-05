@@ -73,7 +73,7 @@ export const Postagem = sequelize.define('postagem', {
   data: {
     type: DataTypes.DATE,
     allowNull: true,
-    defaultValue: new Date()
+    defaultValue: DataTypes.NOW
   },
   destaque: {
     type: DataTypes.TINYINT(1),

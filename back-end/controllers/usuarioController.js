@@ -71,38 +71,45 @@ export const usuarioCreate = async (req, res) => {
   const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
 
   if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
-    res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
+    res.status(400).json({ id: 1, msg: 'Erro... Informe os dados' });
     return;
   }
 
   const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailTest.test(email)) {
-    res.status(400).json({ id: 1, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
+    res.status(400).json({ id: 2, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
     return;
   }
 
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 2, msg: mensaValidacao.join(', ') });
+    res.status(400).json({ id: 3, msg: mensaValidacao.join(', ') });
     return;
   }
 
   const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
   if (!cpfTest.test(cpf)) {
-    res.status(400).json({ id: 3, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    res.status(400).json({ id: 4, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
     return;
   }
 
   const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
   if (!telTest.test(telefone)) {
-    res.status(400).json({ id: 4, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
+    res.status(400).json({ id: 5, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
   if (idade < 18) {
-    res.status(400).json({ id: 5, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
+    res.status(400).json({ id: 6, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
     return;
   }
+  
+  const urlTest = /\.(jpg|png)$/;
+  if (!urlTest.test(perfil)) {
+    res.status(400).json({ id: 7, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+    return;
+  }
+
 
   try {
     let hash = md5(nome + email + Date.now());
@@ -184,7 +191,7 @@ export const usuarioUpdate = async (req, res) => {
 
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 2, msg: mensaValidacao });
+    res.status(400).json({ id: 2, msg: mensaValidacao.join(', ') });
     return;
   }
 

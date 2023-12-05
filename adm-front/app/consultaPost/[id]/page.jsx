@@ -60,9 +60,13 @@ export default function Consulta({ params }) {
           </div>
 
           <div className="row mt-3">
-            <div className="col-sm-8">
+            <div className="col-sm-6">
               <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
               <textarea className="form-control" id="descricao" rows="3" value={postagem.descricao} readOnly></textarea>
+            </div>
+            <div className="col-sm-2">
+              <label htmlFor="data" className="form-label">Data da Postagem</label>
+              <textarea className="form-control" id="data" rows="3" value={postagem.data} readOnly></textarea>
             </div>
             <div className="col-sm-2">
               <p>Status da Postagem:</p>

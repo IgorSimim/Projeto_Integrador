@@ -28,16 +28,21 @@ export default function Cadastro() {
         const errorData = await response.json();
 
         if (errorData.id === 1) {
+          toast.error(errorData.msg); // Trata o erro genérico
+        } else
+        if (errorData.id === 2) {
           toast.error(errorData.msg); // Trata o erro específico do email
-        } else if (errorData.id === 2) {
-          toast.error(errorData.msg); // Trata o erro específico da senha
         } else if (errorData.id === 3) {
-          toast.error(errorData.msg); // Trata o erro específico do cpf
+          toast.error(errorData.msg); // Trata o erro específico da senha
         } else if (errorData.id === 4) {
-          toast.error(errorData.msg); // Trata o erro específico do telefone
+          toast.error(errorData.msg); // Trata o erro específico do cpf
         } else if (errorData.id === 5) {
+          toast.error(errorData.msg); // Trata o erro específico do telefone
+        } else if (errorData.id === 6) {
           toast.error(errorData.msg); // Trata o erro específico da idade
-        } 
+        } else if (errorData.id === 7) {
+          toast.error(errorData.msg); // Trata o erro específico da foto de perfil
+        }
         
       }
     } catch (error) {
