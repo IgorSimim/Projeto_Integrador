@@ -1,0 +1,32 @@
+.partners {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.partners__title {
+    font-size: 2.625rem;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.partners__description {
+    font-size: 1.375rem;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 15px;
+
+}
+
+.partners__cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 32px;
+    gap: 80px;
+}

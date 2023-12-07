@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'styles/global.css'
+
 import { Providers } from '@/components/Providers';
-import Card from '@/components/cards';
 import Titulo from '@/components/Titulo';
 
 export const metadata = {
@@ -17,7 +18,6 @@ export default function RootLayout({ children }) {
         <Providers>
           <Titulo/>
           {children}
-          <Card/>
         </Providers>
       </body>
     </html>

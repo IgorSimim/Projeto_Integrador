@@ -38,7 +38,7 @@ export default function Proposta() {
         num: dado.num
       })
     }
-    getVeiculo()
+    // getVeiculo()
   }, [])
 
   async function enviaProposta(data) {
