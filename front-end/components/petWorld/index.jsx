@@ -14,7 +14,7 @@ export default function PetWorld(props) {
 
             <div class="pet-world-content">
                 <div class="pet-world-content-head">
-                    <img src="public/our-pet-world/image_2.svg" width="110px" height="110px" />
+                    <img src="./our-pet-world/image_2.svg" width="110px" height="110px" />
                     <span class="pet-world-content-name">Propósito</span>
 
                     <p class="pet-world-content-context">
@@ -23,7 +23,7 @@ export default function PetWorld(props) {
                 </div>
 
                 <div class="pet-world-content-head">
-                    <img src="public/our-pet-world/image_1.svg" />
+                    <img src="./our-pet-world/image_1.svg" />
                     <span class="pet-world-content-name">Objetivo</span>
 
                     <p class="pet-world-content-context">
@@ -31,7 +31,7 @@ export default function PetWorld(props) {
                     </p>
                 </div>
                 <div class="pet-world-content-head">
-                    <img src="public/our-pet-world/image_3.svg" />
+                    <img src="./our-pet-world/image_3.svg" />
                     <span class="pet-world-content-name">Princípios</span>
 
                     <p class="pet-world-content-context">
