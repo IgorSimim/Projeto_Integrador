@@ -1,0 +1,10 @@
+{
+    "cards": [
+        {
+            "partner": {
+                "name": "Nome do parceiro",
+                "image": "./parceiro.png"
+            }
+        }
+    ]
+}

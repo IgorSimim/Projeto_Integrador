@@ -1,0 +1,26 @@
+{
+    "cards": [
+        {
+            "pet": {
+                "name": "Princesa",
+                "sex": "Fêmea",
+                "size": "Pequeno",
+                "race": "SRD Pelo curto",
+                "age": "1,5 anos",
+                "about": "Sou carinhosa, brincalhona e adoro correr.",
+                "image": "./princesa.jpeg"
+            }
+        },
+        {
+            "pet": {
+                "name": "Caramelo",
+                "sex": "Fêmea",
+                "size": "Pequeno",
+                "race": "SRD Pelo curto",
+                "age": "1,5 anos",
+                "about": "Sou carinhosa, brincalhona e adoro correr.",
+                "image": "./princesa.jpeg"
+            }
+        }
+    ]
+}
