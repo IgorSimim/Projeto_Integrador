@@ -2,6 +2,7 @@
 import CardPet from "./pet";
 import CardPartner from "./partner";
 import CardNews from "./news";
+import CardLastNews from "./lastNews";
 import "./card.css";
 
 export default function Card(props) {
@@ -12,9 +13,12 @@ export default function Card(props) {
   
 
   if (isNews) {
-    return <CardNews
+    return <CardLastNews
       news={props.data}
     />
+    // return <CardNews
+    //   news={props.data}
+    // />
   }
 
   if (isPartner) {

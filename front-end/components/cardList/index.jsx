@@ -18,8 +18,6 @@ export default function CardList(props) {
       <main id="cards">
         {
           cards.map((card, index) => {
-            console.log('card', card)
-            console.log('props.type', props.type)
             return (
               <Card
                 key={index}

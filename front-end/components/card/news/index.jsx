@@ -18,7 +18,7 @@ export default function CardNews(props) {
       <img className="pet__picture" src={news.image} />
       <div className="card__info">
         <p className="news__title">{news.title}</p>
-        <p className="pet__about">{news.about}</p>
+        <p className="pet__about">{news.short}</p>
       </div>
     </div>
   );

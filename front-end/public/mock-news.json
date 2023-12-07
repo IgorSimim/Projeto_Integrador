@@ -2,9 +2,29 @@
     "cards": [
         {
             "news": {
-                "title": "Abandono",
-                "about": "Vários cães em situações precárias, no bairro Dunas",
-                "image": "./princesa_wide.jpeg"
+                "title": "Vários cães em situações precárias, no bairro Dunas",
+                "tag": "Abandono",
+                "short": "Uma cena muito triste e, infelizmente, comum, é se deparar com animais abandonados nas ruas.De acordo com dados divulgados pela OMS (Organização Mundial de Saúde), existem mais de 30 milhões de cães e gatos ...",
+                "about": "Uma cena muito triste e, infelizmente, comum, é se deparar com animais abandonados nas ruas.De acordo com dados divulgados pela OMS (Organização Mundial de Saúde), existem mais de 30 milhões de cães e gatos and more",
+                "image": "https://source.unsplash.com/random/425x185/?pet"
+            }
+        },
+        {
+            "news": {
+                "title": "Vários cães em situações precárias, no bairro Dunas",
+                "tag": "Abandono",
+                "short": "Uma cena muito triste e, infelizmente, comum, é se deparar com animais abandonados nas ruas.De acordo com dados divulgados pela OMS (Organização Mundial de Saúde), existem mais de 30 milhões de cães e gatos ...",
+                "about": "Uma cena muito triste e, infelizmente, comum, é se deparar com animais abandonados nas ruas.De acordo com dados divulgados pela OMS (Organização Mundial de Saúde), existem mais de 30 milhões de cães e gatos and more",
+                "image": "https://source.unsplash.com/random/425x185/?pet"
+            }
+        },
+        {
+            "news": {
+                "title": "Vários cães em situações precárias, no bairro Dunas",
+                "tag": "Abandono",
+                "short": "Uma cena muito triste e, infelizmente, comum, é se deparar com animais abandonados nas ruas.De acordo com dados divulgados pela OMS (Organização Mundial de Saúde), existem mais de 30 milhões de cães e gatos ...",
+                "about": "Uma cena muito triste e, infelizmente, comum, é se deparar com animais abandonados nas ruas.De acordo com dados divulgados pela OMS (Organização Mundial de Saúde), existem mais de 30 milhões de cães e gatos and more",
+                "image": "https://source.unsplash.com/random/425x185/?pet"
             }
         }
     ]

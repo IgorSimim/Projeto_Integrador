@@ -12,9 +12,6 @@ export default function CardPartner(props) {
     return <div>Loading...</div>;
   }
 
-  console.log('props', props)
-  console.log('partner', partner)
-
   return (
     <div className="card__partner">
       <div className="partner__logo">
