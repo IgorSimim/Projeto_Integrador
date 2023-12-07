@@ -1,5 +1,6 @@
 'use client'
 import CardList from '@/components/cardList';
+import Button from '@/components/button';
 import { useEffect, useState } from "react"
 
 export default function Home() {
@@ -47,10 +48,10 @@ export default function Home() {
 
   return (
     <>
-      <p>BATATA</p>
+      <h1>Cards</h1>
 
       <section>
-        <h1>Card normal - ok</h1>
+        <h2>Card normal - ok</h2>
         <CardList
           type="pet"
           cards={cards}
@@ -62,7 +63,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h1>isMinimal - ok</h1>
+        <h2>isMinimal - ok</h2>
         <CardList
           type="pet"
           cards={cards}
@@ -74,7 +75,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h1>Partners</h1>
+        <h2>Partners</h2>
         <CardList
           type="partner"
           cards={partners}
@@ -86,7 +87,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h1>isNews</h1>
+        <h2>isNews</h2>
         <CardList
           type="news"
           cards={news}
@@ -98,7 +99,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h1>isProfile</h1>
+        <h2>isProfile</h2>
         <CardList
           type="pet"
           cards={cards}
@@ -109,7 +110,30 @@ export default function Home() {
         />
       </section>
 
-      
+      <hr />
+
+      <h1>Buttons</h1>
+
+      <section>
+        <h2>Filter</h2>
+        {/* provavelmente tenhamos que fazer esse componente receber as opções para escrever elas em vez de ficar estatico */}
+        <Button type="filter" />
+      </section>
+
+      <section>
+        <h2>Load more</h2>
+        <Button type="load-more" />
+      </section>
+
+      <section>
+        <h3>Title with button</h3>
+        {/* provavelmente esse cara deveria ser um compoente de titulo e não de botão */}
+        <Button
+          type="last-news"
+          title="Últimas notícias"
+          text="Ver todas"
+        />
+      </section>
     </>
   )
 }
