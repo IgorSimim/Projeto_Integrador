@@ -13,18 +13,13 @@ footer {
 
 .footer-container{
     width: 1440px;
-
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-   
-
-    
     max-height: 10.93rem;
-
     padding: 2.43rem 1.43rem 1.43rem 0rem;
-    gap: 2rem;d
+    gap: 2rem;
 }
 
 .footer-content {
