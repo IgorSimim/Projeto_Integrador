@@ -26,8 +26,8 @@ export async function main(nome, email, hash) {
   let info = await transporter.sendMail({
     from: '"Social pet" <socialpetpel@email.com>',
     to: email,
-    subject: "Solicitação Alteração de Senha",
-    text: `Copie e cole o endereço: ${link} para alterar`,
+    subject: "Confirmação da conta",
+    text: `Copie e cole o endereço: ${link} para confirmar seu cadastro`,
     html: mensa, // html body
   });
 
@@ -58,3 +58,31 @@ export const enviaEmail = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+export const confirmacaoConta = async (req, res) => {
+  const hash = req.params.hash;
+  console.log("Rota de confirmação acessada. Hash:", hash);
+
+  try {
+    const usuario = await Usuario.findOne({ where: { hash } });
+
+    if (usuario == null) {
+      res.status(400).json({ erro: "Erro... Link de confirmação inválido" });
+      return;
+    }
+
+    // Verifique se o usuário já foi confirmado anteriormente
+    if (usuario.confirmado === 1) {
+      res.status(200).json({ msg: "Sua conta já foi confirmada anteriormente." });
+      return;
+    }
+
+    // Atualize o atributo confirmado para 1
+    await usuario.update({ confirmado: 1 });
+
+    // Exiba a mensagem de confirmação na tela
+    res.status(200).json({ msg: "Conta confirmada com sucesso. Você já pode fazer login." });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+}

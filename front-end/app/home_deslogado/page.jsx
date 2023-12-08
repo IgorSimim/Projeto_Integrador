@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import './login.css'
+import '../login/login.css'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 // import { ToastContainer, toast } from 'react-toastify'

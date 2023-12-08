@@ -68,7 +68,7 @@ export const usuarioIndex = async (req, res) => {
 
 
 export const usuarioCreate = async (req, res) => {
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
+  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado, hash } = req.body;
 
   if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
     res.status(400).json({ id: 1, msg: 'Erro... Informe os dados' });
@@ -116,7 +116,7 @@ export const usuarioCreate = async (req, res) => {
 
     const usuario = await Usuario.create({
       nome, email, senha, cpf, telefone, idade,
-      sexo, bairro, perfil, credito, debito, destaque, confirmado
+      sexo, bairro, perfil, credito, debito, destaque, confirmado, hash
     });
 
     main(usuario.nome, usuario.email, hash).catch(console.error);
