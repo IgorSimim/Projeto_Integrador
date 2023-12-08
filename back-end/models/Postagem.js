@@ -55,11 +55,6 @@ export const Postagem = sequelize.define('postagem', {
     allowNull: true,
     defaultValue: null
   },
-  descricaopet: {
-    type: DataTypes.STRING(250),
-    allowNull: true,
-    defaultValue: null
-  },
   fotopet: {
     type: DataTypes.STRING(255),
     allowNull: true,
@@ -69,16 +64,6 @@ export const Postagem = sequelize.define('postagem', {
     type: DataTypes.STRING(255),
     allowNull: true,
     defaultValue: null
-  },
-  data: {
-    type: DataTypes.DATE,
-    allowNull: true,
-    defaultValue: DataTypes.NOW
-  },
-  destaque: {
-    type: DataTypes.TINYINT(1),
-    allowNull: true,
-    defaultValue: 0
   }
 }, {
   tableName: "postagem"

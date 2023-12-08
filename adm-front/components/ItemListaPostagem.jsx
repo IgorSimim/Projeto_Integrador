@@ -42,7 +42,6 @@ export default function ListaPostagem(props) {
       </td>
 
       <td>{props.postagem.titulo}</td>
-      <td>{props.postagem.nome}</td>
       <td>{props.postagem.assunto}</td>
       <td>{props.postagem.pet ? "Com pet" : "Sem pet"}</td>
       <td>
@@ -51,11 +50,11 @@ export default function ListaPostagem(props) {
           title="Excluir"
         ></i>
         <i className="bi bi-pencil-square text-warning ms-2" style={{ fontSize: 24, cursor: 'pointer' }}
-          onClick={props.altera}
+          onClick={props.alteraPost}
           title="Alterar"
         ></i>
         <i className="bi bi-search text-success ms-2" style={{ fontSize: 24, cursor: 'pointer' }}
-          onClick={props.consulta}
+          onClick={props.consultaPost}
           title="Consultar"
         ></i>
       </td>

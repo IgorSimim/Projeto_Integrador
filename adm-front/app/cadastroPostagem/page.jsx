@@ -53,7 +53,7 @@ export default function Cadastro() {
           toast.error(errorData.msg); // Trata o erro específico da foto do pet
         } else if (errorData.id === 3) {
           toast.error(errorData.msg); // Trata o erro específico do cartao de vacina do pet
-        } 
+        }
 
       }
     } catch (error) {
@@ -69,7 +69,7 @@ export default function Cadastro() {
         <div className="row">
           <div className="col-sm-2">
             <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
-            <input type="text" className="form-control" id="usuario_id" {...register("usuario_id")} required />
+            <input type="number" className="form-control" id="usuario_id" {...register("usuario_id")} required />
           </div>
           <div className="col-sm-6">
             <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
@@ -108,16 +108,7 @@ export default function Cadastro() {
             <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
             <textarea className="form-control" id="descricao" rows="3" {...register("descricao")} required></textarea>
           </div>
-          <div className="col-sm-2">
-            <p>Status da Postagem:</p>
-            <div className="form-check form-switch">
-              <input className="form-check-input" type="checkbox"
-                id="destaque"
-                {...register("destaque")} />
-              <label className="form-check-label" htmlFor="destaque">Destaque</label>
-            </div>
-          </div>
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <p>Postagem com pet:</p>
             <div className="form-check form-switch">
               <input
@@ -135,7 +126,7 @@ export default function Cadastro() {
         {showAdditionalLabels && (
           <div>
             <div className="row mt-3">
-              <div className="col-sm-3">
+              <div className="col-sm-5">
                 <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                 <input type="text" className="form-control" id="nomepet" {...register("nomepet")} required />
               </div>
@@ -147,11 +138,14 @@ export default function Cadastro() {
                   <option value="Outro">Outro</option>
                 </select>
               </div>
-              <div className="col-sm-3">
+              <div className="col-sm-4">
                 <label htmlFor="raca" className="form-label">Raça</label>
                 <input type="text" className="form-control" id="raca" {...register("raca")} required />
               </div>
-              <div className="col-sm-3">
+            </div>
+
+            <div className="row mt-3">
+              <div className="col-sm-4">
                 <label htmlFor="porte" className="form-label">Porte</label>
                 <select id="porte" className="form-select" {...register("porte")} required>
                   <option value="Pequeno">Pequeno</option>
@@ -160,9 +154,6 @@ export default function Cadastro() {
                   <option value="Gigante">Gigante</option>
                 </select>
               </div>
-            </div>
-
-            <div className="row mt-3">
               <div className="col-sm-3">
                 <label htmlFor="sexo" className="form-label">Sexo</label>
                 <select id="sexo" className="form-select" {...register("sexo")} required>
@@ -170,13 +161,9 @@ export default function Cadastro() {
                   <option value="Fêmea">Fêmea</option>
                 </select>
               </div>
-              <div className="col-sm-3">
+              <div className="col-sm-5">
                 <label htmlFor="idade" className="form-label">Idade</label>
-                <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} />
-              </div>
-              <div className="col-sm-6">
-                <label htmlFor="descricaopet" className="form-label">Descrição do Pet</label>
-                <textarea className="form-control" id="descricaopet" rows="3" {...register("descricaopet")}></textarea>
+                <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} required />
               </div>
             </div>
 

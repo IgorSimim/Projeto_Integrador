@@ -2,20 +2,21 @@ import { Router } from "express"
 
 import {
       confirmacaoConta, usuarioBairro, usuarioCartoes, usuarioCreate, usuarioDestaque,
-      usuarioDestroy, usuarioFeminino, usuarioGeral, usuarioIdade, usuarioIndex, usuarioLogin,
+      usuarioDestroy, usuarioFeminino, usuarioGeral, usuarioIdade, usuarioIndex,
       usuarioMasculino, usuarioPesq, usuarioUpdate
 } from "./controllers/usuarioController.js"
 import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
 import { enviaEmail } from "./controllers/controllerMail.js"
 import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaUsuaController.js"
 import {
-      postagemComPet, postagemCreate, postagemDestaque, postagemDestroy, postagemGeral,
+      postagemComPet, postagemCreate, postagemDestroy, postagemGeral,
       postagemIndex, postagemPesq, postagemSemPet, postagemUpdate, postagemVacina
 } from "./controllers/postagemController.js"
 import {
       ListaPostCIndex, ListaPostSIndex, PostagemCLista,
       PostagemCPdf, PostagemSLista, PostagemSPdf
 } from "./controllers/listaPostController.js"
+import { loginUsuario } from "./controllers/loginController.js"
 
 const router = Router()
 
@@ -25,7 +26,6 @@ router.get('/usuarios', usuarioIndex)
       .put('/usuarios/:id', usuarioUpdate)
       .patch('/usuarios/destaque/:id', usuarioDestaque)
       .get('/usuarios/pesq/:id', usuarioPesq)
-      .post('/login', usuarioLogin)
       .get('/confirmacao/:hash', confirmacaoConta)
 
       .get('/listausuarios', ListaIndex)
@@ -44,7 +44,6 @@ router.get('/postagens', postagemIndex)
       .post('/postagens', postagemCreate)
       .delete('/postagens/:id', postagemDestroy)
       .put('/postagens/:id', postagemUpdate)
-      .patch('/postagens/destaque/:id', postagemDestaque)
       .get('/postagens/pesq/:id', postagemPesq)
 
       .get('/listapostagenscompet', ListaPostCIndex)
@@ -64,6 +63,9 @@ router.get('/postagens', postagemIndex)
 router.get('/admins', adminIndex)
       .post('/admins', adminCreate)
       .delete('/admins/:id', adminDestroy)
+      
+router.post('/login', loginUsuario)
+
 
 router.get('/enviaemail', enviaEmail)
 

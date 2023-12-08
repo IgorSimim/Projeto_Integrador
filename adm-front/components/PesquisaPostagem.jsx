@@ -17,7 +17,7 @@ export default function PesquisaPostagem(props) {
       onReset={limpa}>
       <div className="col-12">
         <input type="text" className="form-control"
-          placeholder="Pesquisa nome ou titulo"
+          placeholder="Pesquisa assunto ou titulo"
           {...register("pesq")}
         />
       </div>

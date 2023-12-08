@@ -1,9 +1,10 @@
 'use client'
+import { format } from "date-fns";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 async function getPostagem(id) {
-  const response = await fetch("http://localhost:3000/postagens/pesq" + id);
+  const response = await fetch("http://localhost:3000/postagens/pesq/" + id);
   const dado = await response.json();
   return dado;
 }
@@ -14,9 +15,9 @@ export default function Consulta({ params }) {
 
   useEffect(() => {
     async function fetchPostagem() {
-      const postagemData = await getPostagem(params.id);
-      setPostagem(postagemData);
-      setShowAdditionalLabels2(postagemData.assunto === "Outro");
+      const postagem = await getPostagem(params.id);
+      setPostagem(postagem);
+      setShowAdditionalLabels2(postagem.assunto === "Outro");
     }
 
     fetchPostagem();
@@ -24,13 +25,13 @@ export default function Consulta({ params }) {
 
   return (
     <div className="container">
-      <h2 className="mt-2">Consulta de Usuários</h2>
+      <h2 className="mt-2">Consulta das Postagens</h2>
       {postagem && (
         <form>
           <div className="row">
             <div className="col-sm-2">
               <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
-              <input type="text" className="form-control" id="usuario_id" value={postagem.usuario_id} readOnly />
+              <input type="number" className="form-control" id="usuario_id" value={postagem.usuario_id} readOnly />
             </div>
             <div className="col-sm-6">
               <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
@@ -64,22 +65,11 @@ export default function Consulta({ params }) {
               <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
               <textarea className="form-control" id="descricao" rows="3" value={postagem.descricao} readOnly></textarea>
             </div>
-            <div className="col-sm-2">
+            <div className="col-sm-3">
               <label htmlFor="data" className="form-label">Data da Postagem</label>
-              <textarea className="form-control" id="data" rows="3" value={postagem.data} readOnly></textarea>
+              <input type="text" className="form-control" id="data" value={format(new Date(postagem.createdAt), 'dd/MM/yyyy')} readOnly />
             </div>
-            <div className="col-sm-2">
-              <p>Status da Postagem:</p>
-              <div className="form-check form-switch">
-                <input className="form-check-input" type="checkbox"
-                  id="destaque"
-                  checked={postagem.destaque}
-                  readOnly
-                />
-                <label className="form-check-label" htmlFor="destaque">Destaque</label>
-              </div>
-            </div>
-            <div className="col-sm-2">
+            <div className="col-sm-3">
               <p>Postagem com pet:</p>
               <div className="form-check form-switch">
                 <input className="form-check-input" type="checkbox"
@@ -92,39 +82,35 @@ export default function Consulta({ params }) {
             </div>
           </div>
 
-          {postagem.pet && (
+          {postagem.pet ? (
             <div>
               <div className="row mt-3">
-                <div className="col-sm-3">
+                <div className="col-sm-4">
                   <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                   <input type="text" className="form-control" id="nomepet" value={postagem.nomepet} readOnly />
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-4">
                   <label htmlFor="tipo" className="form-label">Tipo</label>
                   <input type="text" className="form-control" id="tipo" value={postagem.tipo} readOnly />
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-4">
                   <label htmlFor="raca" className="form-label">Raça</label>
                   <input type="text" className="form-control" id="raca" value={postagem.raca} readOnly />
-                </div>
-                <div className="col-sm-3">
-                  <label htmlFor="porte" className="form-label">Porte</label>
-                  <input type="text" className="form-control" id="porte" value={postagem.porte} readOnly />
                 </div>
               </div>
 
               <div className="row mt-3">
-                <div className="col-sm-3">
+                <div className="col-sm-4">
+                  <label htmlFor="porte" className="form-label">Porte</label>
+                  <input type="text" className="form-control" id="porte" value={postagem.porte} readOnly />
+                </div>
+                <div className="col-sm-4">
                   <label htmlFor="sexo" className="form-label">Sexo</label>
                   <input type="text" className="form-control" id="sexo" value={postagem.sexo} readOnly />
                 </div>
-                <div className="col-sm-3">
+                <div className="col-sm-4">
                   <label htmlFor="idade" className="form-label">Idade</label>
                   <input type="text" className="form-control" id="idade" value={postagem.idade} readOnly />
-                </div>
-                <div className="col-sm-6">
-                  <label htmlFor="descricaopet" className="form-label">Descrição do Pet</label>
-                  <textarea className="form-control" id="descricaopet" rows="3" value={postagem.descricaopet} readOnly></textarea>
                 </div>
               </div>
 
@@ -147,9 +133,9 @@ export default function Consulta({ params }) {
                 </div>
               </div>
             </div>
-          )}
+          ) : null}
 
-          <Link className="btn btn-success float-end" href="/listagemPostagem">Voltar</Link>
+          <Link className="btn btn-success float-end mt-2" href="/listagemPostagem">Voltar</Link>
         </form>
       )}
     </div>

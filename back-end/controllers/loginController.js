@@ -5,7 +5,6 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 import { Usuario } from "../models/Usuario.js";
-import { Log } from "../models/Log.js";
 
 export const loginUsuario = async (req, res) => {
   const { email, senha } = req.body
@@ -26,6 +25,11 @@ export const loginUsuario = async (req, res) => {
       return
     }
 
+    if (usuario.confirmado == 0) {
+      res.status(400).json({ erro: mensaErroPadrao})
+      return
+    }
+
     if (bcrypt.compareSync(senha, usuario.senha)) {
       const token = jwt.sign({
         user_logado_id: usuario.id,
@@ -37,12 +41,6 @@ export const loginUsuario = async (req, res) => {
 
       res.status(200).json({msg: "Ok. Logado", token})
     } else {
-
-      // Registra um log desta tentativa de acesso
-      await Log.create({
-        descricao: "Tentativa de Acesso com Senha Inválida",
-        usuario_id: usuario.id
-      })
      
       res.status(400).json({ erro: mensaErroPadrao})
     }

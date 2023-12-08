@@ -32,26 +32,12 @@ export default function () {
     setPostagens(novosDados)
   }
 
-  async function destacaPostagem(id, status_atual) {
-    await fetch("http://localhost:3000/postagens/destaque/" + id,
-      {
-        method: "PATCH",
-        // headers: { "Content-type": "application/json" },
-        // body: JSON.stringify({ destaque: !status_atual })
-      })
-    const indiceAlterado = postagens.findIndex(postagem => postagem.id == id)
-    const novosDados = [...postagens]
-    novosDados[indiceAlterado].destaque = !status_atual
-    setPostagens(novosDados)
-  }
-
   const listaPostagens = postagens.map(postagem => (
     <ListaPostagem key={postagem.id}
       postagem={postagem}
       exclui={() => excluiPostagem(postagem.id)}
-      altera={() => router.push('alteraPost/' + postagem.id)}
-      consulta={() => router.push('consultaPost/' + postagem.id)}
-      destaca={() => destacaPostagem(postagem.id, postagem.destaque)}
+      alteraPost={() => router.push('alteraPost/' + postagem.id)}
+      consultaPost={() => router.push('consultaPost/' + postagem.id)}
     />
   ))
 
@@ -69,7 +55,7 @@ export default function () {
     const dados = await response.json()
 
     const novosDados = dados.filter(postagem =>
-      postagem.nome.toUpperCase().includes(pesquisa) || postagem.titulo.toUpperCase().includes(pesquisa)
+      postagem.assunto.toUpperCase().includes(pesquisa) || postagem.titulo.toUpperCase().includes(pesquisa)
     )
     setPostagens(novosDados)
   }
@@ -154,7 +140,6 @@ export default function () {
           <tr>
             <th>Foto</th>
             <th>Título da Postagem</th>
-            <th>Nome</th>
             <th>Assunto</th>
             <th>Pet</th>
             <th>Ações</th>
