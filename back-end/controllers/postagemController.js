@@ -4,11 +4,22 @@ import { Usuario } from '../models/Usuario.js';
 import { Postagem } from '../models/Postagem.js';
 import dbKnex from '../databases/db_config.js'
 
+const formatDates = (postagem) => {
+    const formattedUpdatedAt = format(new Date(postagem.updatedAt), 'dd/MM/yyyy HH:mm:ss');
+    const formattedCreatedAt = format(new Date(postagem.createdAt), 'dd/MM/yyyy HH:mm:ss');
+
+    return {
+        ...postagem.toJSON(), // Converte o objeto postagem para JSON
+        updatedAt: formattedUpdatedAt,
+        createdAt: formattedCreatedAt,
+    };
+};
+
 export const postagemIndex = async (req, res) => {
 
     try {
         const postagens = await Postagem.findAll({
-            include: [Usuario]
+            include: [Usuario, Pet]
         });
         res.status(200).json(postagens)
     } catch (error) {
@@ -18,67 +29,47 @@ export const postagemIndex = async (req, res) => {
 
 export const postagemCreate = async (req, res) => {
     const { titulo, assunto, descricao,
-        pet, usuario_id, nomepet, tipo, raca, porte, sexo,
-        idade, descricaopet, fotopet, vacina, destaque, data } = req.body
+        pet, nomepet, tipo, raca, porte,
+        sexo, fotopet, idade, destaque, usuario_id, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == 1
-        ? [titulo, assunto, descricao, pet, nomepet, tipo, raca, porte, sexo,
-            idade, descricaopet, fotopet, vacina, usuario_id]
-        : [titulo, assunto, descricao, pet, usuario_id]
-    // if (!titulo || !assunto || !descricao || !pet || !usuario_id) {
-    //     res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
-    //     return;
-    //   }
+        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, idade, fotopet, usuario_id]
+        : [titulo, assunto, descricao, usuario_id];
 
     if (requiredAttributes.some(attr => !attr)) {
-        res.status(400).json({ id: 1, msg: 'Erro... Informe todos os dados obrigatórios' });
+        res.status(400).json({ id: 0, msg: 'Erro... Informe todos os dados obrigatórios' });
         return;
     }
 
     const urlTestPet = /\.(jpg|png)$/;
-    if (!urlTestPet.test(fotopet)) {
-        res.status(400).json({ id: 2, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+    if (!urlTestPet.test(fotopet) && pet == 1) {
+        res.status(400).json({ id: 1, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     const urlTestVacina = /\.(jpg|png)$/;
-    if (!urlTestVacina.test(vacina)) {
-        res.status(400).json({ id: 3, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+    if (!urlTestVacina.test(vacina) && pet == 1) {
+        res.status(400).json({ id: 1, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     try {
-        // let postagem
-        // if (pet == 1) {
-        //     postagem = await Postagem.create({
-        //         titulo, assunto, descricao, pet, nomepet, tipo, raca, porte, sexo,
-        //         idade, descricaopet, fotopet, vacina,
-        //         destaque, usuario_id, data: format(new Date(), 'dd/MM/yyyy HH:mm:ss')
-        //     });
-        // } else {
-        //     postagem = await Postagem.create({
-        //         titulo, assunto, descricao, pet, destaque,
-        //         usuario_id, data: format(new Date(), 'dd/MM/yyyy HH:mm:ss')
-        //     });
-        // }
-        let postagemData = {
-            titulo, assunto, descricao, usuario_id,
-            pet, destaque, data: format(new Date(), 'dd/MM/yyyy HH:mm:ss')
-        };
+        const postagem = await Postagem.create({
+            titulo, assunto, descricao, usuario_id, pet,
+            nomepet, tipo, raca, porte, sexo, idade, fotopet, destaque
+        });
 
-        if (pet == 1) {
-            postagemData = {
-                ...postagemData,
-                nomepet, tipo, raca, porte, sexo, idade, descricaopet, fotopet, vacina
-            };
-        }
+        // Função para formatar as datas
+        const formattedPostagem = formatDates(postagem);
 
-        res.status(200).json(postagemData);
+        res.status(200).json(formattedPostagem);
     } catch (error) {
-        res.status(400).send(error)
+        console.error("Erro ao criar postagem:", error);
+        res.status(400).json({ id: 4, msg: "Erro ao criar postagem. Consulte o console para obter mais informações." });
     }
 }
+
 
 export const postagemDestaque = async (req, res) => {
     const { id } = req.params;
@@ -100,13 +91,13 @@ export const postagemUpdate = async (req, res) => {
     const { id } = req.params;
 
     const { titulo, assunto, descricao,
-        pet, nomepet, tipo, raca, porte, sexo,
-        idade, descricaopet, fotopet, vacina, destaque, usuario_id } = req.body;
+        pet, nomepet, tipo, raca, porte,
+        sexo, fotopet, idade, destaque, usuario_id, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == 1
-        ? [titulo, assunto, descricao, pet, nomepet, tipo, raca, porte, sexo, idade, descricaopet, fotopet, usuario_id]
-        : [titulo, assunto, descricao, pet, usuario_id];
+        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, idade, fotopet, usuario_id]
+        : [titulo, assunto, descricao, usuario_id];
 
     if (requiredAttributes.some(attr => !attr)) {
         res.status(400).json({ id: 0, msg: 'Erro... Informe todos os dados obrigatórios' });
@@ -114,20 +105,20 @@ export const postagemUpdate = async (req, res) => {
     }
 
     const urlTestPet = /\.(jpg|png)$/;
-    if (!urlTestPet.test(fotopet)) {
+    if (!urlTestPet.test(fotopet) && pet == 1) {
         res.status(400).json({ id: 1, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     const urlTestVacina = /\.(jpg|png)$/;
-    if (!urlTestVacina.test(vacina)) {
+    if (!urlTestVacina.test(vacina) && pet == 1) {
         res.status(400).json({ id: 1, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     try {
         if (pet == 1) {
-            await dbKnex("usuario").where({ id })
+            await dbKnex("postagem").where({ id })
                 .update({
                     titulo: titulo,
                     assunto: assunto,
@@ -139,14 +130,13 @@ export const postagemUpdate = async (req, res) => {
                     porte: porte,
                     sexo: sexo,
                     idade: idade,
-                    descricaopet: descricaopet,
                     fotopet: fotopet,
-                    vacina: vacina,
                     destaque: destaque,
-                    usuario_id: usuario_id
+                    usuario_id: usuario_id,
+                    vacina: vacina
                 })
         } else {
-            await dbKnex("usuario").where({ id })
+            await dbKnex("postagem").where({ id })
                 .update({
                     titulo: titulo,
                     assunto: assunto,
@@ -215,7 +205,7 @@ export const postagemComPet = async (req, res) => {
     try {
         const consulta = await dbKnex("postagem")
             .count({ num: "*" })
-            .where({ pet: 0 });
+            .where({ pet: 1 });
 
         res.status(200).json(consulta[0]);
     } catch (error) {

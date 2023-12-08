@@ -26,6 +26,11 @@ export const loginUsuario = async (req, res) => {
       return
     }
 
+    if (usuario.confirmado == 0) {
+      res.status(400).json({ erro: mensaErroPadrao})
+      return
+    }
+
     if (bcrypt.compareSync(senha, usuario.senha)) {
       const token = jwt.sign({
         user_logado_id: usuario.id,

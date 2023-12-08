@@ -251,33 +251,6 @@ export const usuarioDestroy = async (req, res) => {
 }
 
 
-export const usuarioLogin = async (req, res) => {
-
-  const { email, senha } = req.body
-
-  try {
-    const usuario = await Usuario.findOne({ where: { email } });
-
-    if (usuario == null) {
-      res.status(400).json({ erro: 'Login ou senha incorretos' })
-      return
-    }
-
-    // Se encontrado, compara a criptografia da senha armazenada
-    // com a criptografia da senha informada
-    if (bcrypt.compareSync(senha, usuario.senha)) {
-      res.status(200).json({ id: usuario.id, nome: usuario.nome })
-    }
-    else {
-      res.status(401).json({ erro: 'Login ou senha incorretos' })
-      return
-    }
-  } catch (error) {
-    res.status(400).send(error)
-  }
-}
-
-
 export const usuarioPesq = async (req, res) => {
   const { id } = req.params
 

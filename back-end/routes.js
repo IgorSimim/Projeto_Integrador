@@ -2,7 +2,7 @@ import { Router } from "express"
 
 import {
       confirmacaoConta, usuarioBairro, usuarioCartoes, usuarioCreate, usuarioDestaque,
-      usuarioDestroy, usuarioFeminino, usuarioGeral, usuarioIdade, usuarioIndex, usuarioLogin,
+      usuarioDestroy, usuarioFeminino, usuarioGeral, usuarioIdade, usuarioIndex,
       usuarioMasculino, usuarioPesq, usuarioUpdate
 } from "./controllers/usuarioController.js"
 import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
@@ -16,6 +16,7 @@ import {
       ListaPostCIndex, ListaPostSIndex, PostagemCLista,
       PostagemCPdf, PostagemSLista, PostagemSPdf
 } from "./controllers/listaPostController.js"
+import { loginUsuario } from "./controllers/loginController.js"
 
 const router = Router()
 
@@ -25,7 +26,6 @@ router.get('/usuarios', usuarioIndex)
       .put('/usuarios/:id', usuarioUpdate)
       .patch('/usuarios/destaque/:id', usuarioDestaque)
       .get('/usuarios/pesq/:id', usuarioPesq)
-      .post('/login', usuarioLogin)
       .get('/confirmacao/:hash', confirmacaoConta)
 
       .get('/listausuarios', ListaIndex)
@@ -64,6 +64,9 @@ router.get('/postagens', postagemIndex)
 router.get('/admins', adminIndex)
       .post('/admins', adminCreate)
       .delete('/admins/:id', adminDestroy)
+      
+router.post('/login', loginUsuario)
+
 
 router.get('/enviaemail', enviaEmail)
 
