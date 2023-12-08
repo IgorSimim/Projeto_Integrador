@@ -19,7 +19,7 @@ export const postagemIndex = async (req, res) => {
 
     try {
         const postagens = await Postagem.findAll({
-            include: [Usuario, Pet]
+            include: [Usuario]
         });
         res.status(200).json(postagens)
     } catch (error) {
@@ -30,10 +30,10 @@ export const postagemIndex = async (req, res) => {
 export const postagemCreate = async (req, res) => {
     const { titulo, assunto, descricao,
         pet, nomepet, tipo, raca, porte,
-        sexo, fotopet, idade, destaque, usuario_id, vacina } = req.body;
+        sexo, fotopet, idade, usuario_id, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
-    const requiredAttributes = pet == 1
+    const requiredAttributes = pet == true
         ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, idade, fotopet, usuario_id]
         : [titulo, assunto, descricao, usuario_id];
 
@@ -57,7 +57,7 @@ export const postagemCreate = async (req, res) => {
     try {
         const postagem = await Postagem.create({
             titulo, assunto, descricao, usuario_id, pet,
-            nomepet, tipo, raca, porte, sexo, idade, fotopet, destaque
+            nomepet, tipo, raca, porte, sexo, idade, fotopet, vacina
         });
 
         // Função para formatar as datas
@@ -70,29 +70,12 @@ export const postagemCreate = async (req, res) => {
     }
 }
 
-
-export const postagemDestaque = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        // Retorna o registro para obter o status atual do campo destaque
-        const postagem = await Postagem.findByPk(id)
-
-        // Altera com o contrário do atual
-        await Postagem.update({ destaque: !postagem.destaque }, { where: { id } })
-
-        res.status(200).json({ id, msg: "Ok! Alterado com sucesso" });
-    } catch (error) {
-        res.status(400).json({ id: 0, msg: "Erro: " + error.message });
-    }
-};
-
 export const postagemUpdate = async (req, res) => {
     const { id } = req.params;
 
     const { titulo, assunto, descricao,
         pet, nomepet, tipo, raca, porte,
-        sexo, fotopet, idade, destaque, usuario_id, vacina } = req.body;
+        sexo, fotopet, idade, usuario_id, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == 1
@@ -131,7 +114,6 @@ export const postagemUpdate = async (req, res) => {
                     sexo: sexo,
                     idade: idade,
                     fotopet: fotopet,
-                    destaque: destaque,
                     usuario_id: usuario_id,
                     vacina: vacina
                 })
@@ -142,7 +124,6 @@ export const postagemUpdate = async (req, res) => {
                     assunto: assunto,
                     descricao: descricao,
                     pet: pet,
-                    destaque: destaque,
                     usuario_id: usuario_id
                 })
         }

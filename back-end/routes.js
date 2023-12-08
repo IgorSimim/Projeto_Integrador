@@ -9,7 +9,7 @@ import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminContro
 import { enviaEmail } from "./controllers/controllerMail.js"
 import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaUsuaController.js"
 import {
-      postagemComPet, postagemCreate, postagemDestaque, postagemDestroy, postagemGeral,
+      postagemComPet, postagemCreate, postagemDestroy, postagemGeral,
       postagemIndex, postagemPesq, postagemSemPet, postagemUpdate, postagemVacina
 } from "./controllers/postagemController.js"
 import {
@@ -44,7 +44,6 @@ router.get('/postagens', postagemIndex)
       .post('/postagens', postagemCreate)
       .delete('/postagens/:id', postagemDestroy)
       .put('/postagens/:id', postagemUpdate)
-      .patch('/postagens/destaque/:id', postagemDestaque)
       .get('/postagens/pesq/:id', postagemPesq)
 
       .get('/listapostagenscompet', ListaPostCIndex)

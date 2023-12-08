@@ -19,22 +19,19 @@ export default function Alteracao() {
 
     useEffect(() => {
         async function getPostagem() {
-            const response = await fetch("http://localhost:3000/postagens/" + params.id)
+            const response = await fetch("http://localhost:3000/postagens/pesq/" + params.id)
             const dado = await response.json()
             reset({
-                nome: dado.nome,
                 titulo: dado.titulo,
                 assunto: dado.assunto,
-                descricaopost: dado.descricaopost,
+                descricao: dado.descricao,
                 pet: dado.pet,
                 nomepet: dado.nomepet,
                 tipo: dado.tipo,
                 raca: dado.raca,
                 porte: dado.porte,
                 sexo: dado.sexo,
-                destaque: dado.destaque,
                 idade: dado.idade,
-                descricaopet: dado.descricaopet,
                 fotopet: dado.fotopet,
                 vacina: dado.vacina,
             });
@@ -52,6 +49,8 @@ export default function Alteracao() {
         if (assunto !== "Outro") {
             setValue("assuntoCustom", "");
         }
+        
+        setShowAdditionalLabels(assunto);
     }, [assunto, setValue]);
 
     async function alteraDados(data) {
@@ -60,7 +59,7 @@ export default function Alteracao() {
             data.assunto = data.assuntoCustom;
         }
 
-        const postagem = await fetch("http://localhost:3000/postagens/" + params.id,
+        const postagem = await fetch("http://localhost:3000/postagens/pesq" + params.id,
             {
                 method: "PUT",
                 headers: { "Content-type": "application/json" },
@@ -81,15 +80,11 @@ export default function Alteracao() {
             <h2 className="mt-2">Cadastro das Postagens</h2>
             <form onSubmit={handleSubmit(alteraDados)}>
                 <div className="row">
-                    <div className="col-sm-2">
-                        <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
-                        <input type="text" className="form-control" id="usuario_id" {...register("usuario_id")} required />
-                    </div>
                     <div className="col-sm-6">
                         <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
                         <input type="text" className="form-control" id="titulo" {...register("titulo")} required />
                     </div>
-                    <div className="col-sm-4">
+                    <div className="col-sm-6">
                         <label htmlFor="assunto" className="form-label">Assunto</label>
                         {showAdditionalLabels2 ? (
                             <input
@@ -122,16 +117,7 @@ export default function Alteracao() {
                         <label htmlFor="descricao" className="form-label">Descrição da Postagem</label>
                         <textarea className="form-control" id="descricao" rows="3" {...register("descricao")} required></textarea>
                     </div>
-                    <div className="col-sm-2">
-                        <p>Status da Postagem:</p>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox"
-                                id="destaque"
-                                {...register("destaque")} />
-                            <label className="form-check-label" htmlFor="destaque">Destaque</label>
-                        </div>
-                    </div>
-                    <div className="col-sm-2">
+                    <div className="col-sm-4">
                         <p>Postagem com pet:</p>
                         <div className="form-check form-switch">
                             <input
@@ -149,7 +135,7 @@ export default function Alteracao() {
                 {showAdditionalLabels && (
                     <div>
                         <div className="row mt-3">
-                            <div className="col-sm-3">
+                            <div className="col-sm-5">
                                 <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                                 <input type="text" className="form-control" id="nomepet" {...register("nomepet")} required />
                             </div>
@@ -161,11 +147,14 @@ export default function Alteracao() {
                                     <option value="Outro">Outro</option>
                                 </select>
                             </div>
-                            <div className="col-sm-3">
+                            <div className="col-sm-4">
                                 <label htmlFor="raca" className="form-label">Raça</label>
                                 <input type="text" className="form-control" id="raca" {...register("raca")} required />
                             </div>
-                            <div className="col-sm-3">
+                        </div>
+
+                        <div className="row mt-3">
+                            <div className="col-sm-4">
                                 <label htmlFor="porte" className="form-label">Porte</label>
                                 <select id="porte" className="form-select" {...register("porte")} required>
                                     <option value="Pequeno">Pequeno</option>
@@ -174,9 +163,6 @@ export default function Alteracao() {
                                     <option value="Gigante">Gigante</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div className="row mt-3">
                             <div className="col-sm-3">
                                 <label htmlFor="sexo" className="form-label">Sexo</label>
                                 <select id="sexo" className="form-select" {...register("sexo")} required>
@@ -184,13 +170,9 @@ export default function Alteracao() {
                                     <option value="Fêmea">Fêmea</option>
                                 </select>
                             </div>
-                            <div className="col-sm-3">
+                            <div className="col-sm-5">
                                 <label htmlFor="idade" className="form-label">Idade</label>
-                                <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} />
-                            </div>
-                            <div className="col-sm-6">
-                                <label htmlFor="descricaopet" className="form-label">Descrição do Pet</label>
-                                <textarea className="form-control" id="descricaopet" rows="3" {...register("descricaopet")}></textarea>
+                                <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} required />
                             </div>
                         </div>
 

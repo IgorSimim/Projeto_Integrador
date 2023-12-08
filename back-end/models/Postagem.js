@@ -64,11 +64,6 @@ export const Postagem = sequelize.define('postagem', {
     type: DataTypes.STRING(255),
     allowNull: true,
     defaultValue: null
-  },
-  destaque: {
-    type: DataTypes.TINYINT(1),
-    allowNull: true,
-    defaultValue: 0
   }
 }, {
   tableName: "postagem"

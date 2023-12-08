@@ -1,19 +1,12 @@
 'use client'
 import { useEffect, useState } from "react";
+import { format } from 'date-fns';
 import dynamic from "next/dynamic";
 
 export default function Resumo() {
     const Chart = dynamic(() => import("react-google-charts"), {
         ssr: false,
     });
-
-    const optionsAssunto = {
-        title: "Total de postagens por assunto",
-    };
-
-    const optionsData = {
-        title: "Quantidade de postagens separados por data",
-    }
 
     const [postagens, setPostagens] = useState([]);
     const [gerais, setGerais] = useState({
@@ -51,7 +44,7 @@ export default function Resumo() {
             (postagem) => postagem.pet
         ).length;
         const totalVacina = postagens.filter(
-            (postagem) => postagem.vacina === ""
+            (postagem) => postagem.vacina !== ""
         ).length;
 
         setGerais({
@@ -82,24 +75,43 @@ export default function Resumo() {
         const contagem = {};
 
         postagens.forEach((postagem) => {
-            const data = postagem.data;
-            if (contagem[data]) {
-                contagem[data]++;
+            const dataFormatada = format(new Date(postagem.createdAt), 'dd/MM/yyyy');
+
+            if (contagem[dataFormatada]) {
+                contagem[dataFormatada]++;
             } else {
-                contagem[data] = 1;
+                contagem[dataFormatada] = 1;
             }
         });
 
         return Object.entries(contagem);
     };
 
+    // Cores diferentes para cada novo dado
+    const coresAssunto = contarPostagensPorAssunto().map((_, index) => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+    const coresData = contarPostagensPorData().map((_, index) => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+
+    const optionsAssunto = {
+        title: "Total de postagens por assunto",
+        colors: coresAssunto,
+    };
+
+    const optionsData = {
+        title: "Quantidade de postagens separados por data",
+        vAxis: {
+            format: "0",
+        },
+        colors: coresData,
+    }
+
+
     // Renderização do gráfico de pizza
     const dataAssunto = [["Assunto", "Total"]].concat(contarPostagensPorAssunto());
 
     // Renderização do gráfico de barras
     const dataData = [["Data", "Quantidade"]].concat(
-        contarPostagensPorData().map(([data, quantdata]) => [
-            parseFloat(data),
+        contarPostagensPorData().map(([data, quantidade]) => [
+            data,
             quantidade,
         ])
     );
