@@ -64,6 +64,11 @@ export const Usuario = sequelize.define('usuario', {
     type: DataTypes.TINYINT(1),
     allowNull: true,
     defaultValue: 0
+  },
+  hash: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    defaultValue: null
   }
 }, {
   tableName: "usuario"

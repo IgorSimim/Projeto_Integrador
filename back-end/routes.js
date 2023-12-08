@@ -1,12 +1,12 @@
 import { Router } from "express"
 
 import {
-      confirmacaoConta, usuarioBairro, usuarioCartoes, usuarioCreate, usuarioDestaque,
+      usuarioBairro, usuarioCartoes, usuarioCreate, usuarioDestaque,
       usuarioDestroy, usuarioFeminino, usuarioGeral, usuarioIdade, usuarioIndex,
       usuarioMasculino, usuarioPesq, usuarioUpdate
 } from "./controllers/usuarioController.js"
 import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
-import { enviaEmail } from "./controllers/controllerMail.js"
+import { enviaEmail, confirmacaoConta } from "./controllers/controllerMail.js"
 import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaUsuaController.js"
 import {
       postagemComPet, postagemCreate, postagemDestroy, postagemGeral,
@@ -68,5 +68,6 @@ router.post('/login', loginUsuario)
 
 
 router.get('/enviaemail', enviaEmail)
+      .get('/confirmacao/:hash', confirmacaoConta)
 
 export default router
