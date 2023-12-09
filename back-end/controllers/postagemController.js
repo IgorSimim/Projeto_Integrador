@@ -30,34 +30,42 @@ export const postagemIndex = async (req, res) => {
 export const postagemCreate = async (req, res) => {
     const { titulo, assunto, descricao,
         pet, nomepet, tipo, raca, porte,
-        sexo, fotopet, idade, usuario_id, vacina } = req.body;
+        sexo, fotopet, cpf, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == true
-        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, idade, fotopet, usuario_id]
-        : [titulo, assunto, descricao, usuario_id];
+        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, fotopet, cpf]
+        : [titulo, assunto, descricao, cpf];
 
+    
     if (requiredAttributes.some(attr => !attr)) {
         res.status(400).json({ id: 0, msg: 'Erro... Informe todos os dados obrigatórios' });
         return;
     }
 
+    const usuario = await Usuario.findOne({ where: { cpf } })
+
+    if (!usuario) {
+        res.status(400).json({ id: 1, msg: 'Usuário não encontrado com o CPF fornecido.' });
+        return;
+    }
+
     const urlTestPet = /\.(jpg|png)$/;
     if (!urlTestPet.test(fotopet) && pet == 1) {
-        res.status(400).json({ id: 1, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+        res.status(400).json({ id: 2, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     const urlTestVacina = /\.(jpg|png)$/;
     if (!urlTestVacina.test(vacina) && pet == 1) {
-        res.status(400).json({ id: 1, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+        res.status(400).json({ id: 3, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     try {
         const postagem = await Postagem.create({
-            titulo, assunto, descricao, usuario_id, pet,
-            nomepet, tipo, raca, porte, sexo, idade, fotopet, vacina
+            titulo, assunto, descricao, usuario_id: usuario.id, pet,
+            nomepet, tipo, raca, porte, sexo, fotopet, vacina
         });
 
         // Função para formatar as datas
@@ -75,27 +83,34 @@ export const postagemUpdate = async (req, res) => {
 
     const { titulo, assunto, descricao,
         pet, nomepet, tipo, raca, porte,
-        sexo, fotopet, idade, usuario_id, vacina } = req.body;
+        sexo, fotopet, cpf, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == 1
-        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, idade, fotopet, usuario_id]
-        : [titulo, assunto, descricao, usuario_id];
+        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, fotopet, cpf]
+        : [titulo, assunto, descricao, cpf];
 
     if (requiredAttributes.some(attr => !attr)) {
         res.status(400).json({ id: 0, msg: 'Erro... Informe todos os dados obrigatórios' });
         return;
     }
 
+    const usuario = await Usuario.findOne({ where: { cpf } })
+
+    if (!usuario) {
+        res.status(400).json({ id: 1, msg: 'Usuário não encontrado com o CPF fornecido.' });
+        return;
+    }
+
     const urlTestPet = /\.(jpg|png)$/;
     if (!urlTestPet.test(fotopet) && pet == 1) {
-        res.status(400).json({ id: 1, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+        res.status(400).json({ id: 2, msg: "Certifique-se que o campo FOTOPET esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
     const urlTestVacina = /\.(jpg|png)$/;
     if (!urlTestVacina.test(vacina) && pet == 1) {
-        res.status(400).json({ id: 1, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+        res.status(400).json({ id: 3, msg: "Certifique-se que o campo VACINA esteja preenchido com uma URL válida terminando em .jpg ou .png" });
         return;
     }
 
@@ -112,9 +127,8 @@ export const postagemUpdate = async (req, res) => {
                     raca: raca,
                     porte: porte,
                     sexo: sexo,
-                    idade: idade,
                     fotopet: fotopet,
-                    usuario_id: usuario_id,
+                    usuario_id: usuario.id,
                     vacina: vacina
                 })
         } else {
@@ -124,7 +138,7 @@ export const postagemUpdate = async (req, res) => {
                     assunto: assunto,
                     descricao: descricao,
                     pet: pet,
-                    usuario_id: usuario_id
+                    usuario_id: usuario.id
                 })
         }
 

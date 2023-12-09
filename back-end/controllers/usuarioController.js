@@ -91,15 +91,23 @@ export const usuarioCreate = async (req, res) => {
     return;
   }
 
+  // Verifica se já existe um usuário com o mesmo CPF
+  const usuarioExistente = await Usuario.findOne({ where: { cpf } });
+
+  if (usuarioExistente) {
+    res.status(400).json({ id: 5, msg: 'Já existe um usuário com este CPF. Por favor, informe outro.' });
+    return;
+  }
+
   const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
   if (!cpfTest.test(cpf)) {
-    res.status(400).json({ id: 5, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    res.status(400).json({ id: 6, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
     return;
   }
 
   const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
   if (!telTest.test(telefone)) {
-    res.status(400).json({ id: 6, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
+    res.status(400).json({ id: 7, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
@@ -107,13 +115,13 @@ export const usuarioCreate = async (req, res) => {
   const idade = differenceInYears(new Date(), new Date(dtnasc));
 
   if (idade < 18) {
-    res.status(400).json({ id: 7, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
+    res.status(400).json({ id: 8, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
     return;
   }
-  
+
   const urlTest = /\.(jpg|png)$/;
   if (!urlTest.test(perfil)) {
-    res.status(400).json({ id: 8, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+    res.status(400).json({ id: 9, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
     return;
   }
 
@@ -207,15 +215,23 @@ export const usuarioUpdate = async (req, res) => {
     return;
   }
 
+  // Verifica se já existe um usuário com o mesmo CPF
+  const usuarioExistente = await Usuario.findOne({ where: { cpf } });
+
+  if (usuarioExistente) {
+    res.status(400).json({ id: 5, msg: 'Já existe um usuário com este CPF. Por favor, informe outro.' });
+    return;
+  }
+
   const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
   if (!cpfTest.test(cpf)) {
-    res.status(400).json({ id: 5, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    res.status(400).json({ id: 6, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
     return;
   }
 
   const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
   if (!telTest.test(telefone)) {
-    res.status(400).json({ id: 6, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
+    res.status(400).json({ id: 7, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
@@ -223,13 +239,13 @@ export const usuarioUpdate = async (req, res) => {
   const idade = differenceInYears(new Date(), new Date(dtnasc));
 
   if (idade < 18) {
-    res.status(400).json({ id: 7, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
+    res.status(400).json({ id: 8, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
     return;
   }
-  
+
   const urlTest = /\.(jpg|png)$/;
   if (!urlTest.test(perfil)) {
-    res.status(400).json({ id: 8, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+    res.status(400).json({ id: 9, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
     return;
   }
 

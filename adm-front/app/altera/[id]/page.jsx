@@ -58,10 +58,12 @@ export default function Alteracao() {
       } else if (errorData.id === 4) {
         toast.error(errorData.msg); // Trata o erro específico da senha
       } else if (errorData.id === 5) {
-        toast.error(errorData.msg); // Trata o erro específico do cpf
+        toast.error(errorData.msg); // Trata o erro específico de um cpf já cadastrado
       } else if (errorData.id === 6) {
-        toast.error(errorData.msg); // Trata o erro específico do telefone
+        toast.error(errorData.msg); // Trata o erro específico do cpf 
       } else if (errorData.id === 7) {
+        toast.error(errorData.msg); // Trata o erro específico do telefone
+      } else if (errorData.id === 8) {
         toast.error(errorData.msg); // Trata o erro específico da idade
       } else if (errorData.id === 8) {
         toast.error(errorData.msg); // Trata o erro específico da foto de perfil

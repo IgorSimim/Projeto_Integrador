@@ -10,14 +10,12 @@ async function getPostagem(id) {
 }
 
 export default function Consulta({ params }) {
-  const [showAdditionalLabels2, setShowAdditionalLabels2] = useState(false);
   const [postagem, setPostagem] = useState(null);
 
   useEffect(() => {
     async function fetchPostagem() {
       const postagem = await getPostagem(params.id);
       setPostagem(postagem);
-      setShowAdditionalLabels2(postagem.assunto === "Outro");
     }
 
     fetchPostagem();
@@ -29,25 +27,16 @@ export default function Consulta({ params }) {
       {postagem && (
         <form>
           <div className="row">
-            <div className="col-sm-2">
-              <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
+            <div className="col-sm-3">
+              <label htmlFor="usuario_id" className="form-label">Id do usuário</label>
               <input type="number" className="form-control" id="usuario_id" value={postagem.usuario_id} readOnly />
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-5">
               <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
               <input type="text" className="form-control" id="titulo" value={postagem.titulo} readOnly />
             </div>
             <div className="col-sm-4">
               <label htmlFor="assunto" className="form-label">Assunto</label>
-              {showAdditionalLabels2 ? (
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Digite o assunto personalizado"
-                  value={postagem.assuntoCustom}
-                  readOnly
-                />
-              ) : (
                 <input
                   type="text"
                   step="0.10"
@@ -56,7 +45,6 @@ export default function Consulta({ params }) {
                   value={postagem.assunto}
                   readOnly
                 />
-              )}
             </div>
           </div>
 
@@ -85,7 +73,7 @@ export default function Consulta({ params }) {
           {postagem.pet ? (
             <div>
               <div className="row mt-3">
-                <div className="col-sm-4">
+                <div className="col-sm-8">
                   <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                   <input type="text" className="form-control" id="nomepet" value={postagem.nomepet} readOnly />
                 </div>
@@ -93,24 +81,20 @@ export default function Consulta({ params }) {
                   <label htmlFor="tipo" className="form-label">Tipo</label>
                   <input type="text" className="form-control" id="tipo" value={postagem.tipo} readOnly />
                 </div>
-                <div className="col-sm-4">
-                  <label htmlFor="raca" className="form-label">Raça</label>
-                  <input type="text" className="form-control" id="raca" value={postagem.raca} readOnly />
-                </div>
               </div>
 
               <div className="row mt-3">
+                <div className="col-sm-5">
+                  <label htmlFor="raca" className="form-label">Raça</label>
+                  <input type="text" className="form-control" id="raca" value={postagem.raca} readOnly />
+                </div>
                 <div className="col-sm-4">
                   <label htmlFor="porte" className="form-label">Porte</label>
                   <input type="text" className="form-control" id="porte" value={postagem.porte} readOnly />
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-3">
                   <label htmlFor="sexo" className="form-label">Sexo</label>
                   <input type="text" className="form-control" id="sexo" value={postagem.sexo} readOnly />
-                </div>
-                <div className="col-sm-4">
-                  <label htmlFor="idade" className="form-label">Idade</label>
-                  <input type="text" className="form-control" id="idade" value={postagem.idade} readOnly />
                 </div>
               </div>
 

@@ -59,3 +59,9 @@ https://trello.com/invite/b/OVxiNgpF/ATTId732555973128ee0bd6896303e789eae3077416
 
 # <img src="https://github.com/IgorSimim/FinalWork-ES2/assets/120426953/b485ed8e-906f-4353-955f-24636af50563" style="width: 40px;" /> Integrantes
 Igor Leon Borges Silva Simim
+
+Gabriel Cunha Huber
+
+Ângelo Fumagalli
+
+Daniel Conceição

@@ -1,11 +1,11 @@
 'use client'
-import React, { useState, useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Cadastro() {
-  const { register, handleSubmit, reset, control } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       porte: "Pequeno",
       pet: false,
@@ -14,25 +14,12 @@ export default function Cadastro() {
       porte: "",
       sexo: "",
       assunto: "",
-      assuntoCustom: "",
     }
   });
 
-  const assuntoValue = useWatch({ control, name: "assunto" });
-
   const [showAdditionalLabels, setShowAdditionalLabels] = useState(false);
-  const [showAdditionalLabels2, setShowAdditionalLabels2] = useState(assuntoValue === "Outro");
-
-  useEffect(() => {
-    setShowAdditionalLabels2(assuntoValue === "Outro");
-  }, [assuntoValue]);
 
   async function enviaDados(data) {
-    // Se a opção for "Outro", define o valor de "assunto" para o valor de "assuntoCustom"
-    if (data.assunto === "Outro") {
-      data.assunto = data.assuntoCustom;
-    }
-
 
     try {
       const response = await fetch("http://localhost:3000/postagens", {
@@ -47,8 +34,10 @@ export default function Cadastro() {
       } else {
         const errorData = await response.json();
 
-        if (errorData.id === 1) {
+        if (errorData.id === 0) {
           toast.error(errorData.msg); // Trata o erro genérico
+        } else if (errorData.id === 1) {
+          toast.error(errorData.msg); // Trata o erro específico do cpf do usuário
         } else if (errorData.id === 2) {
           toast.error(errorData.msg); // Trata o erro específico da foto do pet
         } else if (errorData.id === 3) {
@@ -67,39 +56,29 @@ export default function Cadastro() {
       <h2 className="mt-2">Cadastro das Postagens</h2>
       <form onSubmit={handleSubmit(enviaDados)}>
         <div className="row">
-          <div className="col-sm-2">
-            <label htmlFor="usuario_id" className="form-label">Id do Usuário</label>
-            <input type="number" className="form-control" id="usuario_id" {...register("usuario_id")} required />
+          <div className="col-sm-3">
+            <label htmlFor="cpf" className="form-label">Cpf do usuário</label>
+            <input type="text" className="form-control" id="cpf" placeholder="Ex: 000.000.000-00" {...register("cpf")} required />
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-5">
             <label htmlFor="titulo" className="form-label">Titulo da Postagem</label>
             <input type="text" className="form-control" id="titulo" {...register("titulo")} required />
           </div>
           <div className="col-sm-4">
             <label htmlFor="assunto" className="form-label">Assunto</label>
-            {showAdditionalLabels2 ? (
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Digite o assunto personalizado"
-                {...register("assuntoCustom")}
-                required
-              />
-            ) : (
-              <select
-                id="assunto"
-                className="form-select"
-                {...register("assunto")}
-                required
-              >
-                <option value="Abandono">Abandono</option>
-                <option value="Maus-tratos">Maus-tratos</option>
-                <option value="Adoção">Adoção</option>
-                <option value="Vacina">Vacina</option>
-                <option value="Procura-se">Procura-se</option>
-                <option value="Outro">Outro</option>
-              </select>
-            )}
+            <select
+              id="assunto"
+              className="form-select"
+              {...register("assunto")}
+              required
+            >
+              <option value="Abandono">Abandono</option>
+              <option value="Maus-tratos">Maus-tratos</option>
+              <option value="Adoção">Adoção</option>
+              <option value="Vacina">Vacina</option>
+              <option value="Procura-se">Procura-se</option>
+              <option value="Outros">Outros</option>
+            </select>
           </div>
         </div>
 
@@ -126,11 +105,11 @@ export default function Cadastro() {
         {showAdditionalLabels && (
           <div>
             <div className="row mt-3">
-              <div className="col-sm-5">
+              <div className="col-sm-8">
                 <label htmlFor="nomepet" className="form-label">Nome do Pet</label>
                 <input type="text" className="form-control" id="nomepet" {...register("nomepet")} required />
               </div>
-              <div className="col-sm-3">
+              <div className="col-sm-4">
                 <label htmlFor="tipo" className="form-label">Tipo</label>
                 <select id="tipo" className="form-select" {...register("tipo")} required>
                   <option value="Cachorro">Cachorro</option>
@@ -138,13 +117,13 @@ export default function Cadastro() {
                   <option value="Outro">Outro</option>
                 </select>
               </div>
-              <div className="col-sm-4">
-                <label htmlFor="raca" className="form-label">Raça</label>
-                <input type="text" className="form-control" id="raca" {...register("raca")} required />
-              </div>
             </div>
 
             <div className="row mt-3">
+              <div className="col-sm-5">
+                <label htmlFor="raca" className="form-label">Raça</label>
+                <input type="text" className="form-control" id="raca" {...register("raca")} required />
+              </div>
               <div className="col-sm-4">
                 <label htmlFor="porte" className="form-label">Porte</label>
                 <select id="porte" className="form-select" {...register("porte")} required>
@@ -160,10 +139,6 @@ export default function Cadastro() {
                   <option value="Macho">Macho</option>
                   <option value="Fêmea">Fêmea</option>
                 </select>
-              </div>
-              <div className="col-sm-5">
-                <label htmlFor="idade" className="form-label">Idade</label>
-                <input type="text" className="form-control" id="idade" placeholder="Ex: 1 ano e 3 meses" {...register("idade")} required />
               </div>
             </div>
 

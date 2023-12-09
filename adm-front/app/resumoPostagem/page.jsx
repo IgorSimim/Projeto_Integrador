@@ -44,7 +44,7 @@ export default function Resumo() {
             (postagem) => postagem.pet
         ).length;
         const totalVacina = postagens.filter(
-            (postagem) => postagem.vacina !== ""
+            (postagem) => postagem.vacina 
         ).length;
 
         setGerais({
