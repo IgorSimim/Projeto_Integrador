@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import PesquisaUsuario from "@/components/PesquisaUsuario"
 import Usuariopdf from "@/components/Usuariopdf"
 import Swal from 'sweetalert2'
+import { differenceInYears } from 'date-fns';
 
 
 export default function () {
@@ -77,82 +78,92 @@ export default function () {
   async function ordenarUsuarios() {
     async function getUsuarios() {
       const response = await fetch(
-        "http://localhost:3000/usuarios?_sort=idade&_order=desc"
+        "http://localhost:3000/usuarios"
       );
       const dados = await response.json();
-      setUsuarios(dados);
+
+      // Calcula a idade com base na data de nascimento
+      const usuariosPorIdade = dados.map((usuario) => ({
+        ...usuario,
+        idade: differenceInYears(new Date(), new Date(usuario.dtnasc)),
+      }));
+
+      // Ordena os usuários com base na idade
+      const usuariosOrdenados = usuariosPorIdade.sort((a, b) => b.idade - a.idade);
+
+      setUsuarios(usuariosOrdenados);
     }
 
     getUsuarios();
   }
 
-  async function mostraTodos() {
-    const response = await fetch("http://localhost:3000/usuarios")
-    const dados = await response.json()
-    setUsuarios(dados)
+async function mostraTodos() {
+  const response = await fetch("http://localhost:3000/usuarios")
+  const dados = await response.json()
+  setUsuarios(dados)
+}
+
+async function gerarpdf() {
+  try {
+    const response = await axios.get('http://localhost:3000/usuarios/pdf', {
+      responseType: 'blob',
+    });
+
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+
+    // Cria uma URL temporária para o blob
+    const pdfUrl = URL.createObjectURL(blob);
+
+    // Abre uma nova janela com o PDF
+    const newWindow = window.open(pdfUrl, '_blank');
+
+    // Adiciona um evento de carga à janela para revogar a URL quando a janela for fechada
+    newWindow.addEventListener('load', () => {
+      URL.revokeObjectURL(pdfUrl);
+    });
+  } catch (error) {
+    console.error('Erro ao gerar o PDF:', error);
   }
+}
 
-  async function gerarpdf() {
-    try {
-      const response = await axios.get('http://localhost:3000/usuarios/pdf', {
-        responseType: 'blob',
-      });
-
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-
-      // Cria uma URL temporária para o blob
-      const pdfUrl = URL.createObjectURL(blob);
-
-      // Abre uma nova janela com o PDF
-      const newWindow = window.open(pdfUrl, '_blank');
-
-      // Adiciona um evento de carga à janela para revogar a URL quando a janela for fechada
-      newWindow.addEventListener('load', () => {
-        URL.revokeObjectURL(pdfUrl);
-      });
-    } catch (error) {
-      console.error('Erro ao gerar o PDF:', error);
-    }
-  }
-
-  if (isLoading) {
-    return (
-      <div className="container">
-        <h2>Listagem dos Usuários</h2>
-        <h5>Aguarde... Carregando os dados</h5>
-      </div>
-    )
-  }
-
+if (isLoading) {
   return (
     <div className="container">
-      <div className="row mt-2">
-        <div className="col-sm-5">
-          <h2 >Listagem dos Usuários</h2>
-        </div>
-        <div className="col-sm-2">
-          <Usuariopdf gerar={gerarpdf} />
-        </div>
-        <div className="col-sm-5">
-          <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} listar={ordenarUsuarios} />
-        </div>
-      </div>
-
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Foto</th>
-            <th>Nome do Usuário</th>
-            <th>Email</th>
-            <th>Sexo</th>
-            <th>Bairro</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listaUsuarios}
-        </tbody>
-      </table>
+      <h2>Listagem dos Usuários</h2>
+      <h5>Aguarde... Carregando os dados</h5>
     </div>
   )
+}
+
+return (
+  <div className="container">
+    <div className="row mt-2">
+      <div className="col-sm-5">
+        <h2 >Listagem dos Usuários</h2>
+      </div>
+      <div className="col-sm-2">
+        <Usuariopdf gerar={gerarpdf} />
+      </div>
+      <div className="col-sm-5">
+        <PesquisaUsuario filtra={filtraDados} mostra={mostraTodos} listar={ordenarUsuarios} />
+      </div>
+    </div>
+
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nome do Usuário</th>
+          <th>Email</th>
+          <th>Sexo</th>
+          <th>Bairro</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {listaUsuarios}
+      </tbody>
+    </table>
+  </div>
+)
 }

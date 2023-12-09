@@ -1,5 +1,4 @@
-import { format } from "date-fns";
-import bcrypt from 'bcrypt';
+import { format, differenceInYears } from "date-fns";
 import md5 from 'md5';
 import { Usuario } from '../models/Usuario.js'
 import dbKnex from '../databases/db_config.js'
@@ -68,45 +67,53 @@ export const usuarioIndex = async (req, res) => {
 
 
 export const usuarioCreate = async (req, res) => {
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado, hash } = req.body;
+  const { nome, email, senha, cpf, telefone, dtnasc, sexo, bairro, credito, debito, destaque, perfil, confirmado, hash } = req.body;
 
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
+  if (!nome || !email || !senha || !cpf || !telefone || !dtnasc || !sexo || !bairro || !perfil) {
     res.status(400).json({ id: 1, msg: 'Erro... Informe os dados' });
+    return;
+  }
+
+  if (!confirmado) {
+    res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
     return;
   }
 
   const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailTest.test(email)) {
-    res.status(400).json({ id: 2, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
+    res.status(400).json({ id: 3, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
     return;
   }
 
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 3, msg: mensaValidacao.join(', ') });
+    res.status(400).json({ id: 4, msg: mensaValidacao.join(', ') });
     return;
   }
 
   const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
   if (!cpfTest.test(cpf)) {
-    res.status(400).json({ id: 4, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    res.status(400).json({ id: 5, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
     return;
   }
 
   const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
   if (!telTest.test(telefone)) {
-    res.status(400).json({ id: 5, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
+    res.status(400).json({ id: 6, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
+  // Calcula a idade com base na data de nascimento
+  const idade = differenceInYears(new Date(), new Date(dtnasc));
+
   if (idade < 18) {
-    res.status(400).json({ id: 6, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
+    res.status(400).json({ id: 7, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
     return;
   }
   
   const urlTest = /\.(jpg|png)$/;
   if (!urlTest.test(perfil)) {
-    res.status(400).json({ id: 7, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
+    res.status(400).json({ id: 8, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
     return;
   }
 
@@ -115,7 +122,7 @@ export const usuarioCreate = async (req, res) => {
     let hash = md5(nome + email + Date.now());
 
     const usuario = await Usuario.create({
-      nome, email, senha, cpf, telefone, idade,
+      nome, email, senha, cpf, telefone, dtnasc,
       sexo, bairro, perfil, credito, debito, destaque, confirmado, hash
     });
 
@@ -176,39 +183,53 @@ export const usuarioDestaque = async (req, res) => {
 export const usuarioUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const { nome, email, senha, cpf, telefone, idade, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
+  const { nome, email, senha, cpf, telefone, dtnasc, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
 
-  if (!nome || !email || !senha || !cpf || !telefone || !idade || !sexo || !bairro || !perfil) {
-    res.status(400).json({ id: 0, msg: 'Erro... Informe os dados' });
+  if (!nome || !email || !senha || !cpf || !telefone || !dtnasc || !sexo || !bairro || !perfil) {
+    res.status(400).json({ id: 1, msg: 'Erro... Informe os dados' });
+    return;
+  }
+
+  if (!confirmado) {
+    res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
     return;
   }
 
   const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailTest.test(email)) {
-    res.status(400).json({ id: 1, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
+    res.status(400).json({ id: 3, msg: "Certifique-se que o campo EMAIL esteja preenchido no formato correto" });
     return;
   }
 
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
-    res.status(400).json({ id: 2, msg: mensaValidacao.join(', ') });
+    res.status(400).json({ id: 4, msg: mensaValidacao.join(', ') });
     return;
   }
 
   const cpfTest = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
   if (!cpfTest.test(cpf)) {
-    res.status(400).json({ id: 3, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
+    res.status(400).json({ id: 5, msg: "Certifique-se que o campo CPF esteja preenchido no formato correto" });
     return;
   }
 
   const telTest = /^\(\d{2}\) \d{4,5}-\d{4}$/;
   if (!telTest.test(telefone)) {
-    res.status(400).json({ id: 4, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
+    res.status(400).json({ id: 6, msg: "Certifique-se que o campo TELEFONE esteja preenchido no formato correto" });
     return;
   }
 
+  // Calcula a idade com base na data de nascimento
+  const idade = differenceInYears(new Date(), new Date(dtnasc));
+
   if (idade < 18) {
-    res.status(400).json({ id: 5, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
+    res.status(400).json({ id: 7, msg: "Verifique o campo idade. Site restrito para maiores de idade, 18 ou mais" });
+    return;
+  }
+  
+  const urlTest = /\.(jpg|png)$/;
+  if (!urlTest.test(perfil)) {
+    res.status(400).json({ id: 8, msg: "Certifique-se que o campo URL esteja preenchido com uma URL válida terminando em .jpg ou .png" });
     return;
   }
 
@@ -220,7 +241,7 @@ export const usuarioUpdate = async (req, res) => {
         senha: senha,
         cpf: cpf,
         telefone: telefone,
-        idade: idade,
+        dtnasc: dtnasc,
         sexo: sexo,
         bairro: bairro,
         credito: credito,

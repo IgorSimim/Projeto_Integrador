@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { ToastContainer, toast } from 'react-toastify';
+import { format } from 'date-fns';
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -21,7 +22,7 @@ export default function Alteracao() {
         senha: dado.senha,
         cpf: dado.cpf,
         telefone: dado.telefone,
-        idade: dado.idade,
+        dtnasc: new Date(dado.dtnasc).toISOString().split('T')[0],
         sexo: dado.sexo,
         bairro: dado.bairro,
         credito: dado.credito,
@@ -49,15 +50,21 @@ export default function Alteracao() {
       const errorData = await response.json();
 
       if (errorData.id === 1) {
-        toast.error(errorData.msg); // Trata o erro específico do email
+        toast.error(errorData.msg); // Trata o erro genérico
       } else if (errorData.id === 2) {
-        toast.error(errorData.msg); // Trata o erro específico da senha
+        toast.error(errorData.msg); // Trata o erro do campo confirmado
       } else if (errorData.id === 3) {
-        toast.error(errorData.msg); // Trata o erro específico do cpf
+        toast.error(errorData.msg); // Trata o erro específico do email
       } else if (errorData.id === 4) {
-        toast.error(errorData.msg); // Trata o erro específico do telefone
+        toast.error(errorData.msg); // Trata o erro específico da senha
       } else if (errorData.id === 5) {
+        toast.error(errorData.msg); // Trata o erro específico do cpf
+      } else if (errorData.id === 6) {
+        toast.error(errorData.msg); // Trata o erro específico do telefone
+      } else if (errorData.id === 7) {
         toast.error(errorData.msg); // Trata o erro específico da idade
+      } else if (errorData.id === 8) {
+        toast.error(errorData.msg); // Trata o erro específico da foto de perfil
       }
       else {
         console.error("Erro ao processar a requisição:", error);
@@ -100,8 +107,8 @@ export default function Alteracao() {
             <input type="text" className="form-control" id="telefone" placeholder="Ex: (DDD) 90000-0000" {...register("telefone")} required />
           </div>
           <div className="col-sm-2">
-            <label htmlFor="idade" className="form-label">Idade</label>
-            <input type="number" className="form-control" id="idade" {...register("idade")} required />
+            <label htmlFor="dtnasc" className="form-label">Data de Nascimento</label>
+            <input type="date" className="form-control" id="dtnasc" {...register("dtnasc")} required />
           </div>
           <div className="col-sm-2">
             <label htmlFor="sexo" className="form-label">Sexo</label>
