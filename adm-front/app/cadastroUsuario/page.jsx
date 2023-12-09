@@ -29,18 +29,21 @@ export default function Cadastro() {
 
         if (errorData.id === 1) {
           toast.error(errorData.msg); // Trata o erro genérico
-        } else
-        if (errorData.id === 2) {
-          toast.error(errorData.msg); // Trata o erro específico do email
+        } else if (errorData.id === 2) {
+          toast.error(errorData.msg); // Trata o erro do campo confirmado
         } else if (errorData.id === 3) {
-          toast.error(errorData.msg); // Trata o erro específico da senha
+          toast.error(errorData.msg); // Trata o erro específico do email
         } else if (errorData.id === 4) {
-          toast.error(errorData.msg); // Trata o erro específico do cpf
+          toast.error(errorData.msg); // Trata o erro específico da senha
         } else if (errorData.id === 5) {
-          toast.error(errorData.msg); // Trata o erro específico do telefone
+          toast.error(errorData.msg); // Trata o erro específico de um cpf já cadastrado
         } else if (errorData.id === 6) {
-          toast.error(errorData.msg); // Trata o erro específico da idade
+          toast.error(errorData.msg); // Trata o erro específico do cpf 
         } else if (errorData.id === 7) {
+          toast.error(errorData.msg); // Trata o erro específico do telefone
+        } else if (errorData.id === 8) {
+          toast.error(errorData.msg); // Trata o erro específico da idade
+        } else if (errorData.id === 8) {
           toast.error(errorData.msg); // Trata o erro específico da foto de perfil
         }
         
@@ -85,8 +88,8 @@ export default function Cadastro() {
             <input type="text" className="form-control" id="telefone" placeholder="Ex: (DDD) 90000-0000" {...register("telefone")} required />
           </div>
           <div className="col-sm-2">
-            <label htmlFor="idade" className="form-label">Idade</label>
-            <input type="number" className="form-control" id="idade" {...register("idade")} required />
+            <label htmlFor="dtnasc" className="form-label">Data de Nascimento</label>
+            <input type="date" className="form-control" id="dtnasc" {...register("dtnasc")} required />
           </div>
           <div className="col-sm-2">
             <label htmlFor="sexo" className="form-label">Sexo</label>

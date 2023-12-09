@@ -61,7 +61,7 @@ export const PostagemCPdf = async (req, res) => {
 
 export const ListaPostSIndex = async (req, res) => {
     try {
-        const postagem = await dbKnex.select("p.id", "p.titulo", "p.assunto", "p.descricao", "p.pet")
+        const postagem = await dbKnex.select("p.id", "p.titulo", "p.assunto", "p.pet")
             .from("postagem as p")
             .where("p.pet", 0);
 
@@ -73,7 +73,7 @@ export const ListaPostSIndex = async (req, res) => {
 
 export const PostagemSLista = async (req, res) => {
     try {
-        const postagem = await dbKnex.select("p.id", "p.titulo", "p.assunto", "p.descricao", "p.pet")
+        const postagem = await dbKnex.select("p.id", "p.titulo", "p.assunto", "p.pet")
             .from("postagem as p")
             .where("p.pet", 0);
 

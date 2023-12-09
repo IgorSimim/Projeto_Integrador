@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+const { differenceInYears } = require('date-fns')
 
 export default function Resumo() {
     const Chart = dynamic(() => import("react-google-charts"), {
@@ -74,8 +75,12 @@ export default function Resumo() {
     const contarUsuariosPorIdade = () => {
         const contagem = {};
 
+        const dataAtual = new Date(); // Data atual
+
         usuarios.forEach((usuario) => {
-            const idade = usuario.idade;
+            const dataNascimento = new Date(usuario.dtnasc)
+            const idade = differenceInYears(dataAtual, dataNascimento)
+
             if (contagem[idade]) {
                 contagem[idade]++;
             } else {
@@ -92,7 +97,7 @@ export default function Resumo() {
     // Renderização do gráfico de barras
     const dataIdade = [["Idade", "Quantidade"]].concat(
         contarUsuariosPorIdade().map(([idade, quantidade]) => [
-            idade,
+            `${idade}`,
             quantidade,
         ])
     );
@@ -101,7 +106,7 @@ export default function Resumo() {
     const coresBairro = contarUsuariosPorBairro().map((_, index) => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
     const coresIdade = contarUsuariosPorIdade().map((_, index) => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
 
-        const optionsBairro = {
+    const optionsBairro = {
         title: "Total de usuários por bairro",
         colors: coresBairro,
     };

@@ -50,11 +50,6 @@ export const Postagem = sequelize.define('postagem', {
     allowNull: true,
     defaultValue: null
   },
-  idade: {
-    type: DataTypes.STRING(20),
-    allowNull: true,
-    defaultValue: null
-  },
   fotopet: {
     type: DataTypes.STRING(255),
     allowNull: true,

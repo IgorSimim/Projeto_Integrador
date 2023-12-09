@@ -22,14 +22,15 @@ export const Usuario = sequelize.define('usuario', {
   },
   cpf: {
     type: DataTypes.STRING(40),
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   telefone: {
     type: DataTypes.STRING(40),
     allowNull: false
   },
-  idade: {
-    type: DataTypes.INTEGER(3),
+  dtnasc: {
+    type: DataTypes.DATE,
     allowNull: false
   },
   sexo: {

@@ -19,6 +19,7 @@ export default function Consulta({ params }) {
 
     fetchUsuario();
   }, [params.id]);
+  
 
   return (
     <div className="container">
@@ -54,8 +55,8 @@ export default function Consulta({ params }) {
               <input type="text" className="form-control" id="telefone" value={usuario.telefone} readOnly />
             </div>
             <div className="col-sm-2">
-              <label htmlFor="idade" className="form-label">Idade</label>
-              <input type="number" className="form-control" id="idade" value={usuario.idade} readOnly />
+              <label htmlFor="dtnasc" className="form-label">Data de Nascimento</label>
+              <input type="date" className="form-control" id="dtnasc" value={new Date(usuario.dtnasc).toISOString().split('T')[0]} readOnly />
             </div>
             <div className="col-sm-2">
               <label htmlFor="sexo" className="form-label">Sexo</label>
