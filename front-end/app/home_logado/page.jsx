@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import CarouselComponent from '@/components/carrousel'
 // import { ToastContainer, toast } from 'react-toastify'
 
-export default function HomeDeslogado() {
+export default function HomeLogado() {
 
     return (
         <main>

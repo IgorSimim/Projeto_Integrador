@@ -11,13 +11,10 @@ export const loginUsuario = async (req, res) => {
     // evita de que a mensagem dê "pistas" para um possível invasor
     const mensaErroPadrao = "Erro... Login ou senha inválido"
 
-    console.log('Senha digitada:', senha);
-    console.log('Senha digitada:', email);
-
   
     if (!email || !senha) {
-  //    res.status(400).json({ erro: "Informe e-mail e senha de acesso" })
-      res.status(400).json({ erro: mensaErroPadrao})
+      res.status(400).json({ id: 1, msg: "Informe e-mail e senha de acesso" })
+      // res.status(400).json({ id: 1, msg: mensaErroPadrao})
       return
     }
   
@@ -25,17 +22,14 @@ export const loginUsuario = async (req, res) => {
     try {
       const usuario = await Usuario.findOne({ where: { email } })
 
-      console.log('Senha digitada:', senha);
-    console.log('Senha armazenada:', usuario.senha);
   
       if (usuario == null) {
-        // res.status(400).json({ erro: "Erro... E-mail inválido" })
-        res.status(400).json({ erro: "Erro... Usuário não cadastrado"})
+        res.status(400).json({ id: 2, msg: "Erro... Usuário não cadastrado" });
         return
       }
 
       if (usuario.confirmado === 0) {
-        return res.status(400).json({ erro: 'Lembre de confirmar sua conta antes de fazer login.' });
+        return res.status(400).json({ id: 3, msg: 'Lembre de confirmar sua conta antes de fazer login' });
       }
   
       if (bcrypt.compareSync(senha, usuario.senha)) {
@@ -51,7 +45,7 @@ export const loginUsuario = async (req, res) => {
       } else {
   
         // res.status(400).json({ erro: "Erro... Senha inválida" })      
-        res.status(400).json({ erro: mensaErroPadrao})
+        res.status(400).json({ id: 4, msg: mensaErroPadrao})
       }
     } catch (error) {
       res.status(400).json(error)
