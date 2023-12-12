@@ -47,7 +47,7 @@ export default function Alteracao() {
       // alert("Ok! Usuário cadastrado com sucesso")
       toast.success("Ok! Usuário alterado com sucesso")
     } else {
-      const errorData = await response.json();
+      const errorData = await usuario.json();
 
       if (errorData.id === 1) {
         toast.error(errorData.msg); // Trata o erro genérico

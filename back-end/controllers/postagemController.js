@@ -83,22 +83,15 @@ export const postagemUpdate = async (req, res) => {
 
     const { titulo, assunto, descricao,
         pet, nomepet, tipo, raca, porte,
-        sexo, fotopet, cpf, vacina } = req.body;
+        sexo, fotopet, vacina } = req.body;
 
     // Se pet for igual a 1, verifica todos os atributos, senão verifica apenas os obrigatórios
     const requiredAttributes = pet == 1
-        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, fotopet, cpf]
-        : [titulo, assunto, descricao, cpf];
+        ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, fotopet]
+        : [titulo, assunto, descricao];
 
     if (requiredAttributes.some(attr => !attr)) {
         res.status(400).json({ id: 0, msg: 'Erro... Informe todos os dados obrigatórios' });
-        return;
-    }
-
-    const usuario = await Usuario.findOne({ where: { cpf } })
-
-    if (!usuario) {
-        res.status(400).json({ id: 1, msg: 'Usuário não encontrado com o CPF fornecido.' });
         return;
     }
 
@@ -128,7 +121,6 @@ export const postagemUpdate = async (req, res) => {
                     porte: porte,
                     sexo: sexo,
                     fotopet: fotopet,
-                    usuario_id: usuario.id,
                     vacina: vacina
                 })
         } else {
@@ -138,7 +130,6 @@ export const postagemUpdate = async (req, res) => {
                     assunto: assunto,
                     descricao: descricao,
                     pet: pet,
-                    usuario_id: usuario.id
                 })
         }
 

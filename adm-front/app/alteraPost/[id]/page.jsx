@@ -41,7 +41,7 @@ export default function Alteracao() {
 
     async function alteraDados(data) {
 
-        const postagem = await fetch("http://localhost:3000/postagens/pesq/" + params.id, {
+        const postagem = await fetch("http://localhost:3000/postagens/" + params.id, {
             method: "PUT",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({ ...data }),

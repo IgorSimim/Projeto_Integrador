@@ -74,7 +74,7 @@ export const usuarioCreate = async (req, res) => {
     return;
   }
 
-  if (!confirmado) {
+  if (confirmado !== 0 && confirmado !== 1) {
     res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
     return;
   }
@@ -198,7 +198,7 @@ export const usuarioUpdate = async (req, res) => {
     return;
   }
 
-  if (!confirmado) {
+  if (confirmado !== 0 && confirmado !== 1) {
     res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
     return;
   }
@@ -212,14 +212,6 @@ export const usuarioUpdate = async (req, res) => {
   const mensaValidacao = validaSenha(senha);
   if (mensaValidacao.length >= 1) {
     res.status(400).json({ id: 4, msg: mensaValidacao.join(', ') });
-    return;
-  }
-
-  // Verifica se já existe um usuário com o mesmo CPF
-  const usuarioExistente = await Usuario.findOne({ where: { cpf } });
-
-  if (usuarioExistente) {
-    res.status(400).json({ id: 5, msg: 'Já existe um usuário com este CPF. Por favor, informe outro.' });
     return;
   }
 
