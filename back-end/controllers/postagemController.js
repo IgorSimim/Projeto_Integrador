@@ -1,4 +1,5 @@
-import { Op } from "sequelize"
+// import { Op } from "sequelize"
+import { sequelize } from '../databases/conecta.js'
 import { format } from "date-fns";
 import { Usuario } from '../models/Usuario.js';
 import { Postagem } from '../models/Postagem.js';
@@ -37,7 +38,7 @@ export const postagemCreate = async (req, res) => {
         ? [titulo, assunto, descricao, nomepet, tipo, raca, porte, sexo, fotopet, cpf]
         : [titulo, assunto, descricao, cpf];
 
-    
+
     if (requiredAttributes.some(attr => !attr)) {
         res.status(400).json({ id: 0, msg: 'Erro... Informe todos os dados obrigatórios' });
         return;
@@ -209,4 +210,21 @@ export const postagemVacina = async (req, res) => {
     } catch (error) {
         res.status(400).json({ id: 0, msg: "Erro: " + error.message });
     }
-};
+}
+
+export const postagemGraphMensal = async (req, res) => {
+    try {
+        const postagensMensais = await Postagem.findAll({
+            attributes: [
+                [sequelize.fn("MONTH", sequelize.col("createdAt")), "mes"],
+                [sequelize.fn("COUNT", sequelize.col("id")), "quantidade"],
+            ],
+            group: [sequelize.fn("MONTH", sequelize.col("createdAt"))],
+        });
+
+        res.status(200).json(postagensMensais);
+    } catch (error) {
+        console.error("Erro no backend:", error);
+        res.status(400).send(error);
+    }
+}
