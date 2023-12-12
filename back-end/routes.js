@@ -10,6 +10,7 @@ import { enviaEmail, confirmacaoConta } from "./controllers/controllerMail.js"
 import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaUsuaController.js"
 import {
       postagemComPet, postagemCreate, postagemDestroy, postagemGeral,
+      postagemGraphMensal,
       postagemIndex, postagemPesq, postagemSemPet, postagemUpdate, postagemVacina
 } from "./controllers/postagemController.js"
 import {
@@ -59,11 +60,12 @@ router.get('/postagens', postagemIndex)
       .get('/postagens/sempet', postagemSemPet)
       .get('/postagens/compet', postagemComPet)
       .get('/postagens/compet/cartaovacina', postagemVacina)
+      .get('/postagens/graph_mes', postagemGraphMensal)
 
 router.get('/admins', adminIndex)
       .post('/admins', adminCreate)
       .delete('/admins/:id', adminDestroy)
-      
+
 router.post('/login', loginUsuario)
 
 
