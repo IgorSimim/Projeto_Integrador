@@ -1,4 +1,5 @@
 import Link from "next/link";
+import './style.css';
 
 export default function Titulo() {
   return (
@@ -8,8 +9,8 @@ export default function Titulo() {
           <img src="../me_adota.png" alt="Logo" width="80" height="80" className="d-inline-block align-text-top" />
           <h2 className="float-end mt-3 ms-2">Social Pet: Controle das Listagens dos Usuários/Postagens</h2>
         </Link>
-        <ul className="navbar-nav mb-2 mb-lg-0">
 
+        <div className="navbar-nav d-flex flex-row"> 
           <div className="dropdown">
             <button className="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Cadastro
@@ -51,9 +52,8 @@ export default function Titulo() {
               </li>
             </ul>
           </div>
-        </ul>
+        </div>
       </div>
     </nav>
-  )
-
+  );
 }

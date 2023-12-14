@@ -1,0 +1,9 @@
+.form-label-abbr::after {
+    content: "Confirmação";
+  }
+  
+  @media (max-width: 1200px) {
+    .form-label-abbr::after {
+      content: "Conf.";
+    }
+  }

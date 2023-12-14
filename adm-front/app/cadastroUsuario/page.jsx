@@ -1,6 +1,7 @@
 'use client'
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
+import './style.css';
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -46,7 +47,7 @@ export default function Cadastro() {
         } else if (errorData.id === 8) {
           toast.error(errorData.msg); // Trata o erro específico da foto de perfil
         }
-        
+
       }
     } catch (error) {
       console.error("Erro ao processar a requisição:", error);
@@ -61,8 +62,16 @@ export default function Cadastro() {
       <form onSubmit={handleSubmit(enviaDados)}>
         <div className="row">
           <div className="col-sm-1">
-            <label htmlFor="confirmado" className="form-label">Confirmação</label>
-            <input type="number" className="form-control" id="confirmado" placeholder="Ex: 0" {...register("confirmado")} required />
+            <label htmlFor="confirmado" className="form-label form-label-abbr">
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="confirmado"
+              placeholder="Ex: 0"
+              {...register("confirmado")}
+              required
+            />
           </div>
           <div className="col-sm-5">
             <label htmlFor="nome" className="form-label">Nome do Usuário</label>
