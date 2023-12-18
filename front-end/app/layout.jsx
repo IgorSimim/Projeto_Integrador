@@ -5,7 +5,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import Script from 'next/script';
 import '@/styles/global.css';
-import ClienteProvider from '@/contexts/cliente';
+import UsuarioProvider from '@/contexts/usuario';
 
 export const metadata = {
   title: 'SocialPet',
@@ -19,11 +19,11 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="me_adota.png" />
       </head>
       <body>
-        <ClienteProvider>
-        <Header />
-        {children}
-        <Footer />
-        </ClienteProvider>
+        <UsuarioProvider>
+          <Header />
+          {children}
+          <Footer />
+        </UsuarioProvider>
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.bundle.min.js"
           crossOrigin="anonymous" />
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
