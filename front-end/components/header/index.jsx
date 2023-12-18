@@ -39,10 +39,10 @@ export default function Header() {
         toast.error(errorData.msg);
       } else {
         const usuario = await response.json();
-        console.log(usuario);
+        console.log(usuario.nome, usuario.perfil);
         mudaId(usuario.id);
         mudaNome(usuario.nome);
-        localStorage.setItem("usuario_logado", JSON.stringify({ id: usuario.id, nome: usuario.nome, perfil: usuario.perfil }));
+        localStorage.setItem("usuario_logado", JSON.stringify({ id: usuario.id, nome: usuario.nome }));
         router.push("/");
       }
     } catch (error) {

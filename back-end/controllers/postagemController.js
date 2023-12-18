@@ -131,6 +131,13 @@ export const postagemUpdate = async (req, res) => {
                     assunto: assunto,
                     descricao: descricao,
                     pet: pet,
+                    nomepet: null,
+                    tipo: null,
+                    raca: null,
+                    porte: null,
+                    sexo: null,
+                    fotopet: null,
+                    vacina: null
                 })
         }
 
