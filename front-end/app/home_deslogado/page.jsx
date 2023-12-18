@@ -22,9 +22,10 @@ export default function HomeDeslogado() {
                 <div className="last-news-wrapper">
                     <div className="last-news-header">
                         <span className="last-news-title">Últimas notícias</span>
-                        <button className="last-news-button">Ver todas</button>
+                        <Link href="/postagemNoticias" passHref>
+                            <button className="last-news-button">Ver todas</button>
+                        </Link>
                     </div>
-
                     <div className="last-news-card-wrapper">
                         <div className="last-news-card">
                             <div className="card-image">

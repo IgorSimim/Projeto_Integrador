@@ -67,17 +67,17 @@ export const usuarioIndex = async (req, res) => {
 
 
 export const usuarioCreate = async (req, res) => {
-  const { nome, email, senha, cpf, telefone, dtnasc, sexo, bairro, credito, debito, destaque, perfil, confirmado, hash } = req.body;
+  const { nome, email, senha, cpf, telefone, dtnasc, sexo, bairro, credito, debito, destaque, perfil, confirmado } = req.body;
 
   if (!nome || !email || !senha || !cpf || !telefone || !dtnasc || !sexo || !bairro || !perfil) {
     res.status(400).json({ id: 1, msg: 'Erro... Informe os dados' });
     return;
   }
 
-  if (confirmado !== 0 && confirmado !== 1) {
-    res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
-    return;
-  }
+  // if (confirmado !== 0 && confirmado !== 1) {
+  //   res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
+  //   return;
+  // }
 
   const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailTest.test(email)) {
@@ -198,10 +198,10 @@ export const usuarioUpdate = async (req, res) => {
     return;
   }
 
-  if (confirmado !== 0 && confirmado !== 1) {
-    res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
-    return;
-  }
+  // if (confirmado !== 0 && confirmado !== 1) {
+  //   res.status(400).json({ id: 2, msg: "Certifique-se que o campo CONFIRMADO seja preenchido apenas com 0 ou 1" });
+  //   return;
+  // }
 
   const emailTest = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailTest.test(email)) {

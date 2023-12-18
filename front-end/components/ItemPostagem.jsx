@@ -1,10 +1,10 @@
 import { useContext } from "react"
-import { ClienteContext } from "@/contexts/cliente"
+import { UsuarioContext } from "@/contexts/usuario"
 import Link from "next/link"
 
 export default function ItemPostagem(props) {
 
-  const { clienteId } = useContext(ClienteContext)
+  const { usuarioId } = useContext(UsuarioContext)
 
   return (
     <div className="col">
