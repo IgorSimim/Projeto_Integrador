@@ -5,7 +5,7 @@ import {
       usuarioDestroy, usuarioFeminino, usuarioGeral, usuarioIdade, usuarioIndex,
       usuarioMasculino, usuarioPesq, usuarioUpdate
 } from "./controllers/usuarioController.js"
-import { adminCreate, adminDestroy, adminIndex } from "./controllers/adminController.js"
+import { adminCreate, adminDestroy, adminIndex, loginAdmin } from "./controllers/adminController.js"
 import { enviaEmail, confirmacaoConta } from "./controllers/controllerMail.js"
 import { ListaIndex, UsuarioLista, UsuarioPdf } from "./controllers/listaUsuaController.js"
 import {
@@ -67,6 +67,7 @@ router.get('/admins', adminIndex)
       .delete('/admins/:id', adminDestroy)
 
 router.post('/login', loginUsuario)
+      .post('/loginadmin', loginAdmin)
 
 
 router.get('/enviaemail', enviaEmail)
